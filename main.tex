@@ -1,0 +1,95 @@
+%!TEX program = lualatex
+\include{settings}
+
+% Titles Config - CHOOSE ONE section for title format
+
+%% Used for titleGraduation Bachelor
+%% Based on https://ai-bachelor.htw-berlin.de/files/Stg/AI/richtlinie_ba-arbeit_ai_06_02_13.pdf
+\include{titles/titleGraduation}
+\gradeType{Bachelor of Science (B.Sc.)}
+
+%% Used for titleGraduation Master
+%% Based on https://ai-master.htw-berlin.de/files/Stg/AI/richtlinie_ma-arbeit_ai_25_01_13.pdf
+%\include{titles/titleGraduation}
+%\gradeType{Master of Science (M.Sc.)}
+%\secondExaminer{TODO}
+
+%% Used for titleResearchProject
+%% Based on http://christianherta.de/lehre/HTW/richtlinie-wissenschaftliche-Arbeiten.pdf
+%\include{titles/titleResearchProject}
+%\researchPart{A/B} % choose A or B
+
+% Titles Config End
+
+% Used by all titles
+\title{Untersuchung von Image Colorization Methoden anhand Convolutional Neuronal Networks}
+\author{Adrian Saiz Ferri}
+\matrikelnr{s0554249}
+\submitDate{XX.XX.2018}
+\firstExaminer{Prof. Dr. Christin Schmidt}
+\secondExaminer{M.Sc. Patrick Baumann}
+% End Titles
+
+\makeindex[title=Index, options=-s indexstyle.ist, intoc]
+\indexsetup{level=\chapter*,toclevel=chapter}
+
+\makenoidxglossaries
+\loadglsentries{glossary_and_acronyms.tex}
+\setacronymstyle{long-short}
+\begin{document}
+
+\pagenumbering{alph} % fix for same identifier warning, character is not show in title
+\maketitle
+
+\pagenumbering{roman}
+\include{chapter/Prologue} \clearpage  % FOR BA/MA-THESIS, NOT REQUIRED FOR RESEARCHPROJECT
+\include{chapter/Abstract} \clearpage
+
+\tableofcontents \newpage
+
+\pagenumbering{arabic}
+\input{chapter/Introduction} \clearpage
+\input{chapter/Fundamentals} \clearpage
+\input{chapter/Analysis} \clearpage
+\input{chapter/Conception} \clearpage
+\input{chapter/Implementation} \clearpage
+\input{chapter/Test} \clearpage
+\input{chapter/Evaluation} \clearpage
+\input{chapter/Conclusion} \clearpage
+
+\pagenumbering{Roman}
+% List of Figures
+\listoffigures \clearpage
+% List of Tables
+\listoftables \clearpage
+% Source Code Content
+\lstlistoflistings \clearpage
+
+\printindex \clearpage
+
+\printnoidxglossary[title=Glossar] \clearpage
+
+\defbibfilter{scientific}{
+	type=article or
+	type=inbook or
+	type=book or
+	type=unpublished or
+	type=inproceedings or
+	type=incollection or
+	type=manual or
+	type=phdthesis
+}
+
+\printbibliography[heading=bibintoc, filter=scientific, title={Literaturverzeichnis}]\clearpage
+\printbibliography[heading=bibintoc, keyword={online}, title={Onlinereferenzen}]\clearpage
+\printbibliography[heading=bibintoc, keyword={image}, title={Bildreferenzen}]\clearpage
+
+% Appendix
+\input{chapter/Anhang}
+
+% Eigenständigkeitserklärung (CHOOSE ONE)
+\input{erklaerungen/Eigenstaendigkeitserklaerung_bachelorthesis} % FOR BACHELORTHESIS
+%\input{erklaerungen/Eigenstaendigkeitserklaerung_masterthesis} % FOR MASTERTHESIS
+%\input{erklaerungen/Eigenstaendigkeitserklaerung_researchproject} % FOR RESEARCH PROJECT
+
+\end{document}

@@ -1,0 +1,46 @@
+\makeatletter
+
+\newcommand*{\gradeType}[1]{\gdef\@gradeType{#1}}
+\newcommand*{\firstExaminer}[1]{\gdef\@firstExaminer{#1}}
+\newcommand*{\secondExaminer}[1]{\gdef\@secondExaminer{#1}}
+\newcommand*{\matrikelnr}[1]{\gdef\@matrikelnr{#1}}
+\newcommand*{\submitDate}[1]{\gdef\@submitDate{#1}}
+
+\renewcommand*{\maketitle}{
+	\begin{titlepage}
+		\newgeometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\textwidth]{resources/htw/logo}
+		\end{figure}
+		\begin{center}
+			\vfill
+			{\Large \@title\par}
+			\vskip 0.5cm
+			{\large \bfseries Abschlussarbeit\par}
+			\vskip 0.5cm
+			{\large zur Erlangung des akademischen Grades\vskip 0.5cm \bfseries \@gradeType}
+			\vskip 0.5cm
+			{\large an der}
+			\vskip 0.5cm
+			{\large Hochschule für Technik und Wirtschaft Berlin}
+			\vskip 0.0cm
+			{\large Fachbereich IV}
+			\vskip 0.0cm
+			{\large Studiengang Angewandte Informatik}
+			\vfill
+			\begin{flushleft}
+				\begin{tabular}[t]{rl}
+					1. Prüfer: &\@firstExaminer\\
+					2. Prüfer: & \@secondExaminer\\
+					\\
+					Eingereicht von: &\@author\\
+					Immatrikulationsnummer: & \@matrikelnr\\
+					Eingereicht am: & \@submitDate
+				\end{tabular}
+			\end{flushleft}
+		\end{center}
+		\restoregeometry
+	\end{titlepage}
+}
+\makeatother
