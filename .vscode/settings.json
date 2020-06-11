@@ -1,0 +1,43 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/*.aux": true,
+        "**/*.bbl": true,
+        "**/*.bcf": true,
+        "**/*.blg": true,
+        "**/*.fdb_latexmk": true,
+        "**/*.fls": true,
+        "**/*.lof": true,
+        "**/*.log": true,
+        "**/*.lol": true,
+        "**/*.run.xml": true,
+        "**/*.tks": true,
+        "**/*.toc": true,
+        "**/*.lot": true,
+        "**/*.idx": true,
+        "**/*.ilg": true,
+        "**/*.ind": true,
+        "**/*.out": true,
+        "**/*.synctex.gz": true,
+        "_minted-main": true
+    },
+    "spellright.language": [
+        "English (British)",
+        "German_de_DE"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "plaintext",
+        "latex"
+    ],
+    "spellright.ignoreFiles": [
+        "main.tex",
+        "settings.tex",
+        "**/.gitignore",
+        "**/.spellignore"
+    ]
+}

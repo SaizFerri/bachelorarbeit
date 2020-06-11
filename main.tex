@@ -1,4 +1,5 @@
 %!TEX program = lualatex
+% !BIB program = biber
 \include{settings}
 
 % Titles Config - CHOOSE ONE section for title format
@@ -38,11 +39,11 @@
 \setacronymstyle{long-short}
 \begin{document}
 
-\pagenumbering{alph} % fix for same identifier warning, character is not show in title
+% \pagenumbering{alph} % fix for same identifier warning, character is not show in title
 \maketitle
 
 \pagenumbering{roman}
-\include{chapter/Prologue} \clearpage  % FOR BA/MA-THESIS, NOT REQUIRED FOR RESEARCHPROJECT
+% \include{chapter/Prologue} \clearpage  % FOR BA/MA-THESIS, NOT REQUIRED FOR RESEARCHPROJECT
 \include{chapter/Abstract} \clearpage
 
 \tableofcontents \newpage
@@ -88,8 +89,6 @@
 \input{chapter/Anhang}
 
 % Eigenständigkeitserklärung (CHOOSE ONE)
-\input{erklaerungen/Eigenstaendigkeitserklaerung_bachelorthesis} % FOR BACHELORTHESIS
-%\input{erklaerungen/Eigenstaendigkeitserklaerung_masterthesis} % FOR MASTERTHESIS
-%\input{erklaerungen/Eigenstaendigkeitserklaerung_researchproject} % FOR RESEARCH PROJECT
+\input{erklaerungen/Eigenstaendigkeitserklaerung_bachelorthesis}
 
 \end{document}

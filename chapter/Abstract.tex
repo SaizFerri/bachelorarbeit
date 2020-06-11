@@ -1,5 +1,10 @@
-\chapter*{Kurzbeschreibung}
-TODO
+% TODO: Verbessern während Arbeit 
+\chapter*{Abstract}
+Die vorliegende Arbeit beschäftigt sich mit der Einfärbung von Graustufenbilder durch Convolutional Neuronal Networks.
+Das Ziel ist es ein Model zu trainieren, dass selbstständig und ohne menschlichen Einfluss, aus einem Graustufenbild ein plausibles Farbbild erzeugen kann.
+Um das Model zu trainieren werden Farbbilder genommen und in Graustufenbilder umgewandelt. Die Graustufenbilder werden in das Netzwerk eingespeist und das Netzwerk erzeugt die
+Farbkanäle. Am ende wird das Graustufenbild mit den Farbkanälen konkateniert um das Farbbild zu generieren. Da Objekte auf einem Bild mehrere Farben haben können, werden mit Hilfe
+von Hyperparameter realistische anstatt ``richtige'' Farben bevorzugt.
 \\
-\\
-\textbf{Schlagworte:} TODO
+Es werden verschiedene Netzwerk Architekturen exploriert und verglichen. Zunächst werden mehrere Experimente mit verschiedene Hyperparameter durchgeführt.
+Anschließend werden die Experimente ausgewertet und die Ergebnisse untersucht.
