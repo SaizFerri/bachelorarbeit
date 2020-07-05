@@ -1,5 +1,5 @@
 %Dokumentenklasse "scrbook" - Erweitert um den Verweis auf die Verzeichnisse und Texteigenschaften
-\documentclass[chapterprefix=true, 12pt, a4paper, oneside, parskip=half, listof=totoc, bibliography=totoc, numbers=noendperiod]{scrbook}
+\documentclass[chapterprefix=false, 12pt, a4paper, oneside, parskip=half, listof=totoc, bibliography=totoc, numbers=noendperiod]{scrbook}
 
 % Ränder (Standard bottom ca. 52mm anbzüglich von ca. 4mm für die nach oben rechts gewanderte Seitenzahl)
 %Anpassung der Seitenränder
@@ -44,7 +44,7 @@
 \pagestyle{scrheadings}
 
 %Auskommentieren für die Verkleinerung des vertikalen Abstandes eines neuen Kapitels
-%\renewcommand*{\chapterheadstartvskip}{\vspace*{.25\baselineskip}}
+\renewcommand*{\chapterheadstartvskip}{\vspace*{.25\baselineskip}}
 
 %Zeilenabstand 1,5
 \usepackage[onehalfspacing]{setspace}

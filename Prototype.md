@@ -17,3 +17,15 @@
 * Cross-entropy loss for classification wiht bins
 
 * Adam optimizer with LearningRate decay when loss plateus
+
+
+
+Kleines Datensatz mit kreise, vierecke... und trainieren
+
+Normalisiere von 0 bis 1
+
+Python seed
+
+jason brownlee
+
+Beweisen dass der Ansatz auf mehrere Toy Datensatz funktioniert (Methodenbeweis)
