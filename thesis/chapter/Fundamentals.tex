@@ -20,41 +20,55 @@ TODO: image
 
 \section{Neuronale Netze}
 Künstliche Neuronale Netze sind inspiriert durch das Menschliche Gehirn und werden für Künstliche Intelligenz und Maschinelles Lernen
-angewendet. Neuronale Netze bestehen aus Neuronen oder auch ``Units'' genannt, die Schichtenweise in ``Layers'' (Schichten) angeordnet sind.
+angewendet. Sie werden für überwachtes und unüberwachtes lernen verwendet. In der vorliegende Arbeit werden nur Methoden des überwachtes 
+lernen angewendet. Bei überwachtes lernen sind die Datensätze gelabelt sodass den Output von dem Neuronales Netz mit den richtigen Ergebnissen
+verglichen werden kann.
 \\
 \\
+Neuronale Netze bestehen aus Neuronen oder auch ``Units'' genannt, die Schichtenweise in ``Layers'' (Schichten) angeordnet sind.
 Beginnend mit der Eingabeschicht (Input Layer) fließen Informationen über eine oder mehrere Zwischenschichten (Hidden Layer) bis hin zur 
 Ausgabeschicht (Output Layer). Dabei ist der Output des einen Neurons der Input des nächsten. \cite{neuronale-netze-aufbau}
 
-\subsection{Feedforward Neuronal Network}
-Das Ziel von einem Feedforward Neuronal Network ist die Annäherung an irgendeine Funktion $ f^* $. Feedforward Neuronal Network definiert 
-eine Abbildung $ y = f(x;\theta) $ wo $ x $ den Input ist und $ \theta $ die lernbare Parameter sind (auch weights genannt).
+\subsection{Feedforward Neural Network}
+Das Ziel von einem Feedforward Neural Network ist die Annäherung an irgendeine Funktion $ f^* $. Feedforward Neural Network definiert 
+eine Abbildung $ y = f(x;\theta) $ wo $ x $ den Input ist und $ \theta $ die lernbare Parameter sind (auch Weights genannt).
 \cite[164-223]{Goodfellow-et-al-2016}
 \\
 \\
 Diese Netzwerkarchitektur heißt ``feedforward'' weil der Informationsfluss von der Input Layer über die Hidden Layers bis zur Output Layer 
 in einer Richtung weitergereicht wird.
 
+Feedforward Neural Network werden als eine Kette von Funktionen repräsentiert. Als Beispiel,
+kann man die Funktionen $ f^{(1)}, f^{(2)}, f^{(3)} $ in Form einer Kette verbinden um $ f(\textbf{x}) = f^{(3)}(f^{(2)}(f^{(1)}(\textbf{x}))) $
+zu bekommen. Diese Kettenstrukturen sind die am häufigsten genutzte Struktur bei Neuronale Netzwerke. In diesem Fall, $ f^{(1)} $ ist das 
+erste Layer, $ f^{(2)} $ das zweite und $ f^{(3)} $ der Output Layer von diesem Netzwerk. Die Länge dieser Kette definiert die Tiefe von
+einem Netzwerk. Je tiefer
+ein Netzwerk ist desto mehr lernbare Parameter hat es und somit eine erhöhte Rechenleistung braucht um trainiert zu werden.
+In der Praxis werden die Netzwerke sehr tief, daher der Begriff Deep Learning.
+\\
+\\
+Während dem Training werden die Weights von $ f(x) $ verstellt, um $ f^*(x) $ zu erhalten. Jedes Trainingsbeispiel $ x $ ist mit einem Label
+$ y = f^*(x)$ versehen. Die Trainingsbeispiele legen genau fest, was der Output Layer generieren soll. Der Output Layer soll Werte generieren,
+die nah an $ y $ liegen. Das Verhalten von den Hidden Layers wird nicht durch die Trainingsbeispiele festgelegt, sondern der Lernalgorithmus
+soll definieren, wie diese Layers verwendet werden, um die beste Annäherung von $ f^*(x) $ zu generieren. \cite[164-223]{Goodfellow-et-al-2016}
+
+\subsection{Fully-connected Neural Network}
+Fully-connected Neural Networks sind die am häufigsten vorkommende Art von Neuronale Netze. In dieser Netzwerkarchitektur sind alle Neuronen
+von einem Layer mit alle Neuronen von der vorherige und nächsten Layer verbunden. Neuronen in dem gleichen Layer sind aber nicht miteinander verbunden.
+\cite{cs231-neural-networks}
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.65\textwidth]{resources/nn/neural_net.jpeg}
   \caption{
-    Fully-connected Neuronal Network mit 2 Layers (ein Hidden Layer mit 4 Neuronen) und ein Output Layer mit 2 Neuronen 
+    Fully-connected Neural Network mit 2 Layers (ein Hidden Layer mit 4 Neuronen) und ein Output Layer mit 2 Neuronen 
     \cite{fully-connected-neural-network}
   }
   \label{image:neuronal-network}
 \end{figure}
 
-Feedforward Neuronal Network werden repräsentiert als eine Kette von Funktionen und daher werden sie Netzwerke genannt. Als Beispiel,
-kann man die Funktionen $ f^{(1)}, f^{(2)}, f^{(3)} $ in Form einer Kette verbinden um $ f(\textbf{x}) = f^{(3)}(f^{(2)}(f^{(1)}(\textbf{x}))) $
-zu bekommen. Diese Kettenstrukturen sind die am häufigsten genutzte Struktur bei Neuronale Netzwerke. In diesem Fall, $ f^{(1)} $ ist das 
-erste Layer, $ f^{(2)} $ das zweite und $ f^{(3)} $ der Output Layer von diesem Netzwerk. Die Länge dieser Kette definiert die Tiefe von einem Netzwerk. Je tiefer
-ein Netzwerk ist desto mehr lernbare Parameter hat es und somit eine erhöhte Rechenleistung braucht um trainiert zu werden.
-In der Praxis werden die Netzwerke sehr tief, daher der Begriff Deep Learning.
-
-\subsection{Fully-connected Neuronal Network}
 \subsection{Aktivierungsfunktionen}
-\subsection{Convolutional Neuronal Network}
+\subsection{Convolutional Neural Network}
 \subsection{Andere Layers}
 \subsection{Kostenfunktionen}
 \subsection{Backpropagation}\label{subsection:backpropagation}
