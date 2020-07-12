@@ -26,19 +26,19 @@ verglichen werden kann.
 \\
 \\
 Neuronale Netze bestehen aus Neuronen oder auch ``Units'' genannt, die Schichtenweise in ``Layers'' (Schichten) angeordnet sind.
-Beginnend mit der Eingabeschicht (Input Layer) fließen Informationen über eine oder mehrere Zwischenschichten (Hidden Layer) bis hin zur 
-Ausgabeschicht (Output Layer). Dabei ist der Output des einen Neurons der Input des nächsten. \cite{neuronale-netze-aufbau}
+Beginnend mit der Eingabeschicht (Input \gls{Layer}) fließen Informationen über eine oder mehrere Zwischenschichten (Hidden \gls{Layer}) bis hin zur 
+Ausgabeschicht (Output \gls{Layer}). Dabei ist der Output des einen Neurons der Input des nächsten. \cite{neuronale-netze-aufbau}
 
 \subsection{Feedforward Neural Network}
-Das Ziel von einem Feedforward Neural Network ist die Annäherung an irgendeine Funktion $ f^* $. Feedforward Neural Network definiert 
+Das Ziel von einem Feedforward Neural Network ist die Annäherung an irgendeine Funktion $ f^* $. Ein Feedforward Neural Network definiert 
 eine Abbildung $ y = f(x;\theta) $ wo $ x $ den Input ist und $ \theta $ die lernbare Parameter sind (auch Weights genannt).
 \cite[164-223]{Goodfellow-et-al-2016}
 \\
 \\
-Diese Netzwerkarchitektur heißt ``feedforward'' weil der Informationsfluss von der Input Layer über die Hidden Layers bis zur Output Layer 
+Diese Netzwerkarchitektur heißt ``feedforward'' weil der Informationsfluss von der Input \gls{Layer} über die Hidden Layers bis zur Output \gls{Layer} 
 in einer Richtung weitergereicht wird.
 
-Feedforward Neural Network werden als eine Kette von Funktionen repräsentiert. Als Beispiel,
+Feedforward Neural Networks werden als eine Kette von Funktionen repräsentiert. Als Beispiel,
 kann man die Funktionen $ f^{(1)}, f^{(2)}, f^{(3)} $ in Form einer Kette verbinden um $ f(\textbf{x}) = f^{(3)}(f^{(2)}(f^{(1)}(\textbf{x}))) $
 zu bekommen. Diese Kettenstrukturen sind die am häufigsten genutzte Struktur bei Neuronale Netzwerke. In diesem Fall, $ f^{(1)} $ ist das 
 erste Layer, $ f^{(2)} $ das zweite und $ f^{(3)} $ der Output Layer von diesem Netzwerk. Die Länge dieser Kette definiert die Tiefe von
@@ -67,14 +67,48 @@ von einem Layer mit alle Neuronen von der vorherige und nächsten Layer verbunde
   \label{image:neuronal-network}
 \end{figure}
 
-\subsection{Aktivierungsfunktionen}
+Eine der wichtigsten Gründe für die Anordnung von Neuronale Netze in Layers ist dass so eine Struktur anhand von Matrix Multiplikationen
+berechnet werden kann. Das obere Bild \ref{image:neuronal-network} stellt ein Netzwerk mit 3 Inputs $ x $, eine Hidden Layer mit 4 Neuronen
+und eine Output Layer mit 2
+Neuronen dar. Die Kreisen repräsentieren die Neuronen und einem Bias Wert $ b $, die Pfeilen stellen die Weights $ w $ dar.
+
+\begin{align}
+  f(x) = w*x + b
+\end{align}
+
+Nach jeden Hidden Layer läuft den Output durch eine Aktivierungsfunktion $ \sigma $ die in \ref{subsection:ktivierungsfunktionen} erklärt wird.
+Daraus wird die vorherige Formel um $ \sigma $ erweitert:
+
+\begin{align}
+  f(x) = \sigma( w*x + b)
+\end{align}
+
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.65\textwidth]{resources/nn/neuron_model.jpeg}
+%   \caption{
+%     Mathematisches Model eines Neurons 
+%     \cite{neuron-model}
+%   }
+%   \label{image:neuron-model}
+% \end{figure}
+
+% Angenommen die 3 Inputs von dem Bild \ref{image:neuronal-network} die folgende Werte entsprechen:
+
+% \begin{align}
+%   x = 
+%   \begin{pmatrix}
+%     0 &1 &1 \\
+%     1 &1 &0 \\
+%     1 &0 &1
+%   \end{pmatrix}
+% \end{align}
+
+\subsection{Aktivierungsfunktionen}\label{subsection:ktivierungsfunktionen}
 \subsection{Convolutional Neural Network}
 \subsection{Andere Layers}
 \subsection{Kostenfunktionen}
 \subsection{Backpropagation}\label{subsection:backpropagation}
 \subsection{Optimierungsalgorithmen}
-% Beispiel Abbildung \ref{img:cnn_example_network} mit Zitat. \begin{figure}[H] \centering
-% \includegraphics[width=0.95\textwidth]{resources/cnn/typical_cnn} \caption{Beispiel CNN Architektur \cite{typical_cnn_img}}
-% \label{img:cnn_example_network} \end{figure}
 \section{Verwandte Arbeiten}
 TODO
