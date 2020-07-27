@@ -76,12 +76,100 @@ Neuronen dar. Die Kreisen repräsentieren die Neuronen und einem Bias Wert $ b $
   f(x) = w*x + b
 \end{align}
 
-Nach jeden Hidden Layer läuft den Output durch eine Aktivierungsfunktion $ \sigma $ die in \ref{subsection:ktivierungsfunktionen} erklärt wird.
+Nach jeden Hidden Layer läuft den Output durch eine Aktivierungsfunktion $ \sigma $ die in \ref{subsection:aktivierungsfunktionen} erklärt wird.
 Daraus wird die vorherige Formel um $ \sigma $ erweitert:
 
 \begin{align}
   f(x) = \sigma( w*x + b)
 \end{align}
+
+\subsubsection{Forward Pass}
+Den Forward Pass von einem Neuronalem Netz wird anhand von Matrizen Multiplikationen berechnet. Um das zu veranschaulichen wird
+es anhand eines Beispiels erklärt.
+
+Ausgehend von einem Netzwerk mit 3 Inputs, eine Hidden Layer mit 2 Neuronen und einem Output Neuron, ergeben sich folgende Beispielwerte:
+\begin{equation} 
+  \vspace{5pt}
+  X = \begin{pmatrix}
+    1 &0 &1 &1 \\
+    1 &1 &1 &0 \\
+    1 &1 &0 &1
+  \end{pmatrix} 
+  \hspace{5pt}
+  W = \begin{pmatrix}
+    10 &20 \\
+    -20 &-40 \\
+    20 &0 \\
+    -40 &0
+  \end{pmatrix}
+  \hspace{5pt}
+  W_{out} = \begin{pmatrix}
+    20 \\
+    40 \\
+    -40
+  \end{pmatrix}
+\end{equation}
+
+Die erste Spalte in der Input Matrix $ X $ und die erste Zeile in beide Gewichtsmatrizen $ W $ und $ W_{out} $ sind die Werte für den Bias.
+Diese Anordnung von den Bias Werte ermöglicht die Berechnung durch eine einzigen Matrix Multiplikation. Als Aktivierungsfunktion wird ReLU\cite{10.5555/3104322.3104425} verwendet:
+
+\begin{equation}
+  \vspace{5pt}
+  \sigma(x) = 
+  \begin{cases}
+    0 &\text{if \(x < 0\)}  \\
+    x &\text{if \(x \geq 0\)} 
+  \end{cases}
+\end{equation}
+
+Im ersten Schritt durchläuft den Input durch das Hidden Layer $ \sigma(X \times W) $:
+\begin{equation}
+  \vspace{5pt}
+  \sigma \left(
+  \begin{pmatrix}
+    1 &0 &1 &1 \\
+    1 &1 &1 &0 \\
+    1 &1 &0 &1
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+    10 &20 \\
+    -20 &-40 \\
+    20 &0 \\
+    -40 &0
+  \end{pmatrix}
+  \right)
+  =
+  \begin{pmatrix}
+    0 &1 \\
+    1 &0 \\
+    0 &0
+  \end{pmatrix}
+\end{equation}
+
+Im zweiten Schritt wird den Output von der vorherige Multiplikation mal die Gewichte von dem Output Layer multipliziert:
+\begin{equation}
+  \vspace{5pt}
+  \sigma \left(
+  \begin{pmatrix}
+    1 &0 &1 \\
+    1 &1 &0 \\
+    1 &0 &0
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+    20 \\
+    40 \\
+    -40
+  \end{pmatrix}
+  \right)
+  =
+  \begin{pmatrix}
+    0 \\
+    1 \\
+    0
+  \end{pmatrix}
+\end{equation}
 
 % \begin{figure}[H]
 %   \centering
@@ -93,22 +181,33 @@ Daraus wird die vorherige Formel um $ \sigma $ erweitert:
 %   \label{image:neuron-model}
 % \end{figure}
 
-% Angenommen die 3 Inputs von dem Bild \ref{image:neuronal-network} die folgende Werte entsprechen:
+\subsection{Aktivierungsfunktionen}\label{subsection:aktivierungsfunktionen}
+Eine Aktivierungsfunktion definiert die Aktivierungsrate von einem Neuron. Es gibt verschiedene Aktivierungsfunktionen:
 
-% \begin{align}
-%   x = 
-%   \begin{pmatrix}
-%     0 &1 &1 \\
-%     1 &1 &0 \\
-%     1 &0 &1
-%   \end{pmatrix}
-% \end{align}
+\subsubsection{Sigmoid}
+Sigmoid ist eine nicht lineare Funktion $ \sigma(x) = 1 / (1 + e^{-x})$ welche die Werte in einem Wertebereich von $ [0, 1] $ bringt.
 
-\subsection{Aktivierungsfunktionen}\label{subsection:ktivierungsfunktionen}
+
+\subsubsection{Tanh}
+
+\subsubsection{ReLU}
+Die Rectified Linear Unit berechnet $ f(x) = max(0, x) $, alle negative Werte werden 0 und alle positive Werte bleiben gleich.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.65\textwidth]{resources/nn/relu.jpeg}
+  \caption{
+    Rectified Linear Unit (ReLU) 
+    \cite{neuron-model}
+  }
+  \label{image:relu}
+\end{figure}
+
 \subsection{Convolutional Neural Network}
-\subsection{Andere Layers}
 \subsection{Kostenfunktionen}
 \subsection{Backpropagation}\label{subsection:backpropagation}
 \subsection{Optimierungsalgorithmen}
+\subsection{Max Pooling Layer}
+\subsection{Transposed Convolution}
 \section{Verwandte Arbeiten}
 TODO
