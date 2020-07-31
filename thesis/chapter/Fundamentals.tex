@@ -111,7 +111,8 @@ Ausgehend von einem Netzwerk mit 3 Inputs, eine Hidden Layer mit 2 Neuronen und 
 \end{equation}
 
 Die erste Spalte in der Input Matrix $ X $ und die erste Zeile in beide Gewichtsmatrizen $ W $ und $ W_{out} $ sind die Werte für den Bias.
-Diese Anordnung von den Bias Werte ermöglicht die Berechnung durch eine einzigen Matrix Multiplikation. Als Aktivierungsfunktion wird ReLU\cite{10.5555/3104322.3104425} verwendet:
+Diese Anordnung von den Bias Werte ermöglicht die Berechnung durch eine einzigen Matrix Multiplikation. Als Aktivierungsfunktion wird ReLU 
+\cite{10.5555/3104322.3104425} verwendet:
 
 \begin{equation}
   \vspace{5pt}
@@ -171,27 +172,47 @@ Im zweiten Schritt wird den Output von der vorherige Multiplikation mal die Gewi
   \end{pmatrix}
 \end{equation}
 
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.65\textwidth]{resources/nn/neuron_model.jpeg}
-%   \caption{
-%     Mathematisches Model eines Neurons 
-%     \cite{neuron-model}
-%   }
-%   \label{image:neuron-model}
-% \end{figure}
-
 \subsection{Aktivierungsfunktionen}\label{subsection:aktivierungsfunktionen}
 Eine Aktivierungsfunktion definiert die Aktivierungsrate von einem Neuron. Es gibt verschiedene Aktivierungsfunktionen:
 
 \subsubsection{Sigmoid}
 Sigmoid ist eine nicht lineare Funktion $ \sigma(x) = 1 / (1 + e^{-x})$ welche die Werte in einem Wertebereich von $ [0, 1] $ bringt.
+Große negative Werte werden 0 und große positive Werte werden 1. Sigmoid hat verschiedene Nachteile, es neigt dazu den Gradienten zu verschwinden
+und die Outputs sind nicht Null zentriert.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.65\textwidth]{resources/nn/sigmoid.png}
+  \caption{
+    Sigmoid Aktivierungsfunktion 
+    \cite{neuron-model}
+  }
+  \label{image:sigmoid}
+\end{figure}
 
 \subsubsection{Tanh}
+Die Tanh Aktivierungsfunktion bringt Werte in einem Wertebereich von $ [-1, 1] $. Es ist eine skalierte Sigmoid ($ \sigma $) Funktion,
+$ tanh(x) = 2\sigma(2x) - 1 $. Die Nachteile von Tanh sind ähnlich zu Sigmoid aber der Output ist Null zentriert.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.65\textwidth]{resources/nn/tanh.png}
+  \caption{
+    Tanh Aktivierungsfunktion 
+    \cite{neuron-model}
+  }
+  \label{image:tanh}
+\end{figure}
 
 \subsubsection{ReLU}
-Die Rectified Linear Unit berechnet $ f(x) = max(0, x) $, alle negative Werte werden 0 und alle positive Werte bleiben gleich.
+Die Rectified Linear Unit berechnet $ f(x) = max(0, x) $, alle negative Werte werden 0 und alle positive Werte bleiben unverändert. Diese Aktivierungsfunktion
+wurde für die Netzwerke in dieser Arbeit benutzt da es Vorteile gegenüber Sigmoid und Tanh zeigt. Einer der Vorteile ist dass die Mathematische
+Auswertung der Funktion unkompliziert ist. Außerdem beschleunigt es die Konvergenz von Stochastisches Gradientenabstiegsverfahren im Vergleich zu Sigmoid
+und Tanh.
+\\
+Neuronen die ReLU als Aktivierungsfunktion verwenden, können während des Trainings ``sterben''. Zum Beispiel, wenn der Gradient in einem Neuron
+zu groß ist, kann dieser zu einem update der Gewichte führen, wo das Neuron nie wieder aktiviert werden kann. Mit einer korrekter Einstellung der
+Lernrate kann das vermieden werden. \cite{cs231-neural-networks}
 
 \begin{figure}[H]
   \centering
@@ -203,8 +224,28 @@ Die Rectified Linear Unit berechnet $ f(x) = max(0, x) $, alle negative Werte we
   \label{image:relu}
 \end{figure}
 
+\subsubsection{Leaky ReLU}
+Leaky ReLU ist einer Variante von ReLU, die versucht, das Problem mit den ``sterbenden'' Neuronen zu minimieren. Anstatt alle negative Werte
+in Null zu konvertieren, werden die Werte mal einer Konstante multipliziert. Die Funktion wird zu $ f(x) = 1(x < 0)(\alpha x) + 1(x >= 0)(x)$,
+wobei $ \alpha $ eine kleine Konstante ist, zum Beispiel $ 0.001 $.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.65\textwidth]{resources/nn/leaky-relu.png}
+  \caption{
+    Leaky ReLU 
+    \cite{leaky-relu}
+  }
+  \label{image:leaky-relu}
+\end{figure}
+
 \subsection{Convolutional Neural Network}
 \subsection{Kostenfunktionen}
+% Erklärung
+% L2 Loss
+% MSE Loss
+% Cross entropy loss
+% Weighted loss
 \subsection{Backpropagation}\label{subsection:backpropagation}
 \subsection{Optimierungsalgorithmen}
 \subsection{Max Pooling Layer}
