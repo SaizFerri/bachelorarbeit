@@ -240,6 +240,32 @@ wobei $ \alpha $ eine kleine Konstante ist, zum Beispiel $ 0.001 $.
 \end{figure}
 
 \subsection{Convolutional Neural Network}
+Convolutional Neural Networks (\gls{CNN}) sind eine besondere Form von künstliche neuronale Netzwerke, das speziell für maschinelles Lernen
+und die Verarbeitung von Bilddaten vorgesehen ist. \cite{convnet-erklaerung}
+\\
+Im gegensatz zu traditionelle neuronale Netzwerke, die ein Vektor als Input nehmen, nehmen Convolutional Neural Networks ein 3D Volumen als Input
+($ W \times H \times C $, wobei $W$ die Breite, $H$ die Höhe und $C$ die Farbkanäle sind). 
+
+\gls{CNN} bestehen in der Regel aus 2 Formen von \gls{Layer}s,
+die Convolutional \gls{Layer} und die Pooling Layer. Die Convolutional \gls{Layer} besteht aus mehrere hintereinander geschaltete 3 Dimensionale
+Filter ($ W \times H \times D$, wo $D$ die Tiefe der Aktivierungsmatrix darstellt) die während den Forward pass über dem Bild geschoben werden. 
+An jeder stelle wird eine Matrix Multiplikation zwischen den Filter und die aktuelle Position auf dem Bild durchgeführt. 
+Als Output wird eine 2 Dimensionalen Aktivierungsmatrix generiert. \cite{cs231-convolutional-networks}
+Die Filter erkennen in den ersten Ebenen einfache Strukturen wie Linien, Farben oder Kanten. In den nächsten Ebenen lernt das CNN Kombinationen aus 
+diesen Strukturen wie Formen oder Kurven. In den tieferen \gls{Layer}s werden komplexere Strukturen und Objekte identifiziert. \cite{convnet-erklaerung}
+%Außerdem sind die Neuronen in den \gls{Layer}s in 3
+%Dimensionen angeordnet ($ W \times H \times D $, $D$ steht in diesem Fall für die Tiefe des Volumens und nicht für die Tiefe vom Netzwerk),
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{resources/cnn/funktion-cnn.png}
+  \caption{
+    Leaky ReLU 
+    \cite{convnet-demo}
+  }
+  \label{image:convnet-demo}
+\end{figure}
+
 \subsection{Kostenfunktionen}
 % Erklärung
 % L2 Loss
