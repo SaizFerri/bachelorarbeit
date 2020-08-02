@@ -317,7 +317,7 @@ Mean Square Error (MSE) Loss misst die durchschnittlichen der Quadrate des Fehle
 
 \subsubsection{Cross Entropy Loss}
 Der Cross Entropy Loss wird bei Klassifizierungsprobleme verwendet. Es gibt 2 Arten, Binär und Multiclass Cross Entropy Loss. 
-Bei der Multiclass Cross Entropy Loss wird ein Vektor mit einer Wahscheinlichkeitsverteilung $ x \in [0, 1] $ 
+Bei der Multiclass Cross Entropy Loss wird ein Vektor mit einer Wahrscheinlichkeitsverteilung $ x \in [0, 1] $ 
 ausgewertet, wenn die Korrekte Klasse eine 1 hat ist der Loss 0. Je weniger Wahrscheinlichkeit die Korrekte Klasse besitzt desto höher der Loss 
 sein wird. Der Multiclass Cross Entropy Loss ist definiert als: 
 
@@ -326,9 +326,39 @@ sein wird. Der Multiclass Cross Entropy Loss ist definiert als:
 \end{equation}
 
 \subsubsection{Weighted Cross Entropy Loss}
-Bei der Weighted Cross Entropy Loss werden die Klassen gewichtet bevor der Loss berechnet wird. Das ist zum Beispiel nutzlich um Klassen  
+Bei der Weighted Cross Entropy Loss werden die Klassen gewichtet bevor der Loss berechnet wird. Das ist zum Beispiel nützlich um Klassen  
 mit einer niedrige Wahrscheinlichkeit zu bevorzugen.
 
 \subsection{Optimierungsalgorithmen}
+Das Ziel von Optimierungsalgorithmen ist eine Kombination von Gewichte $ W $ zu finden, dass die \gls{loss function} minimiert.
+Es gibt verschiedene relevante Optimierungsalgorithmen. In der vorliegende Arbeit werden Gradient Descent und Adam verwendet.
+
+\subsubsection{Gradient Descent}
+Gradient Descent (Gradientenabstiegsverfahren) ist ein Verfahren, um bei einer Funktion das Minimum (oder das Maximum) zu finden. 
+Mit Hilfe von partielle Ableitungen kann der Gradient von einer \gls{loss function} berechnet werden. Ein Gradient ist, in dem Fall von Neuronale 
+Netze, ein Vektor der zum höchsten Punkt der \gls{loss function} zeigt. Wird der negative Gradient genommen, zeigt dieser zum tiefsten Punkt.
+Bei jeder Kombination von Gewichte wird der Gradient berechnet und mal eine bestimmte Lernrate $ \alpha $ multipliziert, anschließend werden 
+alle Gewichte aktualisiert. Die Lernrate definiert die Größe der Schritte in Richtung Minimum.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.65\textwidth]{resources/cnn/gradient-descent.jpg}
+  \caption{
+    Gradient descent
+    \cite{gradient-descent}
+  }
+  \label{image:gradient-descent}
+\end{figure}
+
+\subsubsection{Adam}
+Adam steht für ``Adaptive Moment Estimation Algorithm'' und ist ein Optimierungsalgorithmus der eine angepasste Lernrate für die verschiedene 
+Gewichte berechnet \cite{kingma2014adam}.
+
 \subsection{Backpropagation}\label{subsection:backpropagation}
+Backpropagation ist ein Algorithmus zur effizienten Berechnung der Gradienten in einem neuronalen Netzwerk \cite{was-ist-backpropagation}. 
+Mit Hilfe der Kettenregel kann eine Komplexe \gls{loss function} in kleinere Unterfunktionen zerlegt werden um Lokal die Ableitung zu berechnen.
+
+
 \subsection{Transposed Convolution}
+
+\section{Verwandte Arbeiten}
