@@ -9,3 +9,7 @@ Feedforward
 Network
 Hidden
 Sigmoid
+Padding
+Convolutional
+Pooling
+Loss

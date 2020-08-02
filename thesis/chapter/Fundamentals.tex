@@ -239,42 +239,96 @@ wobei $ \alpha $ eine kleine Konstante ist, zum Beispiel $ 0.001 $.
   \label{image:leaky-relu}
 \end{figure}
 
-\subsection{Convolutional Neural Network}
+\subsection{Convolutional Neural Networks}
 Convolutional Neural Networks (\gls{CNN}) sind eine besondere Form von künstliche neuronale Netzwerke, das speziell für maschinelles Lernen
-und die Verarbeitung von Bilddaten vorgesehen ist. \cite{convnet-erklaerung}
+und die Verarbeitung von Bilddaten vorgesehen ist \cite{convnet-erklaerung}.
 \\
 Im gegensatz zu traditionelle neuronale Netzwerke, die ein Vektor als Input nehmen, nehmen Convolutional Neural Networks ein 3D Volumen als Input
-($ W \times H \times C $, wobei $W$ die Breite, $H$ die Höhe und $C$ die Farbkanäle sind). 
+($ W \times H \times C $, wobei $W$ die Breite, $H$ die Höhe und $C$ die Farbkanäle sind).
 
-\gls{CNN} bestehen in der Regel aus 2 Formen von \gls{Layer}s,
-die Convolutional \gls{Layer} und die Pooling Layer. Die Convolutional \gls{Layer} besteht aus mehrere hintereinander geschaltete 3 Dimensionale
-Filter ($ W \times H \times D$, wo $D$ die Tiefe der Aktivierungsmatrix darstellt) die während den Forward pass über dem Bild geschoben werden. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{resources/cnn/typical_cnn.png}
+  \caption{
+    Typische Struktur von einem Convolutional Neural Network
+    \cite{convnet}
+  }
+  \label{image:convnet}
+\end{figure}
+
+
+\gls{CNN}s bestehen in der Regel aus 2 Formen von \gls{Layer}s, die Convolutional \gls{Layer} und die Pooling Layer. 
+\\
+\\
+Die Convolutional \gls{Layer} besteht aus mehrere hintereinander geschaltete 3 Dimensionale
+Filter, auch Kernel genannt ($ W \times H \times D$, wobei $D$ die Tiefe der Aktivierungsmatrix darstellt), die während den Forward pass, über dem Bild 
+mit einer festgelegten Schrittweite (\gls{stride}), geschoben werden. Mit den sogenannten Padding wird der Verhalten an den Rändern festgelegt.
 An jeder stelle wird eine Matrix Multiplikation zwischen den Filter und die aktuelle Position auf dem Bild durchgeführt. 
-Als Output wird eine 2 Dimensionalen Aktivierungsmatrix generiert. \cite{cs231-convolutional-networks}
+Als Output wird eine 2 Dimensionalen Aktivierungsmatrix generiert. Die Größe dieser Aktivierungsmatrix ist abhängig 
+von der Größe des Filters, dem Padding und vor allem dem \gls{stride}. Ein \gls{stride} von 2 bei einer Filter Größe von $ 2\times2 $ führt beispielweise 
+pro Filter zu einer Halbierung der Größe der Aktivierungsmatrix im Vergleich zum Input Volumen \cite{aufbau-funktion-convnet}.
+Ein \gls{stride} von 1 bei einem $ 3\times3 $ Filter mit Padding 1 führt zu einer Aktivierungsmatrix mit der gleiche Größe wie der Input Volumen.
+\\
+\\
 Die Filter erkennen in den ersten Ebenen einfache Strukturen wie Linien, Farben oder Kanten. In den nächsten Ebenen lernt das CNN Kombinationen aus 
-diesen Strukturen wie Formen oder Kurven. In den tieferen \gls{Layer}s werden komplexere Strukturen und Objekte identifiziert. \cite{convnet-erklaerung}
-%Außerdem sind die Neuronen in den \gls{Layer}s in 3
-%Dimensionen angeordnet ($ W \times H \times D $, $D$ steht in diesem Fall für die Tiefe des Volumens und nicht für die Tiefe vom Netzwerk),
+diesen Strukturen wie Formen oder Kurven. In den tieferen \gls{Layer}s werden komplexere Strukturen und Objekte identifiziert \cite{convnet-erklaerung}. 
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{resources/cnn/funktion-cnn.png}
   \caption{
-    Leaky ReLU 
+    Beispiel Forward pass von einem Convolutional \gls{Layer} mit einem $ 7\times7\times3 $ Input Volumen, zwei $3\times3\times3$ Filter, 
+    Padding 1 und \gls{stride} 2.
     \cite{convnet-demo}
   }
   \label{image:convnet-demo}
 \end{figure}
 
-\subsection{Kostenfunktionen}
+Die Pooling Layer dient zur Reduktion der Dimensionen von einem Input Volumen und somit die Parameter von dem Netzwerk. Es gibt 
+verschiedene pooling Operationen die angewandt werden können, wie zum Beispiel Maximum Pooling, Minimum Pooling, oder Average Pooling. Im Rahmen 
+dieser Arbeit wird Maximum Pooling (oder Max Pooling) verwendet.
+\\
+\\
+Ein Max Pooling \gls{Layer} aggregiert die Aktivierungsmatrizen von Convolutional Layers, in dem nur die höchste Zahl von einem Filter weitergegeben 
+wird. Zum Beispiel, bei einem $ 2 \times 2 $ Filter wird aus 4 Zahlen nur 1 Zahl weitergegeben. Damit wird einer Reduktion der Dimensionen erreicht.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{resources/cnn/pooling.png}
+  \caption{
+    Max pooling Operation mit $ 2 \times 2 $ Filtern und \gls{stride} 2
+    \cite{convnet-demo}
+  }
+  \label{image:pooling}
+\end{figure}
+
+\subsection{Loss Functions}
 % Erklärung
-% L2 Loss
-% MSE Loss
-% Cross entropy loss
-% Weighted loss
-\subsection{Backpropagation}\label{subsection:backpropagation}
+Die \gls{loss function} (Kostenfunktion) dient zur Feststellung der Fehler (Loss) zwischen dem Output von einem Model und die Zielwerte. 
+Das Ziel von Neuronalen Netzen ist es den Loss zu minimieren. Wenn der Loss gleich Null ist, heißt dass $ y = \hat{y} $. Es gibt verschiedene Arten 
+von \gls{loss function}s. Im Rahmen dieser Arbeit werden \gls{loss function}s bezogen auf Regressions– und Klassifizierungsprobleme behandelt.
+
+\subsubsection{Mean Square Error Loss}
+Mean Square Error (MSE) Loss misst die durchschnittlichen der Quadrate des Fehlers und ist definiert als:
+
+\begin{equation}
+  MSE = \frac{1}{N} \sum (y - \hat{y})^2
+\end{equation}
+
+\subsubsection{Cross Entropy Loss}
+Der Cross Entropy Loss wird bei Klassifizierungsprobleme verwendet. Es gibt 2 Arten, Binär und Multiclass Cross Entropy Loss. 
+Bei der Multiclass Cross Entropy Loss wird ein Vektor mit einer Wahscheinlichkeitsverteilung $ x \in [0, 1] $ 
+ausgewertet, wenn die Korrekte Klasse eine 1 hat ist der Loss 0. Je weniger Wahrscheinlichkeit die Korrekte Klasse besitzt desto höher der Loss 
+sein wird. Der Multiclass Cross Entropy Loss ist definiert als: 
+
+\begin{equation}
+  J = -\frac{1}{N} \Big(\sum_{i=0}^N y_{i} * \log(\hat{y_{i}})\Big)
+\end{equation}
+
+\subsubsection{Weighted Cross Entropy Loss}
+Bei der Weighted Cross Entropy Loss werden die Klassen gewichtet bevor der Loss berechnet wird. Das ist zum Beispiel nutzlich um Klassen  
+mit einer niedrige Wahrscheinlichkeit zu bevorzugen.
+
 \subsection{Optimierungsalgorithmen}
-\subsection{Max Pooling Layer}
+\subsection{Backpropagation}\label{subsection:backpropagation}
 \subsection{Transposed Convolution}
-\section{Verwandte Arbeiten}
-TODO
