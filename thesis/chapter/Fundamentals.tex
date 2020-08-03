@@ -344,7 +344,7 @@ alle Gewichte aktualisiert. Die Lernrate definiert die Größe der Schritte in R
   \centering
   \includegraphics[width=0.65\textwidth]{resources/cnn/gradient-descent.jpg}
   \caption{
-    Gradient descent
+    Gradient descent visualisiert
     \cite{gradient-descent}
   }
   \label{image:gradient-descent}
@@ -355,10 +355,54 @@ Adam steht für ``Adaptive Moment Estimation Algorithm'' und ist ein Optimierung
 Gewichte berechnet \cite{kingma2014adam}.
 
 \subsection{Backpropagation}\label{subsection:backpropagation}
-Backpropagation ist ein Algorithmus zur effizienten Berechnung der Gradienten in einem neuronalen Netzwerk \cite{was-ist-backpropagation}. 
+Neuronale Netze lernen in dem das Loss minimiert wird. Wie in der vorherigen Sektionen erläutert, bestimmt die \gls{loss function}, 
+die Fehlerrate von einem Neuronales Netz. Dieses Loss kann mit Hilfe von einem Optimierungsalgorithmus reduziert werden. 
+Backpropagation ermöglicht es, einer effizienten Berechnung der Gradienten in einem neuronalen Netzwerk \cite{was-ist-backpropagation}. 
 Mit Hilfe der Kettenregel kann eine Komplexe \gls{loss function} in kleinere Unterfunktionen zerlegt werden um Lokal die Ableitung zu berechnen.
+Das ermöglicht eine unkomplizierte Berechnung des Gradienten.
+\\
+\\
+Als Beispiel kann die folgende Sigmoid Funktion in Unterfunktionen zerlegt werden:
 
+\begin{equation}
+  f(w,x) = \frac{1}{1+e^{-(w_0 x_0 + w_1 x_1 + w_2)}}
+\end{equation}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{resources/cnn/backpropagation.png}
+  \caption{
+    Backpropagation Beispiel anhand einer 2D Neuron mit der Aktivierungsfunktion Sigmoid
+    \cite{backpropagation}
+  }
+  \label{image:backpropagation}
+\end{figure}
+
+Bei dem oberen Bild sind $ [w_0, w_1, w_2] $ die Gewichte und $ [x_0, x_1] $ die Inputs des Neurons. Um es unkompliziert zu halten, kann die 
+obere Funktion als irgendeine Funktion, die Inputs ($w, x$) entgegennimmt und eine einzelne Zahl als Output hat, visualisiert werden. 
+Die Grüne Zahlen repräsentieren die Ergebnissen aus dem Forward Pass und die Rote Zahlen der zurück propagierte Loss. Jeder Knoten ist fähig 
+ein Output und der lokale Gradient von dem Output im Bezug auf den Input zu berechnen, ohne die ganze Funktion kennen zu müssen \cite{cs231-backpropagation}.
 
 \subsection{Transposed Convolution}
+Im gegensatz zu einem Pooling Layer, ermöglicht einer Transposed Convolutional Layer die Dimensionen von einem Volumen zu vergrößern. 
+Die funktionsweise einer Transposed Convolution wird anhand von einem Beispiel erklärt. 
+\\
+Ausgehend von einer $ 2 \times 2 $ Input Matrix die auf $ 3 \times 3 $ vergrößert werden soll, ein $ 2 \times 2 $ Filter, 
+Null Padding und Stride 1, ergibt sich den Folgenden Output. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{resources/cnn/transposed-conv.png}
+  \caption{
+    Die Komplette Transposed Convolution Operation
+    \cite{transposed-conv}
+  }
+  \label{image:transposed-conv}
+\end{figure}
+
+Jeder Zahl in der Input Matrix wird mit jeder Zahl in den Filter multipliziert. Daraus ergibt sich an jeder Position in der Input Matrix einer 
+$ 2 \times 2 $ Matrix. Die überlappende Zahlen auf der Output Matrix werden addiert. Daraus ergibt sich einer $ 3 \times 3 $ Output Matrix.
 
 \section{Verwandte Arbeiten}
+Vor der Erstellung dieser Arbeit wurden Methoden von Image Colorization bereits untersucht. Die vorliegende Arbeit orientiert sich auf die 
+Methoden von Zhang et al. und Billaut et al., die ähnliche Ansätze für Image Colorization vorschlagen.
