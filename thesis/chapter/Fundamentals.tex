@@ -1,22 +1,8 @@
 \chapter{Grundlagen}
-Dieses Kapitel verschafft einen Überblick über die benötigten theoretische Grundlagen, um die Methoden dieser Arbeit zu verstehen. Als
-erstes wird der ``Lab-Farbraum'' kurz erklärt. Als nächstes wird eine Einführung in Neuronale Netzwerke gegeben, anschließend werden
-einzelne Bestandsteile und Varianten von Neuronalen Netzwerken erklärt. Abschließend wird einen Überblick über verwandte Arbeiten gegeben.
-
-\section{\textit{Lab}-Farbraum} 
-Der \textit{Lab}-Farbraum (auch CIELAB-Farbraum genannt) ist ein Farbraum definiert bei der Internationale
-Beleuchtungskommission (\gls{cie}) in 1976. Farben werden mit drei Werte beschrieben. ``\textit{L}'' (Lightness) definiert die Helligkeit.
-Die Werte liegen zwischen 0 und 100. ``\textit{a}'' gibt die Farbart und Farbintensität zwischen Grün und Rot und ``\textit{b}'' gibt die
-Farbart und Farbintensität zwischen Blau und Gelb. Die Werte für ``\textit{a}'' und ``\textit{b}'' liegen zwischen -128 und 127.
-
-TODO: image
-% TODO: add color space image
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.5\textwidth]{resources/colorspace/lab-color-space.png}
-%   \caption{CIELAB Farbraum}
-%   \label{}
-% \end{figure}
+Dieses Kapitel verschafft einen Überblick über die benötigten theoretische Grundlagen, um die Methoden dieser Arbeit zu verstehen. 
+Als erstes wird eine Einführung in Neuronale Netzwerke gegeben, anschließend werden
+einzelne Bestandsteile und Varianten von Neuronalen Netzwerken erklärt. 
+Als nächstes wird der ``Lab-Farbraum'' kurz erklärt. Abschließend wird einen Überblick über verwandte Arbeiten gegeben.
 
 \section{Neuronale Netze}
 Künstliche Neuronale Netze sind inspiriert durch das Menschliche Gehirn und werden für Künstliche Intelligenz und Maschinelles Lernen
@@ -31,7 +17,7 @@ Ausgabeschicht (Output \gls{Layer}). Dabei ist der Output des einen Neurons der 
 
 \subsection{Feedforward Neural Network}
 Das Ziel von einem Feedforward Neural Network ist die Annäherung an irgendeine Funktion $ f^* $. Ein Feedforward Neural Network definiert 
-eine Abbildung $ y = f(x;\theta) $ wo $ x $ den Input ist und $ \theta $ die lernbare Parameter sind (auch Weights genannt).
+eine Abbildung $ y = f(x;W) $ wobei $ x $ den Input ist und $ W $ die lernbare Parameter sind (auch Gewichte genannt).
 \cite[164-223]{Goodfellow-et-al-2016}
 \\
 \\
@@ -47,10 +33,10 @@ ein Netzwerk ist desto mehr lernbare Parameter hat es und somit eine erhöhte Re
 In der Praxis werden die Netzwerke sehr tief, daher der Begriff Deep Learning.
 \\
 \\
-Während dem Training werden die Weights von $ f(x) $ verstellt, um $ f^*(x) $ zu erhalten. Jedes Trainingsbeispiel $ x $ ist mit einem Label
+Während dem Training werden die Gewichte von $ f(x) $ verstellt, um $ f^*(x) $ zu erhalten. Jedes Trainingsbeispiel $ x $ ist mit einem Label
 $ y = f^*(x)$ versehen. Die Trainingsbeispiele legen genau fest, was der Output Layer generieren soll. Der Output Layer soll Werte generieren,
 die nah an $ y $ liegen. Das Verhalten von den Hidden Layers wird nicht durch die Trainingsbeispiele festgelegt, sondern der Lernalgorithmus
-soll definieren, wie diese Layers verwendet werden, um die beste Annäherung von $ f^*(x) $ zu generieren. \cite[164-223]{Goodfellow-et-al-2016}
+soll definieren, wie diese Layers verwendet werden, um die beste Annäherung von $ f^*(x) $ zu generieren.
 
 \subsection{Fully-connected Neural Network}
 Fully-connected Neural Networks sind die am häufigsten vorkommende Art von Neuronale Netze. In dieser Netzwerkarchitektur sind alle Neuronen
@@ -67,10 +53,12 @@ von einem Layer mit alle Neuronen von der vorherige und nächsten Layer verbunde
   \label{image:neuronal-network}
 \end{figure}
 
+% TODO: Formel erklären, Formel und Elemente der Formel erklären
+
 Eine der wichtigsten Gründe für die Anordnung von Neuronale Netze in Layers ist dass so eine Struktur anhand von Matrix Multiplikationen
 berechnet werden kann. Das obere Bild \ref{image:neuronal-network} stellt ein Netzwerk mit 3 Inputs $ x $, eine Hidden Layer mit 4 Neuronen
 und eine Output Layer mit 2
-Neuronen dar. Die Kreisen repräsentieren die Neuronen und einem Bias Wert $ b $, die Pfeilen stellen die Weights $ w $ dar.
+Neuronen dar. Die Kreisen repräsentieren die Neuronen und einem Bias Wert $ b $, die Pfeilen stellen die Gewichte $ w $ dar.
 
 \begin{align}
   f(x) = w*x + b
@@ -110,23 +98,24 @@ Ausgehend von einem Netzwerk mit 3 Inputs, eine Hidden Layer mit 2 Neuronen und 
   \end{pmatrix}
 \end{equation}
 
-Die erste Spalte in der Input Matrix $ X $ und die erste Zeile in beide Gewichtsmatrizen $ W $ und $ W_{out} $ sind die Werte für den Bias.
+$ X $ sind die Inputs, $ W $ die Gewichte von dem Hidden Layer und $ W_{out} $ die Gewichte von dem Output Layer.
+Die erste Spalte in dem Input $ X $ und die erste Zeile in beide Gewichtsmatrizen $ W $ und $ W_{out} $ sind die Werte für den Bias.
 Diese Anordnung von den Bias Werte ermöglicht die Berechnung durch eine einzigen Matrix Multiplikation. Als Aktivierungsfunktion wird ReLU 
 \cite{10.5555/3104322.3104425} verwendet:
 
 \begin{equation}
   \vspace{5pt}
-  \sigma(x) = 
+  f(x) = 
   \begin{cases}
     0 &\text{if \(x < 0\)}  \\
     x &\text{if \(x \geq 0\)} 
   \end{cases}
 \end{equation}
 
-Im ersten Schritt durchläuft den Input durch das Hidden Layer $ \sigma(X \times W) $:
+Im ersten Schritt durchläuft den Input durch das Hidden Layer $ f(X \times W) $:
 \begin{equation}
   \vspace{5pt}
-  \sigma \left(
+  f \left(
   \begin{pmatrix}
     1 &0 &1 &1 \\
     1 &1 &1 &0 \\
@@ -151,7 +140,7 @@ Im ersten Schritt durchläuft den Input durch das Hidden Layer $ \sigma(X \times
 Im zweiten Schritt wird den Output von der vorherige Multiplikation mal die Gewichte von dem Output Layer multipliziert:
 \begin{equation}
   \vspace{5pt}
-  \sigma \left(
+  f \left(
   \begin{pmatrix}
     1 &0 &1 \\
     1 &1 &0 \\
@@ -175,10 +164,17 @@ Im zweiten Schritt wird den Output von der vorherige Multiplikation mal die Gewi
 \subsection{Aktivierungsfunktionen}\label{subsection:aktivierungsfunktionen}
 Eine Aktivierungsfunktion definiert die Aktivierungsrate von einem Neuron. Es gibt verschiedene Aktivierungsfunktionen:
 
+% TODO: Formeln mit nummerierung
 \subsubsection{Sigmoid}
-Sigmoid ist eine nicht lineare Funktion $ \sigma(x) = 1 / (1 + e^{-x})$ welche die Werte in einem Wertebereich von $ [0, 1] $ bringt.
-Große negative Werte werden 0 und große positive Werte werden 1. Sigmoid hat verschiedene Nachteile, es neigt dazu den Gradienten zu verschwinden
-und die Outputs sind nicht Null zentriert.
+Sigmoid ist eine nicht lineare Funktion welche die Werte in einem Wertebereich von $ [0, 1] $ bringt.
+Große negative Werte werden annähernd 0 und große positive Werte werden annähernd 1. Sigmoid hat verschiedene Nachteile, es neigt dazu den Gradienten zu verschwinden
+und die Outputs sind nicht Null zentriert. Sigmoid ist definiert als:
+
+\begin{equation}
+  \sigma(x) = \frac{1}{1 + e^{-x}}
+\end{equation}
+
+wobei $x$ einem Input ist.
 
 \begin{figure}[H]
   \centering
@@ -190,25 +186,31 @@ und die Outputs sind nicht Null zentriert.
   \label{image:sigmoid}
 \end{figure}
 
-\subsubsection{Tanh}
-Die Tanh Aktivierungsfunktion bringt Werte in einem Wertebereich von $ [-1, 1] $. Es ist eine skalierte Sigmoid ($ \sigma $) Funktion,
-$ tanh(x) = 2\sigma(2x) - 1 $. Die Nachteile von Tanh sind ähnlich zu Sigmoid aber der Output ist Null zentriert.
+% \subsubsection{Tanh}
+% Die Tanh Aktivierungsfunktion bringt Werte in einem Wertebereich von $ [-1, 1] $. Es ist eine skalierte Sigmoid ($ \sigma $) Funktion,
+% $ tanh(x) = 2\sigma(2x) - 1 $. Die Nachteile von Tanh sind ähnlich zu Sigmoid aber der Output ist Null zentriert.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.65\textwidth]{resources/nn/tanh.png}
-  \caption{
-    Tanh Aktivierungsfunktion 
-    \cite{neuron-model}
-  }
-  \label{image:tanh}
-\end{figure}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.65\textwidth]{resources/nn/tanh.png}
+%   \caption{
+%     Tanh Aktivierungsfunktion 
+%     \cite{neuron-model}
+%   }
+%   \label{image:tanh}
+% \end{figure}
 
 \subsubsection{ReLU}
-Die Rectified Linear Unit berechnet $ f(x) = max(0, x) $, alle negative Werte werden 0 und alle positive Werte bleiben unverändert. Diese Aktivierungsfunktion
-wurde für die Netzwerke in dieser Arbeit benutzt da es Vorteile gegenüber Sigmoid und Tanh zeigt. Einer der Vorteile ist dass die Mathematische
-Auswertung der Funktion unkompliziert ist. Außerdem beschleunigt es die Konvergenz von Stochastisches Gradientenabstiegsverfahren im Vergleich zu Sigmoid
-und Tanh.
+Die Rectified Linear Unit konvertiert alle negative Werte in 0 und alle positive Werte behalten deren Identität. Diese Aktivierungsfunktion
+wurde für die Netzwerke in dieser Arbeit benutzt da es Vorteile gegenüber Sigmoid zeigt. Einer der Vorteile ist dass die Mathematische
+Auswertung der Funktion unkompliziert ist. Außerdem beschleunigt es die Konvergenz von Stochastisches Gradientenabstiegsverfahren im Vergleich zu Sigmoid.
+ReLU ist definiert als:
+
+\begin{equation}
+  f(x) = max(0, x)
+\end{equation}
+
+wobei $x$ einem Input ist.
 \\
 Neuronen die ReLU als Aktivierungsfunktion verwenden, können während des Trainings ``sterben''. Zum Beispiel, wenn der Gradient in einem Neuron
 zu groß ist, kann dieser zu einem update der Gewichte führen, wo das Neuron nie wieder aktiviert werden kann. Mit einer korrekter Einstellung der
@@ -224,24 +226,25 @@ Lernrate kann das vermieden werden. \cite{cs231-neural-networks}
   \label{image:relu}
 \end{figure}
 
-\subsubsection{Leaky ReLU}
-Leaky ReLU ist einer Variante von ReLU, die versucht, das Problem mit den ``sterbenden'' Neuronen zu minimieren. Anstatt alle negative Werte
-in Null zu konvertieren, werden die Werte mal einer Konstante multipliziert. Die Funktion wird zu $ f(x) = 1(x < 0)(\alpha x) + 1(x >= 0)(x)$,
-wobei $ \alpha $ eine kleine Konstante ist, zum Beispiel $ 0.001 $.
+% TODO: alpha durch was anderes ersetzen
+% \subsubsection{Leaky ReLU}
+% Leaky ReLU ist einer Variante von ReLU, die versucht, das Problem mit den ``sterbenden'' Neuronen zu minimieren. Anstatt alle negative Werte
+% in Null zu konvertieren, werden die Werte mal einer Konstante multipliziert. Die Funktion wird zu $ f(x) = 1(x < 0)(\alpha x) + 1(x >= 0)(x)$,
+% wobei $ \alpha $ eine Konstante mit geringeren Wert ist, zum Beispiel $ 0.001 $.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.65\textwidth]{resources/nn/leaky-relu.png}
-  \caption{
-    Leaky ReLU 
-    \cite{leaky-relu}
-  }
-  \label{image:leaky-relu}
-\end{figure}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.65\textwidth]{resources/nn/leaky-relu.png}
+%   \caption{
+%     Leaky ReLU 
+%     \cite{leaky-relu}
+%   }
+%   \label{image:leaky-relu}
+% \end{figure}
 
 \subsection{Convolutional Neural Networks}
-Convolutional Neural Networks (\gls{CNN}) sind eine besondere Form von künstliche neuronale Netzwerke, das speziell für maschinelles Lernen
-und die Verarbeitung von Bilddaten vorgesehen ist \cite{convnet-erklaerung}.
+Convolutional Neural Networks (\gls{CNN}) sind eine besondere Form von künstliche neuronale Netzwerke, das speziell für 
+die Verarbeitung von Bilddaten, unter anderen, vorgesehen ist \cite{convnet-erklaerung}.
 \\
 Im gegensatz zu traditionelle neuronale Netzwerke, die ein Vektor als Input nehmen, nehmen Convolutional Neural Networks ein 3D Volumen als Input
 ($ W \times H \times C $, wobei $W$ die Breite, $H$ die Höhe und $C$ die Farbkanäle sind).
@@ -251,9 +254,9 @@ Im gegensatz zu traditionelle neuronale Netzwerke, die ein Vektor als Input nehm
   \includegraphics[width=1\textwidth]{resources/cnn/typical_cnn.png}
   \caption{
     Typische Struktur von einem Convolutional Neural Network
-    \cite{convnet}
+    \cite{typical_cnn_img}
   }
-  \label{image:convnet}
+  \label{image:typical_cnn_img}
 \end{figure}
 
 
@@ -261,17 +264,17 @@ Im gegensatz zu traditionelle neuronale Netzwerke, die ein Vektor als Input nehm
 \\
 \\
 Die Convolutional \gls{Layer} besteht aus mehrere hintereinander geschaltete 3 Dimensionale
-Filter, auch Kernel genannt ($ W \times H \times D$, wobei $D$ die Tiefe der Aktivierungsmatrix darstellt), die während den Forward pass, über dem Bild 
+Filter, auch Kernel genannt ($ W \times H \times D$, wobei $D$ die Tiefe der Feature maps darstellt), die während den Forward pass, über dem Bild 
 mit einer festgelegten Schrittweite (\gls{stride}), geschoben werden. Mit den sogenannten Padding wird der Verhalten an den Rändern festgelegt.
 An jeder stelle wird eine Matrix Multiplikation zwischen den Filter und die aktuelle Position auf dem Bild durchgeführt. 
-Als Output wird eine 2 Dimensionalen Aktivierungsmatrix generiert. Die Größe dieser Aktivierungsmatrix ist abhängig 
-von der Größe des Filters, dem Padding und vor allem dem \gls{stride}. Ein \gls{stride} von 2 bei einer Filter Größe von $ 2\times2 $ führt beispielweise 
-pro Filter zu einer Halbierung der Größe der Aktivierungsmatrix im Vergleich zum Input Volumen \cite{aufbau-funktion-convnet}.
-Ein \gls{stride} von 1 bei einem $ 3\times3 $ Filter mit Padding 1 führt zu einer Aktivierungsmatrix mit der gleiche Größe wie der Input Volumen.
+Als Output wird eine 2 Dimensionalen Feature maps generiert. Die Größe dieser Feature map ist abhängig 
+von der Größe des Filters, dem Padding und vor allem dem \gls{stride}. Ein \gls{stride} von 2 bei einer Filter Größe von $ 2\times2 $ führt beispielsweise 
+pro Filter zu einer Halbierung der Größe der Feature map im Vergleich zum Input Volumen \cite{aufbau-funktion-convnet}.
+Ein \gls{stride} von 1 bei einem $ 3\times3 $ Filter mit Padding 1 führt zu einer Feature map mit der gleiche Größe wie der Input Volumen.
 \\
 \\
 Die Filter erkennen in den ersten Ebenen einfache Strukturen wie Linien, Farben oder Kanten. In den nächsten Ebenen lernt das CNN Kombinationen aus 
-diesen Strukturen wie Formen oder Kurven. In den tieferen \gls{Layer}s werden komplexere Strukturen und Objekte identifiziert \cite{convnet-erklaerung}. 
+diesen Strukturen wie Formen oder Kurven. In den tieferen \gls{Layer}s werden komplexere Strukturen und Objekte identifiziert. 
 
 \begin{figure}[H]
   \centering
@@ -285,7 +288,7 @@ diesen Strukturen wie Formen oder Kurven. In den tieferen \gls{Layer}s werden ko
 \end{figure}
 
 Die Pooling Layer dient zur Reduktion der Dimensionen von einem Input Volumen und somit die Parameter von dem Netzwerk. Es gibt 
-verschiedene pooling Operationen die angewandt werden können, wie zum Beispiel Maximum Pooling, Minimum Pooling, oder Average Pooling. Im Rahmen 
+verschiedene Pooling Operationen die angewendet werden können, wie zum Beispiel Maximum Pooling, Minimum Pooling, oder Average Pooling. Im Rahmen 
 dieser Arbeit wird Maximum Pooling (oder Max Pooling) verwendet.
 \\
 \\
@@ -309,11 +312,13 @@ Das Ziel von Neuronalen Netzen ist es den Loss zu minimieren. Wenn der Loss glei
 von \gls{loss function}s. Im Rahmen dieser Arbeit werden \gls{loss function}s bezogen auf Regressions– und Klassifizierungsprobleme behandelt.
 
 \subsubsection{Mean Square Error Loss}
-Mean Square Error (MSE) Loss misst die durchschnittlichen der Quadrate des Fehlers und ist definiert als:
+Mean Square Error (MSE) Loss misst der mittlere quadratische Fehler und ist definiert als:
 
 \begin{equation}
-  MSE = \frac{1}{N} \sum (y - \hat{y})^2
+  J = \frac{1}{N} \sum (y - \hat{y})^2
 \end{equation}
+
+wobei, $J$ der Loss ist, $N$ die Anzahl der Klassen, $y$ die Korrekte Klasse (Ground Truth) und $ hat{y}$ die vorhergesagte Klasse ist.
 
 \subsubsection{Cross Entropy Loss}
 Der Cross Entropy Loss wird bei Klassifizierungsprobleme verwendet. Es gibt 2 Arten, Binär und Multiclass Cross Entropy Loss. 
@@ -325,6 +330,8 @@ sein wird. Der Multiclass Cross Entropy Loss ist definiert als:
   J = -\frac{1}{N} \Big(\sum_{i=0}^N y_{i} * \log(\hat{y_{i}})\Big)
 \end{equation}
 
+wobei, $J$ der Loss ist, $N$ die Anzahl der Klassen, $y$ die Korrekte Klasse (Ground Truth) und $ \hat{y}$ die vorhergesagte Klasse ist.
+
 \subsubsection{Weighted Cross Entropy Loss}
 Bei der Weighted Cross Entropy Loss werden die Klassen gewichtet bevor der Loss berechnet wird. Das ist zum Beispiel nützlich um Klassen  
 mit einer niedrige Wahrscheinlichkeit zu bevorzugen.
@@ -334,11 +341,18 @@ Das Ziel von Optimierungsalgorithmen ist eine Kombination von Gewichte $ W $ zu 
 Es gibt verschiedene relevante Optimierungsalgorithmen. In der vorliegende Arbeit werden Gradient Descent und Adam verwendet.
 
 \subsubsection{Gradient Descent}
-Gradient Descent (Gradientenabstiegsverfahren) ist ein Verfahren, um bei einer Funktion das Minimum (oder das Maximum) zu finden. 
-Mit Hilfe von partielle Ableitungen kann der Gradient von einer \gls{loss function} berechnet werden. Ein Gradient ist, in dem Fall von Neuronale 
+Gradient Descent (Gradientenabstiegsverfahren) ist ein iteratives Verfahren, um bei einer Funktion das Minimum (oder das Maximum) zu finden. 
+Mit Hilfe von partielle Ableitungen kann der Gradient von einer Funktion berechnet werden. Ein Gradient ist, in dem Fall von Neuronale 
 Netze, ein Vektor der zum höchsten Punkt der \gls{loss function} zeigt. Wird der negative Gradient genommen, zeigt dieser zum tiefsten Punkt.
 Bei jeder Kombination von Gewichte wird der Gradient berechnet und mal eine bestimmte Lernrate $ \alpha $ multipliziert, anschließend werden 
-alle Gewichte aktualisiert. Die Lernrate definiert die Größe der Schritte in Richtung Minimum.
+alle Gewichte aktualisiert. Die Lernrate definiert die Größe der Schritte in Richtung Minimum. Die Update Regel für die Gewichte ist definiert als:
+
+\begin{equation}
+  w_{x+1} = w_x - \alpha * \nabla J(w_x)
+\end{equation}
+
+wobei, $w_{x+1}$ die aktualisierte Gewichte sind, $w_x$ die vorherige Gewichte, $ \alpha $ die Lernrate und $\nabla J(w_x)$ der Gradient ist. 
+Die Update Regel für den Bias sieht identisch aus.
 
 \begin{figure}[H]
   \centering
@@ -350,9 +364,33 @@ alle Gewichte aktualisiert. Die Lernrate definiert die Größe der Schritte in R
   \label{image:gradient-descent}
 \end{figure}
 
+Es gibt verschiedene Arten von Gradient Descent, Mini-Batch Gradient Descent und Stochastisches Gradient Descent. Bei den normalen Gradient Descent
+werden die Gradienten im Bezug zu den gesamten Datensatz berechnet und damit das Update durchgeführt. Mini-Batch Gradient Descent berechnet 
+die Gradienten im Bezug zu einen kleinen Teil von dem Datensatz und führt einen Update für alle Parameter durch. Letztendlich, Stochastisches Gradient Descent 
+berechnet den Gradient bezogen auf einem einzigen Element von dem Datensatz und führt einen Update für alle Parameter durch.
+\\
+Um die Konvergenz Richtung Minimum zu beschleunigen, wurde das Gradient Descent mit Momentum entwickelt. Bei diesem Ansatz wird einen 
+Geschwindigkeitsparameter zu der Update Regel hinzugefügt die alle vorherige Updates akkumuliert. Das ermöglicht die schnellere Konvergenz mit jedem Schritt.
+Die neue Update regel ist definiert als:
+
+\begin{equation}
+  \begin{gathered}
+    v_{t+1} = \rho v_t - \alpha * \nabla J(w_x) \\
+    w_{x+1} = w_x + v_{t+1}
+  \end{gathered}
+\end{equation}
+
+wobei $v_{t+1}$ der nächste Geschwindigkeitsparameter ist, $v_t$ der aktuelle Geschwindigkeitsparameter und $\rho$ ein Reibungsparameter 
+(typisch 0.9) zu Regulierung ist.
+
+% TODO: finish Adam
 \subsubsection{Adam}
 Adam steht für ``Adaptive Moment Estimation Algorithm'' und ist ein Optimierungsalgorithmus der eine angepasste Lernrate für die verschiedene 
-Gewichte berechnet \cite{kingma2014adam}.
+Parameter berechnet \cite{kingma2014adam}. Adam ist der bevorzugte Optimierungsalgorithmus für die vorliegende Arbeit. 
+Adam kombiniert die Ansätze von AdaGrad \cite{duchi2011adaptive} und RMSProp. AdaGrad ist eine 
+verbesserte Version von Gradient Descent dass eine angepasste Lernrate für die verschiedene Parameter einführt. 
+
+
 
 \subsection{Backpropagation}\label{subsection:backpropagation}
 Neuronale Netze lernen in dem das Loss minimiert wird. Wie in der vorherigen Sektionen erläutert, bestimmt die \gls{loss function}, 
@@ -395,13 +433,58 @@ Null Padding und Stride 1, ergibt sich den Folgenden Output.
   \includegraphics[width=1\textwidth]{resources/cnn/transposed-conv.png}
   \caption{
     Die Komplette Transposed Convolution Operation
-    \cite{transposed-conv}
+    \cite{zhang2020dive}
   }
   \label{image:transposed-conv}
 \end{figure}
 
 Jeder Zahl in der Input Matrix wird mit jeder Zahl in den Filter multipliziert. Daraus ergibt sich an jeder Position in der Input Matrix einer 
 $ 2 \times 2 $ Matrix. Die überlappende Zahlen auf der Output Matrix werden addiert. Daraus ergibt sich einer $ 3 \times 3 $ Output Matrix.
+
+\subsection{Autoencoder}
+Ein Autoencoder ist ein neuronales Netz, welches versucht die Eingangsinformationen zu komprimieren und mit den reduzierten Informationen 
+im Ausgang wieder korrekt nachzubilden \cite{was-ist-autoencoder}. Die Komprimierung und Rekonstruktion der Input läuft in zwei Schritten ab, 
+weshalb das Netz in zwei Teile betrachtet werden kann.
+\\
+\subsubsection{Encoder}
+Der Encoder reduziert die Dimensionen von einem Input und somit werden die wichtigsten Features in einer reduzierter Dimension komprimiert.
+In einem neuronalen Netz wird diese Komprimierung durch die Hidden Layers erreicht. Der Encoder ist definiert als:
+
+\begin{equation}
+  h = f(x)
+\end{equation}
+
+wobei $x$ einem Input ist, $f$ der Encoder und $h$ die Kodierte Features von $x$.
+
+\subsubsection{Decoder}
+Der Decoder ist zuständig für die Rekonstruktion von $x$ anhand $h$ und ist definiert als:
+
+\begin{equation}
+  \hat{x} = g(h)
+\end{equation}
+
+wobei, $\hat{x}$ der rekonstruierte Input ist, $g$ der Decoder und $h$ die Kodierten Features sind.
+
+In der vorliegende Arbeit werden Autoencoders basierend auf Convolutional Neural Networks eingesetzt.
+
+\subsection{U-Net}
+
+
+\section{\textit{Lab}-Farbraum} 
+Der \textit{Lab}-Farbraum (auch CIELAB-Farbraum genannt) ist ein Farbraum definiert bei der Internationale
+Beleuchtungskommission (\gls{cie}) in 1976. Farben werden mit drei Werte beschrieben. ``\textit{L}'' (Lightness) definiert die Helligkeit.
+Die Werte liegen zwischen 0 und 100. ``\textit{a}'' gibt die Farbart und Farbintensität zwischen Grün und Rot und ``\textit{b}'' gibt die
+Farbart und Farbintensität zwischen Blau und Gelb. Die Werte für ``\textit{a}'' und ``\textit{b}'' liegen zwischen -128 und 127.
+
+% Menschliche Wahrnehmung
+% TODO: image
+% TODO: add color space image
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.5\textwidth]{resources/colorspace/lab-color-space.png}
+%   \caption{CIELAB Farbraum}
+%   \label{}
+% \end{figure}
 
 \section{Verwandte Arbeiten}
 Vor der Erstellung dieser Arbeit wurden Methoden von Image Colorization bereits untersucht. Die vorliegende Arbeit orientiert sich auf die 
