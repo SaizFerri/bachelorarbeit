@@ -467,25 +467,34 @@ wobei, $\hat{x}$ der rekonstruierte Input ist, $g$ der Decoder und $h$ die Kodie
 
 In der vorliegende Arbeit werden Autoencoders basierend auf Convolutional Neural Networks eingesetzt.
 
-\subsection{U-Net}
-
-
 \section{\textit{Lab}-Farbraum} 
 Der \textit{Lab}-Farbraum (auch CIELAB-Farbraum genannt) ist ein Farbraum definiert bei der Internationale
 Beleuchtungskommission (\gls{cie}) in 1976. Farben werden mit drei Werte beschrieben. ``\textit{L}'' (Lightness) definiert die Helligkeit.
 Die Werte liegen zwischen 0 und 100. ``\textit{a}'' gibt die Farbart und Farbintensität zwischen Grün und Rot und ``\textit{b}'' gibt die
 Farbart und Farbintensität zwischen Blau und Gelb. Die Werte für ``\textit{a}'' und ``\textit{b}'' liegen zwischen -128 und 127.
-
-% Menschliche Wahrnehmung
-% TODO: image
-% TODO: add color space image
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.5\textwidth]{resources/colorspace/lab-color-space.png}
-%   \caption{CIELAB Farbraum}
-%   \label{}
-% \end{figure}
+\\
+In der vorliegende Arbeit wird den \textit{Lab}-Farbraum verwendet, da es unkompliziert ist, den ``\textit{L}'' Kanal von beide Farbkanäle 
+``\textit{a}'' und ``\textit{b}'' zu trennen. Außerdem bildet den \textit{Lab}-Farbraum das Menschliche Sehvermögen besser als den RGB-Farbraum ab.
 
 \section{Verwandte Arbeiten}
-Vor der Erstellung dieser Arbeit wurden Methoden von Image Colorization bereits untersucht. Die vorliegende Arbeit orientiert sich auf die 
-Methoden von Zhang et al. und Billaut et al., die ähnliche Ansätze für Image Colorization vorschlagen.
+Vor der Erstellung dieser Arbeit wurden Methoden von Image Colorization bereits untersucht. Frühere Methoden waren stark an Menschliches Input
+gebunden. Der Methode von Levin et al. verwendet Farbstiche auf dem Graustufenbild die Automatisch von einem Algorithmus über das gesamte 
+Bild propagiert werden \cite{10.1145/1015706.1015780}.
+\\
+\\
+Der Fokus dieser Arbeit ist auf volle automatische Image Colorization Methoden gesetzt. Konservative Methoden die Convolutional Neural Networks verwenden,
+versuchen die Farben von dem Originalen Bild wiederherzustellen in dem die \gls{loss function} die Distanz der vorhergesagte Farbe und die 
+Reale Farbe berechnet. Diese Methoden liefern in der Regel entsättigte und blasse Bilder wie bei \cite{zbulak2019image}. Einer der Gründe 
+für diese Ergebnissen ist dass die Modelle nicht richtig lernen. Zum Beispiel, Äpfel können verschiedene Farben einnehmen, wie Rot oder Grün. Wenn das 
+Netzwerk mit einem MSE Loss trainiert wird, wird der Output bei einem Apfel eine Farbe zwischen Rot und Grün sein, was ein entsättigtes Bild erzeugen wird.
+\\
+\\
+Aus diesem Grund ist das Problem von Image Colorization ein Multimodales Problem, da gleiche Objekte verschiedene Farbe haben können.
+Die vorliegende Arbeit orientiert sich auf die Methoden von Zhang et al. und Billaut et al., die ähnliche Ansätze für Image Colorization vorschlagen.
+Sie betrachten das Problem als ein Klassifizierungsproblem und trainieren eine CNN mit der Weighted Cross Entropy Loss. Der Output von dem Netzwerk ist 
+eine Wahrscheinlichkeitsverteilung über die mögliche Farben für jeden Pixel. Außerdem wird der Loss während des Trainings gewichtet um seltene 
+Farben zu bevorzugen.
+\\
+\\
+Beide Ansätze verwenden ``Color \gls{bin}s'' die es unkompliziert ermöglichen das CNN mit der Weighted Cross Entropy Loss zu Trainieren. 
+Es wird im nächsten Kapitel weiter auf diese Methode eingegangen.
