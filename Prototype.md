@@ -14,7 +14,7 @@
 ## Loss and optimizer
 
 * L2 regression loss for performance purposes
-* Cross-entropy loss for classification wiht bins
+* Cross-entropy loss for classification with bins
 
 * Adam optimizer with LearningRate decay when loss plateus
 
