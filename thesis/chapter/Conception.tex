@@ -6,10 +6,11 @@ präsentiert.
 \section{Image Colorization als Multimodales Problem}
 Konventionelle automatische Methoden zielen darauf ab, die Farben für ein generiertes Bild so nah wie möglich an das Originale Bild vorherzusagen.
 Diese Methoden verwenden ein MSE Loss der Vorhersagen die Weit von den Originalen Farbwerte entfernt liegen, stärker bestraft, als Farbwerte
-die dichter an den Originalen Farbwerte liegen. Das führt, wie bei \label{subsection:verwandte-arbeiten} beschrieben, zu entsättigte Bilder.
+die dichter an den Originalen Farbwerte liegen. Das führt, wie bei \ref{subsection:verwandte-arbeiten} beschrieben, zu entsättigte Bilder.
 Die Gründe für diese Ergebnisse ist dass verschiedene Objekte, verschiedene Farben einnehmen können. Aus diesem Grund, behandelt die vorliegende
 Arbeit das Problem als ein Multimodales Problem.
 
+% TODO: finish this
 \section{Farbraum}
 Der Standard Farbraum der Bilder für die Methoden dieser Arbeit ist der RGB-Farbraum. Bei diesem Farbraum lässt sich schwer das Graustufen Bild 
 von den Farbkanäle zu trennen, daher wird der Lab-Farbraum verwendet.
@@ -19,6 +20,29 @@ Bei den Lab-Farbraum können ohne Probleme die Farbkanäle ``ab'' von den Belich
 enthält das Graustufenbild die in den CNN eingespeist wird. Das generierte Bild wird für die Darstellung von dem Lab-Farbraum in den RGB-Farbraum 
 konvertiert.
 
+\begin{figure}[H]
+  \vspace{1cm}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.5\textwidth]{resources/colorspace/image.jpg}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.5\textwidth]{resources/colorspace/grayscale.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.5\textwidth]{resources/colorspace/a_channel.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.5\textwidth]{resources/colorspace/b_channel.png}
+  \end{subfigure}
+  \caption{Originales Bild oben links, den Belichtungskanal ``L'' oben rechts, unten links den Farbkanal ``a'' und unten rechts den Farbkanal ``b''.}
+  \label{fig:fig}
+\end{figure}
+
+% TODO: maybe new image
 \section{Binning}
 Binning ist eine Technik, die für die Bildverarbeitung verwendet wird. Binning wird, in dem Kontext von Image Colorization, als Eingruppierung 
 von naheliegenden Farben definiert. Die Farben werden in gleich große Intervalle aufgeteilt. Diese Intervalle bezeichnet man im Englischen als
@@ -34,7 +58,7 @@ symbolisiert den Index auf dem \gls{grid}, die untere Zahl symbolisiert den Bin 
   \centering
   \includegraphics[width=0.55\textwidth]{resources/bins/bins.jpg}
   \caption{
-    \gls{grid} mit 36 bins. Die x-Achse bildet die Werte von dem Farbkanal ``a'' und die y-Achse die Werte von den Farbkanal ``b'' ab.
+  \gls{grid} mit 36 bins. Die x-Achse bildet die Werte von dem Farbkanal ``a'' und die y-Achse die Werte von den Farbkanal ``b'' ab.
   }
   \label{image:bins}
 \end{figure}
