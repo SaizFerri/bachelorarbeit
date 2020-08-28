@@ -67,7 +67,31 @@ Für die Methoden dieser Arbeit wurden nur symmetrische \gls{grid}s verwendet, s
 ein $18 \times 18$ Grid 324 Bins.
 
 \section{Netzwerkarchitektur}
-TODO
+Die Netzwerkarchitektur ist ein wichtiger Faktor dass u.a. die Ergebnisse beeinträchtigen kann. Wichtig um die Methoden zu vergleichen ist ein
+leichtes Netz der wenige Parameter besitzt, schnell zu trainieren ist und gute Ergebnisse liefert.
+\\
+\\
+Das Ziel von dem Netzwerk ist es, ein Graustufenbild als Input zu bekommen und eine Klasse (Bin) für jeden Pixel vorherzusagen. Das Output Volumen
+hat die Dimensionen $ W_{Input} \times H_{Input} \times 1 $, wobei $W$ und $H$ die Breite und Höhe von dem Graustufenbild sind, mit einem Bin Index 
+bei jedem Pixel. Dieser Ansatz ist auch bei Image Segmentation Probleme genutzt, wo ein Bild in das Netzwerk einspeist wird und als Output, wird 
+ein Segmentation map, mit eine Klasse per Pixel, erzeugt. In der Regel hat jeder Klasse eine bestimmte Farbe und dadurch werden Objekte klassifiziert 
+und getrennt. In dem Fall von Image Colorization bekommt jeder Pixel in dem Output Volumen eine Klasse (Bin) die nach der Vorhersage in 
+einer Farbe umgewandelt wird.
+\\
+\\
+Die Methode dieser Arbeit verwendet eine angepasste Version von einem U-Net Convolutional Neural Network \cite{ronneberger2015unet}. Ein U-Net
+wird bei Image Segmentation angewendet und ist einer Art Autoencoder mit Skip Connections. Im vergleich zu Konventionelle Autoencoder, können
+der Encoder und Decoder nicht getrennt voneinander verwendet werden und bei dem Decoder werden Transposed Convolutions, als Upsampling 
+Methode, verwendet. Das U-Net verfügt außerdem über Skip Connections die ermöglichen fein-granuläre Details in dem Output Volumen zu 
+wiederherstellen und helfen mit dem Vanishing Gradient Problem in Backpropagation. Skip Connections konkatenieren bestimmte Layers von dem
+Encoder mit Layers von dem Decoder, mit der gleichen Dimensionen.
+\\
+\\
+Für dieser Arbeit wurden 2 U-Nets mit verschiedene Größen verwendet. Ein U-Net für $ 32 \times 32 $ Bilder und ein U-Net für $ 128 \times 128 $ 
+Bilder. Außerdem wurde das U-Net für $ 32 \times 32 $ Bilder angepasst damit es mit ein MSE Loss verwendet werden kann. Bei der Anpassung wurde
+der Output Volumen zu $ W_{Input} \times H_{Input} \times 2 $ geändert, wobei das Netzwerk direkt die Werte für die ``ab'' Farbkanäle vorhersagt.
+Bei der Verwendung von einem MSE Loss wird Binning nicht verwendet.
+
 \section{Datensätze}
 TODO
 \section{Framework}
