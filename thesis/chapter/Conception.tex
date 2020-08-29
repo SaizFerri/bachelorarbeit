@@ -107,9 +107,11 @@ Skip Connections konkatenieren ConvBlocks aus dem Encoder mit den Transposed Con
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.75\textwidth]{resources/networks/unet.png}
+  \includegraphics[width=0.85\textwidth]{resources/networks/unet.png}
   \caption{
-    U-net Architektur
+    U-net Architektur (Beispiel für $32 \times 32$ Pixels in der niedrigste Auflösung). Jeder blaue Box entspricht ein multi-Kanal Feature Map.
+    Die Tiefe der Feature Maps ist gekennzeichnet durch die Zahl über die Box. Die Breite und Höhe ist durch die Zahl unten links erkennbar.
+    Die weiße Boxen repräsentieren die kopierte Feature Maps. Die Pfeile bestimmen die verschiedene Operationen.
     \cite{ronneberger2015unet}
   }
   \label{image:unet}
