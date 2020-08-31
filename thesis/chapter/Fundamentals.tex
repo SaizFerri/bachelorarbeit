@@ -466,7 +466,7 @@ Der Decoder ist zuständig für die Rekonstruktion von $x$ anhand $h$ und ist de
 
 wobei, $\hat{x}$ der rekonstruierte Input ist, $g$ der Decoder und $h$ die Kodierten Features sind.
 
-In der vorliegende Arbeit werden Autoencoders basierend auf Convolutional Neural Networks eingesetzt.
+In der vorliegende Arbeit wird einer Variante von Autoencoders, basierend auf Convolutional Neural Networks, eingesetzt.
 
 \section{\textit{Lab}-Farbraum} 
 Der \textit{Lab}-Farbraum (auch CIELAB-Farbraum genannt) ist ein Farbraum definiert bei der Internationale
@@ -491,10 +491,11 @@ für diese Ergebnissen ist dass die Modelle nicht richtig lernen. Zum Beispiel, 
 Netzwerk mit einem MSE Loss trainiert wird, wird der Output bei einem Apfel eine Farbe zwischen Rot und Grün sein, was ein entsättigtes Bild erzeugen wird.
 \\
 \\
-Aus diesem Grund ist das Problem von Image Colorization ein Multimodales Problem, da gleiche Objekte verschiedene Farbe haben können.
+Aus diesem Grund betrachtet die vorliegende Arbeit das Problem von Image Colorization als ein Multimodales Problem, da gleiche Objekte verschiedene Farbe 
+einnehmen können.
 Die vorliegende Arbeit orientiert sich auf die Methoden von Zhang et al. und Billaut et al., die ähnliche Ansätze für Image Colorization vorschlagen.
 Sie betrachten das Problem als ein Klassifizierungsproblem und trainieren eine CNN mit der Weighted Cross Entropy Loss. Der Output von dem Netzwerk ist 
-eine Wahrscheinlichkeitsverteilung über die mögliche Farben für jeden Pixel. Außerdem wird der Loss während des Trainings gewichtet um seltene 
+eine Wahrscheinlichkeitsverteilung über die mögliche Bins, die im Kapitel \ref{section:binning} erläutert werden, für jeden Pixel. Außerdem wird der Loss während des Trainings gewichtet um seltene 
 Farben zu bevorzugen.
 \\
 \\

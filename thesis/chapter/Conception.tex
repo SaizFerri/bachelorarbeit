@@ -39,11 +39,11 @@ konvertiert.
     \includegraphics[width=.5\textwidth]{resources/colorspace/b_channel.png}
   \end{subfigure}
   \caption{Originales Bild oben links, den Belichtungskanal ``L'' oben rechts, unten links den Farbkanal ``a'' und unten rechts den Farbkanal ``b''.}
-  \label{fig:fig}
+  \label{image:farbraum}
 \end{figure}
 
 % TODO: maybe new image
-\section{Binning}
+\section{Binning}\label{section:binning}
 Binning ist eine Technik, die für die Bildverarbeitung verwendet wird. Binning wird, in dem Kontext von Image Colorization, als Eingruppierung 
 von naheliegenden Farben definiert. Die Farben werden in gleich große Intervalle aufgeteilt. Diese Intervalle bezeichnet man im Englischen als
 ``\gls{bin}s''. Jedes dieser Intervalle wird durch einen \gls{bin} Index repräsentiert, somit reduziert sich die Anzahl der Klassen die vorhergesagt werden
@@ -68,7 +68,8 @@ ein $18 \times 18$ Grid 324 Bins.
 
 \section{Netzwerkarchitektur}
 Die Netzwerkarchitektur ist ein wichtiger Faktor dass u.a. die Ergebnisse beeinträchtigen kann. Wichtig um die Methoden zu vergleichen ist ein
-leichtes Netzwerk der wenige Parameter besitzt, schnell zu trainieren ist und gute Ergebnisse liefert.
+leichtes Netzwerk der wenige Parameter besitzt, schnell zu trainieren ist und gute Ergebnisse liefert. Da mit Bildern gearbeitet wird, eignen sich
+besonders gut Convolutional Neural Networks.
 \\
 \\
 Das Ziel von dem Netzwerk ist es, ein Graustufenbild als Input zu bekommen und eine Wahrscheinlichkeitsverteilung über alle Bins per Pixel vorherzusagen.
@@ -105,6 +106,7 @@ von einem Pooling Layer die die Dimensionen von dem Volumen verringern. Der Deco
 die die Dimensionen von dem Volumen wieder vergrößern. Das letzte Layer ist eine $1 \times 1$ Convolutional Layer die das Output Volumen generiert.
 Skip Connections konkatenieren ConvBlocks aus dem Encoder mit den Transposed Convolutions aus dem Decoder, die die gleiche Dimensionen haben.
 
+% TODO: maybe change image
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.85\textwidth]{resources/networks/unet.png}
@@ -117,8 +119,72 @@ Skip Connections konkatenieren ConvBlocks aus dem Encoder mit den Transposed Con
   \label{image:unet}
 \end{figure}
 
-
 \section{Datensätze}
+Um das Netzwerk zu trainieren werden bedeutsame Bilder gebraucht. Ein Vorteil von Image Colorization ist, dass jedes Bild für das Trainieren
+verwendet werden kann, da nur die Graustufen Version davon gebraucht wird.
+
+Um die Methode zu prüfen werden 3 Datensätze benutzt, die verschiedene Auflösungen und Themen beinhalten.
+
+Als erstes wird ein Spiel–Datensatz von $ 32 \times 32 $ Bilder generiert. Dieser setzt sich aus 3 geometrischen Objekten und 3 Farben pro
+Objekt zusammen. Die geometrischen Objekte sind ein Rechteck, ein Kreis und ein Dreieck pro Bild, die jeweils in eine der 3 Farben eingefärbt sind.
+Die Bilder haben einen einheitlichen schwarzen Hintergrund.
+
+\begin{figure}[H]
+  \centering
+  \vspace{1cm}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.15\textwidth]{resources/dataset/dummy/circle21.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.15\textwidth]{resources/dataset/dummy/circle68.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.15\textwidth]{resources/dataset/dummy/circle71.png}
+  \end{subfigure}
+
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.15\textwidth]{resources/dataset/dummy/rectangle32.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.15\textwidth]{resources/dataset/dummy/rectangle46.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.15\textwidth]{resources/dataset/dummy/rectangle66.png}
+  \end{subfigure}
+
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.15\textwidth]{resources/dataset/dummy/triangle41.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.15\textwidth]{resources/dataset/dummy/triangle49.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.15\textwidth]{resources/dataset/dummy/triangle51.png}
+  \end{subfigure}
+  \caption{Beispiel von Trainingsbildern mit einer der möglichen Farbe pro Klasse}
+  \label{image:dummy}
+\end{figure}
+
+Der Datensatz besteht aus 2664 Bilder für das Training und 324 Bilder für das Testen.
+Dieser Datensatz dient als Beweis für die Methode und hilft bei der Entwicklung und Optimierung des Netzwerks.
+\\
+\\
+Als zweites werden einige Klassen des CIFAR-100\footnote{https://www.cs.toronto.edu/~kriz/cifar.html} Datensatzes verwendet. CIFAR-100 wurde von Krizhevsky et al.
+erstellt. Der Datensatz setzt sich aus 100 Klassen mit jeweils 600 Bildern pro Klasse, außerdem sind die 100 Klassen in 20 Superklassen grupiert.
+Es werden 50000 Bilder für das Training und 10000 Bilder für das Testen verwendet.
+Einige Beispiele für Klassen sind z.B. ``apples'', ``palm'' oder ``bee''. Die Bildern haben ebenfalls einer Auflösung von $ 32 \times 32 $.
+
+% TODO: erklären wieso nur ein teil von dem Datensatz verwendet wurde
+
 \section{Data Argumentation}
 TODO
 \section{Framework}
