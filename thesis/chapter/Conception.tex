@@ -178,13 +178,23 @@ Der Datensatz besteht aus 2664 Bilder für das Training und 324 Bilder für das 
 Dieser Datensatz dient als Beweis für die Methode und hilft bei der Entwicklung und Optimierung des Netzwerks.
 \\
 \\
-Als zweites werden einige Klassen des CIFAR-100\footnote{https://www.cs.toronto.edu/~kriz/cifar.html} Datensatzes verwendet. CIFAR-100 wurde von Krizhevsky et al.
-erstellt. Der Datensatz setzt sich aus 100 Klassen mit jeweils 600 Bildern pro Klasse, außerdem sind die 100 Klassen in 20 Superklassen grupiert.
-Es werden 50000 Bilder für das Training und 10000 Bilder für das Testen verwendet.
+Als zweites werden einige Klassen des CIFAR-100\footnote{https://www.cs.toronto.edu/~kriz/cifar.html} Datensatzes verwendet. CIFAR-100 wurde von
+Krizhevsky et al. erstellt. Der Datensatz setzt sich aus 100 Klassen mit jeweils 600 Bildern pro Klasse, außerdem sind die 100 Klassen
+in 20 Superklassen grupiert. Es werden 50000 Bilder für das Training und 10000 Bilder für das Testen verwendet.
 Einige Beispiele für Klassen sind z.B. ``apples'', ``palm'' oder ``bee''. Die Bildern haben ebenfalls einer Auflösung von $ 32 \times 32 $.
 
-% TODO: erklären wieso nur ein teil von dem Datensatz verwendet wurde
+Da ein Model von Null auf zu trainieren, die jedes Objekt auf dem CIFAR-100 Datensatz richtig erkennt und einfärbt, sehr aufwendig wäre, werden
+nur bestimmte Klassen für das Training verwendet. Diese Klassen sind: apple, sunflower, cloud, oak\_tree, mountain, forest, palm\_tree und plain.
+Alle Klassen haben Gemeinsamkeiten, was das erlernen von Merkmale erleichtert im Vergleich zu einem sehr allgemeinen Datensatz.
+\\
+\\
+Abschließend wird ein komplexeres und hochauflösendes Datensatz verwendet. Das Thema von dem Datensatz ist Natur. Ziel damit ist, ein Netzwerk zu
+trainieren das Bilder aus Natur einfärben kann. Dieser besteht aus Komplette und Teile von Datensätze aus 
+Kaggle\footnote{\url{https://www.kaggle.com/}} und GitHub\footnote{\url{https://github.com/}}. Das Datensatz besteht aus 8 Klassen und hat insgesamt
+13363 Bilder, 10945 für das Training und 2409 für das Testen. Alle Bilder werden auf $ 128 \times 128 $ angepasst um die Trainingszeit möglichst
+gering zu halten.
 
-\section{Data Argumentation}
-TODO
+\section{Data Preprocessing und Argumentation}
+% TODO: Preprocessing und argumentation erklären
+
 \section{Framework}
