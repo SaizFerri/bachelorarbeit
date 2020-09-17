@@ -188,13 +188,40 @@ nur bestimmte Klassen für das Training verwendet. Diese Klassen sind: apple, su
 Alle Klassen haben Gemeinsamkeiten, was das erlernen von Merkmale erleichtert im Vergleich zu einem sehr allgemeinen Datensatz.
 \\
 \\
-Abschließend wird ein komplexeres und hochauflösendes Datensatz verwendet. Das Thema von dem Datensatz ist Natur. Ziel damit ist, ein Netzwerk zu
-trainieren das Bilder aus Natur einfärben kann. Dieser besteht aus Komplette und Teile von Datensätze aus 
-Kaggle\footnote{\url{https://www.kaggle.com/}} und GitHub\footnote{\url{https://github.com/}}. Das Datensatz besteht aus 8 Klassen und hat insgesamt
-13363 Bilder, 10945 für das Training und 2409 für das Testen. Alle Bilder werden auf $ 128 \times 128 $ angepasst um die Trainingszeit möglichst
-gering zu halten.
+Abschließend wird ein komplexeres und hochauflösendes Datensatz verwendet, dass Naturbezogene Bilder enthält. Ziel damit ist, ein Netzwerk zu
+trainieren das Bilder aus Natur einfärben kann. Dieser besteht 3 Datensätze aus 
+Kaggle\footnote{\url{https://www.kaggle.com/}} und GitHub\footnote{\url{https://github.com/}}. 
+Das erste ist das ``Landscape Pictures''\footnote{https://www.kaggle.com/arnaud58/landscape-pictures} Datensatz von Arnaud Rougetet, von diesem
+Datensatz werden alle Bilder verwendet. Das zweite Datensatz ist das 
+``Landscape Classification''\footnote{https://www.kaggle.com/huseynguliyev/landscape-classification?} von Huseyb Guliyev, hiervon werden nur
+die Klassen \textit{forest}, \textit{glacier}, \textit{mountain} und \textit{sea} verwendet. Das letzte Datensatz ist das ``Landscapes dataset''
+\footnote{https://github.com/ml5js/ml5-data-and-models/tree/master/datasets/images/landscapes} von ml5js auf GitHub. Von diesem Datensatz wurden
+die Klassen \textit{field}, \textit{forest}, \textit{lake}, \textit{mountain} und \textit{road} verwendet.
+\\
+Das fertige Datensatz besteht aus 8 Klassen und hat insgesamt
+13363 Bilder, 10945 für das Training und 2409 für das Testen. Die 8 Klassen sind: \textit{field}, \textit{forest}, \textit{glacier}, 
+\textit{lake}, \textit{mountain}, \textit{road}, \textit{sea} und ``ohne Kategorie''. 
+Die Klasse ``ohne Kategorie'' beinhaltet die Bilder aus dem ``Landscape Pictures'' Datensatz. Die Klassen sind für das Training und 
+die Methode nicht relevant, da jedes Pixel in Bins klassifiziert wird.
 
 \section{Data Preprocessing und Argumentation}
-% TODO: Preprocessing und argumentation erklären
+Für das optimale Training und Ergebnisse werden die Bilder vorverarbeitet. Außerdem werden Techniken von Image Argumentation angewendet.
+Das Spiel–Datensatz und die 8 Klassen von CIFAR-100 werden für das Training mit einer Wahrscheinlichkeit von 50\% horizontal gespiegelt.
+\\
+Da das hochauflösendes Datensatz, Bilder mit verschiedene Auflösungen beinhaltet, werden alle zufällig auf $ 128 \times 128 $ angepasst. Das 
+reduziert die Trainingszeit und die Komplexität von dem Datensatz. Für das Training werden die Bilder von diesem Datensatz gleichermaßen mit einer 
+Wahrscheinlichkeit von 50\% horizontal gespiegelt. Für die Evaluierung werden die Bilder ebenfalls auf $ 128 \times 128 $ angepasst.
 
-\section{Framework}
+\section{Tools}
+Um die Methode zu realisieren werden einige Tools angewendet. Für die Implementierung wird das Framework 
+PyTorch\footnote{https://pytorch.org/} angewendet. PyTorch ist ein Open-Source Framework basierend auf Python für Maschine Learning und 
+Deep Learning. Es wurde von das Facebook AI Research Team entwickelt und erschien im Jahr 2016. Zum Zeitpunkt der Verfassung dieser Arbeit ist 
+die Version 1.6.0 die aktuellste. Für die Farbraum Konvertierung wird das ``scikit-image'' Bibliothek eingesetzt.
+\\
+Das Trainieren von den Modellen wird, wegen den hohen Rechenaufwands, auf zwei verschiedene Plattformen durchgeführt. Die Modelle mit den
+$32 \times 32$ Bildern werden auf Google Colab\footnote{https://colab.research.google.com/} trainiert. Google Colab ist eine Plattform von 
+Google, die es ermöglicht, Experimente im Browser mit einer Hochleistungsgrafikkarte umzusetzen. Für das Modell mit den $128 \times 128$ Bildern
+wird das Curious Containers (CC) Framework\footnote{https://www.curious-containers.cc/} benutzt. Curious Containers ermöglicht eine 
+gleichzeitige Durchführung von verschiedene Experimente in einem Cluster von Hochleistungsrechner.
+
+
