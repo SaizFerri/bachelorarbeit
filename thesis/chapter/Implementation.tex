@@ -1,16 +1,57 @@
 \chapter{Implementierung}
-% \label{cha:implmentation}
-% Code Biespiel and Referenze: Code \ref{lst:tf_graph_save}. Nicht geeignet für große Code Biespiele. Verwenden Sie hierfür dne Anhang. Lediglich sehr relevante Kurzzeiler können auf diese Weise dargestellt werden. 
+In diesem Kapitel wird die Implementierung der Methode näher erläutert. Bei der Implementierung werden alle Konzepte aus dem
+Kapitel Konzeption angewendet.
+
+% \section{Spiel-Datensatz}
+% Für die Erstellung des Spiel-Datensatzes würde die Bibliothek ``Matplotlib''\footnote{https://matplotlib.org/} verwendet.
+
 % \begin{lstlisting}[caption={Klasse Agent - Tensorflow Graph}, captionpos=b, label={lst:tf_graph_save}]
-% from keras import backend as k
-% ...
-% def __init__(...):
-% 	...
-% 	self.graph = k.get_session().graph
-% 	...
+%   COLORS = [(236, 245, 66), (141, 245, 66), (245, 69, 66)]
+
+%   for i in range(RANGE):
+%     image = Image.new('RGB', (32, 32), 'black')
+%     idx = np.random.randint(3)
+%     x1 = np.random.randint(32)
+%     y1 = np.random.randint(32)
+%     x2 = np.random.randint(32)
+%     y2 = np.random.randint(32)
+  
+%     draw = ImageDraw.Draw(image)
+%     draw.rectangle((x1, y1, x2, y2), fill=COLORS[idx])
 % \end{lstlisting}
 
-TODO
+\section{Binning}
+Das Binning ist eine wichtige Komponente der Methode, dass mit Hilfe der ``numpy'' Bibliothek implementiert wurde. Als erstes wird, 
+anhand der Anzahl von Bins ($n\_bins$), die Breite ($B$) und Höhe ($H$) von dem Raster mit Hilfe der Würzel berechnet. 
+Es wird angenommen dass $B = H$.
+Nachdem die Breite des Rasters berechnet wurde, wird der Intervall von $[0, 1]$ in $B$ gleich große Intervalle aufgeteilt. Als nächstes
+wird mit Hilfe der \textit{digitize} Funktion, der Intervall Index der $a, b$ Werte von jedem Pixel kalkuliert. Abschließend werden beide Indices
+zu einem Index auf dem Raster umgewandelt.
+\\
+
+\begin{lstlisting}[caption={Binning eines normalisierten Lab Bildes}]
+  # a, b sind die Farbkanäle
+  def calculate_bin(a, b, width):
+    return (width * b) + a
+
+  def encode_bins(ab_image, n_bins):
+    B = np.sqrt(n_bins).astype(int)
+
+    # Intervall in gleich große Intervalle aufteilen
+    interval = np.linspace(0, 1, B+1)
+
+    # Indices für jeweils a, b Kanäle berechnen
+    indices = np.digitize(ab_image, interval) - 1
+
+    # Bin Index berechnen
+    bins = np.vectorize(calculate_bin)(indices[:,:,0], indices[:,:,1], B)
+
+    return bins
+\end{lstlisting}
+
+\section{Datensatz}
+Das Datensatz
+
 \section{U-Net}
 Für dieser Arbeit wurden 2 U-Nets mit verschiedene Größen verwendet. Ein U-Net für $ 32 \times 32 $ Bilder und ein U-Net für $ 128 \times 128 $ 
 Bilder. Außerdem wurde das U-Net für $ 32 \times 32 $ Bilder angepasst damit es mit ein MSE Loss verwendet werden kann. Bei der Anpassung wurde
