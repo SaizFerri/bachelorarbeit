@@ -93,7 +93,7 @@ Dieser Netzwerkarchitektur ist sehr schwer für die GPU\footnote{Graphics Proces
 Aus diesem Grund richtet sich die Netzwerkarchitektur dieser Arbeit nach der Netzwerkarchitektur von Billaut et al. \cite{billaut2018colorunet}. 
 Sie verwenden eine angepasste Version von einem U-net Convolutional Neural Network \cite{ronneberger2015unet}. 
 
-\subsection{U-net}
+\subsection{U-net}\label{section:u-net}
 Ein U-net wird häufig bei Image Segmentation angewendet und ist einer Art Autoencoder mit Skip Connections. Im vergleich zu konventionelle Autoencoder, können
 der Encoder und Decoder nicht getrennt voneinander verwendet werden und bei dem Decoder werden Transposed Convolutions, als Upsampling 
 Methode, verwendet. Das U-net verfügt außerdem über Skip Connections die ermöglichen fein-granuläre Details in dem Output Volumen zu 
@@ -102,7 +102,7 @@ Encoder mit Layers von dem Decoder, mit der gleichen Dimensionen.
 \\
 \\
 Ein U-net besteht, wie einem Autoencoder, aus einem Encoder und Decoder Teil. Der Encoder besteht aus sogenannten ``ConvBlocks''. ConvBlocks
-bestehen aus 2 Convolutional Layers gefolgt von 2 Batch Normalisation Layers und ReLU als Aktivierungsfunktion. Die ConvBlocks werden gefolgt
+bestehen aus 2 Convolutional Layers gefolgt von ReLU und Batch Normalisation. Die ConvBlocks werden gefolgt
 von einem Pooling Layer die die Dimensionen von dem Volumen verringern. Der Decoder besteht aus ConvBlocks gefolgt von Transposed Convolutions
 die die Dimensionen von dem Volumen wieder vergrößern. Das letzte Layer ist eine $1 \times 1$ Convolutional Layer die das Output Volumen generiert.
 Skip Connections konkatenieren ConvBlocks aus dem Encoder mit den Transposed Convolutions aus dem Decoder, die die gleiche Dimensionen haben.

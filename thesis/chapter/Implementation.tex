@@ -69,7 +69,8 @@ Bei der Verwendung von einem MSE Loss wird Binning nicht verwendet.
 Das Kernstück eines U-Nets ist der sogenannte ConvBlock. Ein ConvBlock beinhaltet zwei hintereinander geschaltete Blöcke, die wiederrum
 aus einer Convolutional Layer mit $3 \times 3$ Filtern und Stride 1, gefolgt von ReLU und Batch Normalisation bestehen. 
 Die Convolutional Layers verwenden Padding um die Dimensionen von dem Input nicht zu verändern. Die Layers wurden mit den PyTorch 
-Klassen \textit{Conv2d}, \textit{BatchNorm2d} und die Funktion \textit{relu} implementiert.
+Klassen \textit{Conv2d}, \textit{BatchNorm2d} und die Funktion \textit{relu} implementiert. Das ConvBlock wird mit einer Klasse implementiert
+die wiederrum von der Oberklasse \textit{torch.nn.Module} erbt.
 
 \begin{figure}[H]
   \centering
@@ -81,13 +82,21 @@ Klassen \textit{Conv2d}, \textit{BatchNorm2d} und die Funktion \textit{relu} imp
 \end{figure}
 
 \subsection{U-Net}
-Das U-Net für $32 \times 32$ Bilder besteht aus einem Encoder mit drei ConvBlocks. Die ersten zwei ConvBlocks werden von einem Pooling Layer
-mit einem $2 \times 2$ Filter und Stride 2 gefolgt, um die Dimensionen zu halbieren. 
-Der erste ConvBlock beinhaltet 16 Filter die nach jedem Pooling Layer verdoppelt werden. Die Dimensionen von den Feature Maps in der letzte
-Layer des Encoders beträgt $8 \times 8 \times 64$. Der Decoder besteht aus zwei Transposed Convolutions mit $3 \times 3$ Filtern, Stride 2 und 
-Padding 1 die die Dimensionen von den Feature Maps verdoppeln. Die Transposed Convolutions werden jeweils von einem ConvBlock gefolgt, das die
-Anzahl der Filter halbiert. Das letzte Layer ist eine Convolutional Layer mit $1 \times 1$ Filtern, Stride 1 und Padding 0, das die 
+Das U-Net wird mit den Spezifikationen aus \ref{section:u-net} implementiert. Dies geschieht mit einer Klasse die von der Oberklasse
+\textit{torch.nn.Module} erbt. Das U-Net verwendet neben den ConvBlocks, Pooling Layers mit einem Filter von $2 \times 2$ Filter und Stride 2
+um die Dimensionen in den Encoder zu halbieren. Die kleinste Dimensionen bei dem Encoder sind $8 \times 8$ für $32 \times 32$ Bilder und 
+$32 \times 32$ für $128 \times 128$ Bilder. Den Decoder verwendet ebenfalls neben den ConvBlocks, Transposed Convolutions mit $3 \times 3$ 
+Filtern, Stride 2 und Padding 1 die die Dimensionen von den Feature Maps verdoppeln. Das letzte Layer ist eine Convolutional Layer mit $1 \times 1$ Filtern, Stride 1 und Padding 0, das die 
 Wahrscheinlichkeitsverteilung pro Pixel generiert. Die ersten zwei ConvBlocks aus dem Decoder werden jeweils mit den 2 Transposed Convolutions
-aus dem Decoder konkateniert.
+aus dem Decoder konkateniert. Es werden zwei verschiedene Große U-Nets implementiert, eins für $32 \times 32$ Bilder und eins für 
+$128 \times 128$ Bilder.
+% Das U-Net für $32 \times 32$ Bilder besteht aus einem Encoder mit drei ConvBlocks. Die ersten zwei ConvBlocks werden von einem Pooling Layer
+% mit einem $2 \times 2$ Filter und Stride 2 gefolgt, um die Dimensionen zu halbieren. 
+% Der erste ConvBlock beinhaltet 16 Filter die nach jedem Pooling Layer verdoppelt werden. Die Dimensionen von den Feature Maps in der letzte
+% Layer des Encoders beträgt $8 \times 8 \times 64$. Der Decoder besteht aus zwei Transposed Convolutions mit $3 \times 3$ Filtern, Stride 2 und 
+% Padding 1 die die Dimensionen von den Feature Maps verdoppeln. Die Transposed Convolutions werden jeweils von einem ConvBlock gefolgt, das die
+% Anzahl der Filter halbiert. Das letzte Layer ist eine Convolutional Layer mit $1 \times 1$ Filtern, Stride 1 und Padding 0, das die 
+% Wahrscheinlichkeitsverteilung pro Pixel generiert. Die ersten zwei ConvBlocks aus dem Decoder werden jeweils mit den 2 Transposed Convolutions
+% aus dem Decoder konkateniert.
 % \section{Beispiel Unterkapitel}
 % TODO
