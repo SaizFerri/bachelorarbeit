@@ -41,3 +41,4 @@
 # BibTeX
 *.bbl
 *.blg
+thesis/_minted-main/*

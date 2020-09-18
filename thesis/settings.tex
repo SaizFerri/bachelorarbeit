@@ -8,9 +8,6 @@
 % Ränder bei Bedarf zeigen
 %\usepackage{showframe}
 
-%Tweaks für scrbook
-\usepackage{scrhack}
-
 %Blindtext
 \usepackage{blindtext}
 
@@ -75,6 +72,8 @@
 %Erlaubt Seitenumbrüche mit Tabellen
 \usepackage{longtable}
 
+\usepackage{minted}
+
 %Erlaubt die Darstellung von Sourcecode mit Highlighting
 \usepackage{listings}
 
@@ -92,6 +91,9 @@
 
 %Grafik bestehend aus mehreren Grafiken
 \usepackage{subfigure}
+
+%Tweaks für scrbook
+\usepackage{scrhack}
 
 %Ermöglicht Verknüpfungen innerhalb des Dokumentes (e.g. for PDF), Links werden durch "hidelink" nicht explizit hervorgehoben
 \usepackage[hidelinks,ngerman]{hyperref}
@@ -156,6 +158,8 @@
 	breaklines=true,
 	breakatwhitespace=true
 }
+
+\setminted{xleftmargin=20pt,linenos,breaklines,fontsize=\footnotesize}
 
 %Anpassungen für das Abkürzungsverzeichnis
 \newglossarystyle{dottedlocations}{%

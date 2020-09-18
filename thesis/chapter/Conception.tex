@@ -52,11 +52,12 @@ können.
 Als Beispiel für die Veranschaulichung wird der normalisierte Lab-Farbraum in 36 gleich große \gls{bin}s unterteilt. Da die Farbinformationen 
 in den ``ab'' Farbkanäle kodiert sind, werden nur diese 2 Farbkanäle in \gls{bin}s klassifiziert. Auf dem Bild \ref{image:bins} ist der Farbkanal 
 ``a'' auf der x-Achse und der ``b'' Farbkanal auf der y-Achse abgebildet. Die Vierecke repräsentieren die \gls{bin}s. Die obere Zahl in den Bins 
-symbolisiert den Index auf dem \gls{grid}, die untere Zahl symbolisiert den Bin Index. Der Index auf den \gls{grid} ist Bedeutsam für die Berechnung der Bins.
+symbolisiert die $xy$ Koordinaten auf dem \gls{grid}, die untere unterstrichene Zahl symbolisiert den Bin Index. 
+Die $xy$ Koordinaten \gls{grid} sind Bedeutsam für die Berechnung der Bins.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.55\textwidth]{resources/bins/bins.jpg}
+  \includegraphics[width=0.65\textwidth]{resources/bins/bins.jpg}
   \caption{
   \gls{grid} mit 36 bins. Die x-Achse bildet die Werte von dem Farbkanal ``a'' und die y-Achse die Werte von den Farbkanal ``b'' ab.
   }
@@ -93,7 +94,7 @@ Aus diesem Grund richtet sich die Netzwerkarchitektur dieser Arbeit nach der Net
 Sie verwenden eine angepasste Version von einem U-net Convolutional Neural Network \cite{ronneberger2015unet}. 
 
 \subsection{U-net}
-Ein U-net wird bei Image Segmentation angewendet und ist einer Art Autoencoder mit Skip Connections. Im vergleich zu konventionelle Autoencoder, können
+Ein U-net wird häufig bei Image Segmentation angewendet und ist einer Art Autoencoder mit Skip Connections. Im vergleich zu konventionelle Autoencoder, können
 der Encoder und Decoder nicht getrennt voneinander verwendet werden und bei dem Decoder werden Transposed Convolutions, als Upsampling 
 Methode, verwendet. Das U-net verfügt außerdem über Skip Connections die ermöglichen fein-granuläre Details in dem Output Volumen zu 
 wiederherstellen und helfen mit dem Vanishing Gradient Problem in Backpropagation. Skip Connections konkatenieren bestimmte Layers von dem
@@ -178,13 +179,15 @@ Der Datensatz besteht aus 2664 Bilder für das Training und 324 Bilder für das 
 Dieser Datensatz dient als Beweis für die Methode und hilft bei der Entwicklung und Optimierung des Netzwerks.
 \\
 \\
-Als zweites werden einige Klassen des CIFAR-100\footnote{https://www.cs.toronto.edu/~kriz/cifar.html} Datensatzes verwendet. CIFAR-100 wurde von
-Krizhevsky et al. erstellt. Der Datensatz setzt sich aus 100 Klassen mit jeweils 600 Bildern pro Klasse, außerdem sind die 100 Klassen
-in 20 Superklassen grupiert. Es werden 50000 Bilder für das Training und 10000 Bilder für das Testen verwendet.
-Einige Beispiele für Klassen sind z.B. ``apples'', ``palm'' oder ``bee''. Die Bildern haben ebenfalls einer Auflösung von $ 32 \times 32 $.
+Als zweites werden einige Klassen des CIFAR-100\footnote{https://www.cs.toronto.edu/~kriz/cifar.html} Datensatzes verwendet. CIFAR-100 ist 
+ein öffentlich verfügbares Datensatz der von Krizhevsky et al. erstellt wurde. Der Datensatz setzt sich aus 100 Klassen mit jeweils 600 
+Bildern pro Klasse, außerdem sind die 100 Klassen in 20 Superklassen grupiert. Der Datensatz wird in 50000 Bilder für das Training und 
+10000 Bilder für das Testen aufgeteilt. Einige Beispiele für Klassen sind z.B. \textit{apples}, \textit{palm} oder \textit{bee}. 
+Die Bildern haben ebenfalls einer Auflösung von $ 32 \times 32 $.
 
 Da ein Model von Null auf zu trainieren, die jedes Objekt auf dem CIFAR-100 Datensatz richtig erkennt und einfärbt, sehr aufwendig wäre, werden
-nur bestimmte Klassen für das Training verwendet. Diese Klassen sind: apple, sunflower, cloud, oak\_tree, mountain, forest, palm\_tree und plain.
+nur bestimmte Klassen für das Training verwendet. Diese Klassen sind: \textit{apples}, \textit{sunflower}, \textit{cloud}, \textit{oak\_tree},
+\textit{mountain}, \textit{forest}, \textit{palm\_tree} und \textit{plain}.
 Alle Klassen haben Gemeinsamkeiten, was das erlernen von Merkmale erleichtert im Vergleich zu einem sehr allgemeinen Datensatz.
 \\
 \\
