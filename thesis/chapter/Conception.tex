@@ -1,6 +1,6 @@
 \chapter{Konzeption}
 % TODO: weiter schreiben
-Dieses Kapitel beinhaltet alle Schritte für die Konzeption der angewandte Methoden. Außerdem wird der Datensatz und die verwendete Frameworks 
+Dieses Kapitel beinhaltet alle Schritte für die Konzeption der angewandte Methoden. Außerdem wird der Datensatz und die verwendeten Tools 
 präsentiert.
 
 \section{Image Colorization als Multimodales Problem}
@@ -67,10 +67,16 @@ Die $xy$ Koordinaten \gls{grid} sind Bedeutsam für die Berechnung der Bins.
 Für die Methoden dieser Arbeit wurden nur symmetrische \gls{grid}s verwendet, so ergibt zum Beispiel ein $6 \times 6$ Grid 36 Bins und 
 ein $18 \times 18$ Grid 324 Bins.
 
+\subsection{Umwandlung von Bin zu Farbe}
+Die Umwandlung von Bin zu Farbe muss für die Ergebnisse von dem Netzwerk ebenfalls vorgegeben sein. Für dieses Problem werden vor dem 
+Training die Farben von jedem Pixel aus den Trainingsbildern in Bins klassifiziert. Diese Klassifikation verläuft separat für jeden Farbkanal.
+Anschließend wird der Modus und den Durchschnitt pro Farbkanal der unter jedem Bin klassifizierten Farben ausgerechnet. Zuletzt werden die Werte
+in zwei separate Dateien gespeichert.
+
 \section{Netzwerkarchitektur}
 Die Netzwerkarchitektur ist ein wichtiger Faktor dass u.a. die Ergebnisse beeinträchtigen kann. Wichtig um die Methoden zu vergleichen ist ein
 leichtes Netzwerk der wenige Parameter besitzt, schnell zu trainieren ist und gute Ergebnisse liefert. Da mit Bildern gearbeitet wird, eignen sich
-besonders gut Convolutional Neural Networks.
+Convolutional Neural Networks besonders gut.
 \\
 \\
 Das Ziel von dem Netzwerk ist es, ein Graustufenbild als Input zu bekommen und eine Wahrscheinlichkeitsverteilung über alle Bins per Pixel vorherzusagen.

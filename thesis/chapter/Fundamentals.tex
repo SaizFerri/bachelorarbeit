@@ -165,26 +165,26 @@ Im zweiten Schritt wird den Output von der vorherige Multiplikation mal die Gewi
 Eine Aktivierungsfunktion definiert die Aktivierungsrate von einem Neuron. Es gibt verschiedene Aktivierungsfunktionen:
 
 % TODO: Formeln mit nummerierung
-\subsubsection{Sigmoid}
-Sigmoid ist eine nicht lineare Funktion welche die Werte in einem Wertebereich von $ [0, 1] $ bringt.
-Große negative Werte werden annähernd 0 und große positive Werte werden annähernd 1. Sigmoid hat verschiedene Nachteile, es neigt dazu den Gradienten zu verschwinden
-und die Outputs sind nicht Null zentriert. Sigmoid ist definiert als:
+% \subsubsection{Sigmoid}
+% Sigmoid ist eine nicht lineare Funktion welche die Werte in einem Wertebereich von $ [0, 1] $ bringt.
+% Große negative Werte werden annähernd 0 und große positive Werte werden annähernd 1. Sigmoid hat verschiedene Nachteile, es neigt dazu den Gradienten zu verschwinden
+% und die Outputs sind nicht Null zentriert. Sigmoid ist definiert als:
 
-\begin{equation}
-  \sigma(x) = \frac{1}{1 + e^{-x}}
-\end{equation}
+% \begin{equation}
+%   \sigma(x) = \frac{1}{1 + e^{-x}}
+% \end{equation}
 
-wobei $x$ einem Input ist.
+% wobei $x$ einem Input ist.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.65\textwidth]{resources/nn/sigmoid.png}
-  \caption{
-    Sigmoid Aktivierungsfunktion 
-    \cite{neuron-model}
-  }
-  \label{image:sigmoid}
-\end{figure}
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.65\textwidth]{resources/nn/sigmoid.png}
+%   \caption{
+%     Sigmoid Aktivierungsfunktion 
+%     \cite{neuron-model}
+%   }
+%   \label{image:sigmoid}
+% \end{figure}
 
 % \subsubsection{Tanh}
 % Die Tanh Aktivierungsfunktion bringt Werte in einem Wertebereich von $ [-1, 1] $. Es ist eine skalierte Sigmoid ($ \sigma $) Funktion,
@@ -318,7 +318,7 @@ Mean Square Error (MSE) Loss misst der mittlere quadratische Fehler und ist defi
   J = \frac{1}{N} \sum (y - \hat{y})^2
 \end{equation}
 
-wobei, $J$ der Loss ist, $N$ die Anzahl der Klassen, $y$ die Korrekte Klasse (Ground Truth) und $ hat{y}$ die vorhergesagte Klasse ist.
+wobei, $J$ der Loss ist, $N$ die Anzahl der Klassen, $y$ die Korrekte Klasse (Ground Truth) und $ \hat{y}$ die vorhergesagte Klasse ist.
 
 \subsubsection{Cross Entropy Loss}
 Der Cross Entropy Loss wird bei Klassifizierungsprobleme verwendet. Es gibt 2 Arten, Binär und Multiclass Cross Entropy Loss. 
@@ -420,7 +420,7 @@ Als Beispiel kann die folgende Sigmoid Funktion in Unterfunktionen zerlegt werde
 Bei dem oberen Bild sind $ [w_0, w_1, w_2] $ die Gewichte und $ [x_0, x_1] $ die Inputs des Neurons. Um es unkompliziert zu halten, kann die 
 obere Funktion als irgendeine Funktion, die Inputs ($w, x$) entgegennimmt und eine einzelne Zahl als Output hat, visualisiert werden. 
 Die Grüne Zahlen repräsentieren die Ergebnissen aus dem Forward Pass und die Rote Zahlen der zurück propagierte Loss. Jeder Knoten ist fähig 
-ein Output und der lokale Gradient von dem Output im Bezug auf den Input zu berechnen, ohne die ganze Funktion kennen zu müssen \cite{cs231-backpropagation}.
+ein Output und der lokale Gradient von dem Output im Bezug auf den Input zu berechnen, ohne die komplette Funktion kennen zu müssen \cite{cs231-backpropagation}.
 
 \subsection{Transposed Convolution}
 Im gegensatz zu einem Pooling Layer, ermöglicht einer Transposed Convolutional Layer die Dimensionen von einem Volumen zu vergrößern. 
