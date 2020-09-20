@@ -1,1 +1,0 @@
-    bin_colors = {i: [[], []] for i in range(n_bins)}

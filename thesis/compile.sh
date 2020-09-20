@@ -1,1 +1,1 @@
-latexmk -pvc -pdf -shell-escape -f main.tex
+latexmk -pvc -pdf -shell-escape -interaction=nonstopmode main.tex
