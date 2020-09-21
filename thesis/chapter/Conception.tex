@@ -22,21 +22,24 @@ konvertiert.
 
 \begin{figure}[H]
   \vspace{1cm}
+  \centering
   \begin{subfigure}
     \centering
-    \includegraphics[width=.5\textwidth]{resources/colorspace/image.jpg}
+    \includegraphics[width=.35\textwidth]{resources/colorspace/image.jpg}
   \end{subfigure}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.5\textwidth]{resources/colorspace/grayscale.png}
+    \includegraphics[width=.35\textwidth]{resources/colorspace/grayscale.png}
+  \end{subfigure}
+
+
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.35\textwidth]{resources/colorspace/a_channel.png}
   \end{subfigure}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.5\textwidth]{resources/colorspace/a_channel.png}
-  \end{subfigure}
-  \begin{subfigure}
-    \centering
-    \includegraphics[width=.5\textwidth]{resources/colorspace/b_channel.png}
+    \includegraphics[width=.35\textwidth]{resources/colorspace/b_channel.png}
   \end{subfigure}
   \caption{Originales Bild oben links, den Belichtungskanal ``L'' oben rechts, unten links den Farbkanal ``a'' und unten rechts den Farbkanal ``b''.}
   \label{image:farbraum}
@@ -185,15 +188,16 @@ Der Datensatz besteht aus 2664 Bilder für das Training und 324 Bilder für das 
 Dieser Datensatz dient als Beweis für die Methode und hilft bei der Entwicklung und Optimierung des Netzwerks.
 \\
 \\
-Als zweites werden einige Klassen des CIFAR-100\footnote{https://www.cs.toronto.edu/~kriz/cifar.html} Datensatzes verwendet. CIFAR-100 ist 
+Als zweites werden 12 Klassen des CIFAR-100\footnote{https://www.cs.toronto.edu/~kriz/cifar.html} Datensatzes verwendet. CIFAR-100 ist 
 ein öffentlich verfügbares Datensatz der von Krizhevsky et al. erstellt wurde. Der Datensatz setzt sich aus 100 Klassen mit jeweils 600 
 Bildern pro Klasse, außerdem sind die 100 Klassen in 20 Superklassen grupiert. Der Datensatz wird in 50000 Bilder für das Training und 
 10000 Bilder für das Testen aufgeteilt. Einige Beispiele für Klassen sind z.B. \textit{apples}, \textit{palm} oder \textit{bee}. 
 Die Bildern haben ebenfalls einer Auflösung von $ 32 \times 32 $.
 
 Da ein Model von Null auf zu trainieren, die jedes Objekt auf dem CIFAR-100 Datensatz richtig erkennt und einfärbt, sehr aufwendig wäre, werden
-nur bestimmte Klassen für das Training verwendet. Diese Klassen sind: \textit{apples}, \textit{sunflower}, \textit{cloud}, \textit{oak\_tree},
-\textit{mountain}, \textit{forest}, \textit{palm\_tree} und \textit{plain}.
+nur bestimmte Klassen für das Training verwendet. Diese Klassen sind: \textit{apples}, \textit{sunflower}, \textit{rose}, \textit{cloud}, 
+\textit{maple\_tree}, \textit{oak\_tree}, \textit{pine\_tree}, \textit{willow\_tree}, \textit{palm\_tree},
+\textit{mountain}, \textit{forest} und \textit{sea}.
 Alle Klassen haben Gemeinsamkeiten, was das erlernen von Merkmale erleichtert im Vergleich zu einem sehr allgemeinen Datensatz.
 \\
 \\
@@ -211,13 +215,14 @@ Das fertige Datensatz besteht aus 8 Klassen und hat insgesamt
 13363 Bilder, 10945 für das Training und 2409 für das Testen. Die 8 Klassen sind: \textit{field}, \textit{forest}, \textit{glacier}, 
 \textit{lake}, \textit{mountain}, \textit{road}, \textit{sea} und ``ohne Kategorie''. 
 Die Klasse ``ohne Kategorie'' beinhaltet die Bilder aus dem ``Landscape Pictures'' Datensatz. Die Klassen sind für das Training und 
-die Methode nicht relevant, da jedes Pixel in Bins klassifiziert wird.
+die Methode nicht relevant, da jedes Pixel in Bins klassifiziert wird. Das finale Datensatz wird ``Landscape Datensatz'' für der Rest der 
+Arbeit benannt.
 
 \section{Data Preprocessing und Argumentation}
 Für das optimale Training und Ergebnisse werden die Bilder vorverarbeitet. Außerdem werden Techniken von Image Argumentation angewendet.
-Das Spiel–Datensatz und die 8 Klassen von CIFAR-100 werden für das Training mit einer Wahrscheinlichkeit von 50\% horizontal gespiegelt.
+Das Spiel–Datensatz und die 12 Klassen von CIFAR-100 werden für das Training mit einer Wahrscheinlichkeit von 50\% horizontal gespiegelt.
 \\
-Da das hochauflösendes Datensatz, Bilder mit verschiedene Auflösungen beinhaltet, werden alle zufällig auf $ 128 \times 128 $ angepasst. Das 
+Da das Landscape Datensatz, Bilder mit verschiedene Auflösungen beinhaltet, werden alle zufällig auf $ 128 \times 128 $ angepasst. Das 
 reduziert die Trainingszeit und die Komplexität von dem Datensatz. Für das Training werden die Bilder von diesem Datensatz gleichermaßen mit einer 
 Wahrscheinlichkeit von 50\% horizontal gespiegelt. Für die Evaluierung werden die Bilder ebenfalls auf $ 128 \times 128 $ angepasst.
 
