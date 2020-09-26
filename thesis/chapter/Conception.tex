@@ -1,24 +1,29 @@
 \chapter{Konzeption}
 % TODO: weiter schreiben
-Dieses Kapitel beinhaltet alle Schritte für die Konzeption der angewandte Methoden. Außerdem wird der Datensatz und die verwendeten Tools 
+Dieses Kapitel beinhaltet alle Schritte für die Konzeption der angewandte Methode. Außerdem wird der Datensatz und die verwendeten Tools 
 präsentiert.
 
 \section{Image Colorization als Multimodales Problem}
 Konventionelle automatische Methoden zielen darauf ab, die Farben für ein generiertes Bild so nah wie möglich an das Originale Bild vorherzusagen.
 Diese Methoden verwenden ein MSE Loss der Vorhersagen die Weit von den Originalen Farbwerte entfernt liegen, stärker bestraft, als Farbwerte
 die dichter an den Originalen Farbwerte liegen. Das führt, wie bei \ref{subsection:verwandte-arbeiten} beschrieben, zu entsättigte Bilder.
-Die Gründe für diese Ergebnisse ist dass verschiedene Objekte, verschiedene Farben einnehmen können. Aus diesem Grund, behandelt die vorliegende
-Arbeit das Problem als ein Multimodales Problem.
+Die Gründe für diese Ergebnisse ist dass verschiedene Objekte, verschiedene Farben einnehmen können. 
+\\
+\\
+Die gewählte Methode dieser Arbeit berücksichtigt die Multimodalität von Image Colorization und behandelt das Problem als Klassifikation.
+% TODO: continue...
 
 % TODO: finish this
 \section{Farbraum}
-Der Standard Farbraum der Bilder für die Methoden dieser Arbeit ist der RGB-Farbraum. Bei diesem Farbraum lässt sich schwer das Graustufen Bild 
-von den Farbkanäle zu trennen, daher wird der Lab-Farbraum verwendet.
+Der Standard Farbraum der Bilder für die Methode dieser Arbeit ist der RGB\footnote{Rot, Grün, Blau}-Farbraum. Der RGB-Farbraum hat einige Nachteile die es kompliziert
+machen mit diesem Farbraum zu arbeiten. Eine der Nachteile ist, dass das Graustufenbild sich schwer von den Farbkanäle trennen lässt. Ein anderes
+Nachteil ist dass die Farbinformationen in drei Farbkanäle kodiert sind, was die Komplexität eines Models erhöhen würde. Aus diesem Grund
+werden die Bilder für die Verarbeitung und die Methode in den Lab-Farbraum konvertiert. Für die Darstellung der Ergebnisse werden die Bilder
+von dem Lab-Farbraum in den RGB-Farbraum konvertiert.
 \\
 \\
 Bei den Lab-Farbraum können ohne Probleme die Farbkanäle ``ab'' von den Belichtungskanal ``L'' getrennt werden. Der Belichtungskanal ``L'' 
-enthält das Graustufenbild die in den CNN eingespeist wird. Das generierte Bild wird für die Darstellung von dem Lab-Farbraum in den RGB-Farbraum 
-konvertiert.
+enthält das Graustufenbild die in den CNN eingespeist wird.
 
 \begin{figure}[H]
   \vspace{1cm}
@@ -41,11 +46,11 @@ konvertiert.
     \centering
     \includegraphics[width=.35\textwidth]{resources/colorspace/b_channel.png}
   \end{subfigure}
-  \caption{Originales Bild oben links, den Belichtungskanal ``L'' oben rechts, unten links den Farbkanal ``a'' und unten rechts den Farbkanal ``b''.}
+  \caption{Originales Bild in RGB oben links, den Belichtungskanal ``L'' oben rechts, unten links den Farbkanal ``a'' und unten rechts den Farbkanal ``b''.}
   \label{image:farbraum}
 \end{figure}
 
-% TODO: maybe new image
+
 \section{Binning}\label{section:binning}
 Binning ist eine Technik, die für die Bildverarbeitung verwendet wird. Binning wird, in dem Kontext von Image Colorization, als Eingruppierung 
 von naheliegenden Farben definiert. Die Farben werden in gleich große Intervalle aufgeteilt. Diese Intervalle bezeichnet man im Englischen als
@@ -60,7 +65,7 @@ Die $xy$ Koordinaten \gls{grid} sind Bedeutsam für die Berechnung der Bins.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.65\textwidth]{resources/bins/bins.jpg}
+  \includegraphics[width=0.7\textwidth]{resources/bins/bins.jpg}
   \caption{
   \gls{grid} mit 36 bins. Die x-Achse bildet die Werte von dem Farbkanal ``a'' und die y-Achse die Werte von den Farbkanal ``b'' ab.
   }
@@ -71,20 +76,40 @@ Für die Methoden dieser Arbeit wurden nur symmetrische \gls{grid}s verwendet, s
 ein $18 \times 18$ Grid 324 Bins.
 
 \subsection{Umwandlung von Bin zu Farbe}
-Die Umwandlung von Bin zu Farbe muss für die Ergebnisse von dem Netzwerk ebenfalls vorgegeben sein. Für dieses Problem werden vor dem 
-Training die Farben von jedem Pixel aus den Trainingsbildern in Bins klassifiziert. Diese Klassifikation verläuft separat für jeden Farbkanal.
-Anschließend wird der Modus und den Durchschnitt pro Farbkanal der unter jedem Bin klassifizierten Farben ausgerechnet. Zuletzt werden die Werte
-in zwei separate Dateien gespeichert.
+Die Umwandlung von Bin zu Farbe muss für die Ergebnisse des Netzwerks ebenfalls vorgegeben sein. Für dieses Problem werden vor dem 
+Training die Farben von jedem Pixel aus den Trainingsbildern in Bins klassifiziert. Jeder Bin ist durch eine Liste mit zwei Listen, 
+für den jeweiligen Farbkanal, repräsentiert. Jeder Pixelwert wird in der entsprechende Bin Liste hinzugefügt. Anschließend wird der Modus 
+und den Durchschnitt pro Farbkanal der unter jedem Bin klassifizierten Farben ausgerechnet. Zuletzt beinhaltet jeder Bin eine Liste mit zwei
+Werte, auf dem Nulltem Index der Wert für den Farbkanal ``a'' und auf dem ersten Index der Wert für den Farbkanal ``b''. Es werden zwei separate
+Dateien erzeugt, eins für den Modus und eins für den Durchschnitt.
+\\
+\\
+Für die Umwandlung von Bin zu Farbe werden die jeweiligen Werten für jeden Farbkanal von einem Bin von der Datei abgeguckt. Es kann zwischen
+der Durchschnitt und der Modus ausgewählt werden. Der Durchschnitt verhaltet sich ähnlich wie ein Model trainiert mit dem MSE Loss und der Modus
+würde Ergebnisse mit einem rötlichen Ton liefern. Als Lösung für dieses Problem schlägt Zhang et al. den ``annealed mean'' vor \cite{zhang2016colorful}.
+Den ``annealed mean'' versucht einen Kompromiss zwischen der Durchschnitt und der Modus zu finden. Dieser Kompromiss ist durch ein 
+Temperatur Parameter ($T$) reguliert. In der vorliegende Arbeit wird eine von den ``annealed mean'' inspirierte Methode implementiert. 
+Der Methode wird wie folgendes implementiert:
+
+\begin{equation}
+  \begin{gathered}
+    D = K_{mode} - K_{mean} \\
+    \hat{y}_{K} = K_{mode} - (D * T)
+  \end{gathered}
+\end{equation}
+
+wobei $K$ ein Farbkanal ist, $D$ die Distanz zwischen Durchschnitt und Modus, $T$ ein Temperaturwert zwischen 0 und 1 ist und $\hat{y}_{k}$ die
+Endgültige Farbe für den Farbkanal $K$ ist.
 
 \section{Netzwerkarchitektur}
-Die Netzwerkarchitektur ist ein wichtiger Faktor dass u.a. die Ergebnisse beeinträchtigen kann. Wichtig um die Methoden zu vergleichen ist ein
+Die Netzwerkarchitektur ist ein wichtiger Faktor dass u.a. die Ergebnisse beeinträchtigt. Wichtig um die Methoden zu vergleichen ist ein
 leichtes Netzwerk der wenige Parameter besitzt, schnell zu trainieren ist und gute Ergebnisse liefert. Da mit Bildern gearbeitet wird, eignen sich
 Convolutional Neural Networks besonders gut.
 \\
 \\
 Das Ziel von dem Netzwerk ist es, ein Graustufenbild als Input zu bekommen und eine Wahrscheinlichkeitsverteilung über alle Bins per Pixel vorherzusagen.
-Das Output Volumen hat die Dimensionen $ W_{Input} \times H_{Input} \times 1 $, wobei $W$ und $H$ die Breite und Höhe von dem Bild sind,
-mit einer Wahrscheinlichkeitsverteilung über alle Bins bei jedem Pixel. Dieser Ansatz ist auch bei Image Segmentation Probleme genutzt, wo ein Bild
+Das Output Volumen hat die Dimensionen $ W_{Input} \times H_{Input} \times n\_bins $, wobei $W$ und $H$ die Breite und Höhe des Bildes sind und
+$n\_bins$ einer Wahrscheinlichkeitsverteilung über alle Bins pro Pixel. Dieser Ansatz ist auch bei Image Segmentation Probleme genutzt, wo ein Bild
 in das Netzwerk einspeist wird und als Output, wird ein Segmentation map, mit eine Klasse per Pixel, erzeugt. In der Regel hat jeder Klasse eine
 bestimmte Farbe und dadurch werden Objekte klassifiziert und getrennt. In dem Fall von Image Colorization bekommt jeder Pixel in dem Output Volumen
 eine Wahrscheinlichkeitsverteilung über alle Bins die in einer Farbe umgewandelt wird.
@@ -103,18 +128,17 @@ Aus diesem Grund richtet sich die Netzwerkarchitektur dieser Arbeit nach der Net
 Sie verwenden eine angepasste Version von einem U-net Convolutional Neural Network \cite{ronneberger2015unet}. 
 
 \subsection{U-net}\label{section:u-net}
-Ein U-net wird häufig bei Image Segmentation angewendet und ist einer Art Autoencoder mit Skip Connections. Im vergleich zu konventionelle Autoencoder, können
-der Encoder und Decoder nicht getrennt voneinander verwendet werden und bei dem Decoder werden Transposed Convolutions, als Upsampling 
-Methode, verwendet. Das U-net verfügt außerdem über Skip Connections die ermöglichen fein-granuläre Details in dem Output Volumen zu 
-wiederherstellen und helfen mit dem Vanishing Gradient Problem in Backpropagation. Skip Connections konkatenieren bestimmte Layers von dem
-Encoder mit Layers von dem Decoder, mit der gleichen Dimensionen.
+Das U-net ist ein Autoencoder mit Skip Connections und Transposed Convolutions als Upsampling Methode der bei Image Segmentation angewendet wird.
+Im vergleich zu konventionelle Autoencoder, können der Encoder und Decoder nicht getrennt voneinander verwendet werden. Die Skip Connections
+ermöglichen fein-granuläre Details in dem Output Volumen zu wiederherstellen und helfen mit dem Vanishing Gradient Problem in Backpropagation. 
+Skip Connections konkatenieren bestimmte Layers von dem Encoder mit Layers von dem Decoder, mit der gleichen Dimensionen.
 \\
 \\
 Ein U-net besteht, wie einem Autoencoder, aus einem Encoder und Decoder Teil. Der Encoder besteht aus sogenannten ``ConvBlocks''. ConvBlocks
-bestehen aus 2 Convolutional Layers gefolgt von ReLU und Batch Normalisation. Die ConvBlocks werden gefolgt
+bestehen aus 2 Convolutional Layers gefolgt von ReLU und Batch Normalization. Die ConvBlocks werden gefolgt
 von einem Pooling Layer die die Dimensionen von dem Volumen verringern. Der Decoder besteht aus ConvBlocks gefolgt von Transposed Convolutions
 die die Dimensionen von dem Volumen wieder vergrößern. Das letzte Layer ist eine $1 \times 1$ Convolutional Layer die das Output Volumen generiert.
-Skip Connections konkatenieren ConvBlocks aus dem Encoder mit den Transposed Convolutions aus dem Decoder, die die gleiche Dimensionen haben.
+Skip Connections konkatenieren ConvBlocks aus dem Encoder mit Transposed Convolutions aus dem Decoder mit der gleichen Dimensionen.
 
 % TODO: maybe change image
 \begin{figure}[H]
@@ -190,7 +214,7 @@ Dieser Datensatz dient als Beweis für die Methode und hilft bei der Entwicklung
 \\
 Als zweites werden 12 Klassen des CIFAR-100\footnote{CIFAR-100: https://www.cs.toronto.edu/~kriz/cifar.html} Datensatzes verwendet. CIFAR-100 ist 
 ein öffentlich verfügbares Datensatz der von Krizhevsky et al. erstellt wurde. Der Datensatz setzt sich aus 100 Klassen mit jeweils 600 
-Bildern pro Klasse, außerdem sind die 100 Klassen in 20 Superklassen grupiert. Der Datensatz wird in 50000 Bilder für das Training und 
+Bildern pro Klasse, außerdem sind die 100 Klassen in 20 Superklassen gruppiert. Der Datensatz wird in 50000 Bilder für das Training und 
 10000 Bilder für das Testen aufgeteilt. Einige Beispiele für Klassen sind z.B. \textit{apples}, \textit{palm} oder \textit{bee}. 
 Die Bildern haben ebenfalls einer Auflösung von $ 32 \times 32 $.
 
@@ -202,35 +226,41 @@ Alle Klassen haben Gemeinsamkeiten, was das erlernen von Merkmale erleichtert im
 \\
 \\
 Abschließend wird ein komplexeres und hochauflösendes Datensatz verwendet, dass Naturbezogene Bilder enthält. Ziel damit ist, ein Netzwerk zu
-trainieren das Bilder aus Natur einfärben kann. Dieser besteht 3 Datensätze aus 
-Kaggle\footnote{\url{https://www.kaggle.com/}} und GitHub\footnote{\url{https://github.com/}}. 
+trainieren das Bilder aus Natur einfärben kann. Dieser besteht aus 3 Datensätze aus 
+Kaggle\footnote{Kaggle: \url{https://www.kaggle.com/}} und GitHub\footnote{Github: \url{https://github.com/}}. 
 Das erste ist das ``Landscape Pictures''\footnote{https://www.kaggle.com/arnaud58/landscape-pictures} Datensatz von Arnaud Rougetet, von diesem
 Datensatz werden alle Bilder verwendet. Das zweite Datensatz ist das 
 ``Landscape Classification''\footnote{https://www.kaggle.com/huseynguliyev/landscape-classification?} von Huseyb Guliyev, hiervon werden nur
 die Klassen \textit{forest}, \textit{glacier}, \textit{mountain} und \textit{sea} verwendet. Das letzte Datensatz ist das ``Landscapes dataset''
 \footnote{https://github.com/ml5js/ml5-data-and-models/tree/master/datasets/images/landscapes} von ml5js auf GitHub. Von diesem Datensatz wurden
-die Klassen \textit{field}, \textit{forest}, \textit{lake}, \textit{mountain} und \textit{road} verwendet.
+die Klassen \textit{field}, \textit{forest}, \textit{lake}, \textit{mountain} und \textit{road} verwendet. Außerdem werden alle Bilder entfernt
+die nicht eine Öffentliche Lizenz haben.
 \\
 Das komplette Datensatz besteht aus 8 Klassen und hat insgesamt
-13363 Bilder, 10945 für das Training und 2409 für das Testen. Die 8 Klassen sind: \textit{field}, \textit{forest}, \textit{glacier}, 
-\textit{lake}, \textit{mountain}, \textit{road}, \textit{sea} und ``ohne Kategorie''. 
+12479 Bilder, 10120 für das Training und 2359 für das Testen. Die 8 Klassen sind: \textit{field}, \textit{forest}, \textit{glacier}, 
+\textit{lake}, \textit{mountain}, \textit{road}, \textit{sea} und ``ohne Kategorie''.
 Die Klasse ``ohne Kategorie'' beinhaltet die Bilder aus dem ``Landscape Pictures'' Datensatz. Die Klassen sind für das Training und 
 die Methode nicht relevant, da jedes Pixel in Bins klassifiziert wird. Das finale Datensatz wird ``Landscape Datensatz'' für der Rest der 
 Arbeit benannt.
 
-\section{Data Preprocessing und Argumentation}
-Für das optimale Training und Ergebnisse werden die Bilder vorverarbeitet. Außerdem werden Techniken von Image Argumentation angewendet.
+\section{Image Preprocessing und Augmentation}
+Für das optimale Training und Ergebnisse werden die Bilder vorverarbeitet. Außerdem werden Techniken von Image Augmentation angewendet.
 Das Spiel–Datensatz und die 12 Klassen von CIFAR-100 werden für das Training mit einer Wahrscheinlichkeit von 50\% horizontal gespiegelt.
 \\
-Da das Landscape Datensatz, Bilder mit verschiedene Auflösungen beinhaltet, werden alle zufällig auf $ 128 \times 128 $ angepasst. Das 
-reduziert die Trainingszeit und die Komplexität von dem Datensatz. Für das Training werden die Bilder von diesem Datensatz gleichermaßen mit einer 
-Wahrscheinlichkeit von 50\% horizontal gespiegelt. Für die Evaluierung werden die Bilder ebenfalls auf $ 128 \times 128 $ angepasst.
+Da das Landscape Datensatz, Bilder mit verschiedene Auflösungen beinhaltet, werden alle Bilder auf $ 128 \times 128 $ angepasst. Das 
+reduziert die Trainingszeit und die Komplexität von dem Datensatz. 
+Für das Training werden pro Bild, 4 zusätzliche augmentierte Bilder generiert. Erstens werden die Bilder zufälligerweise um $\pm 30$ Grad rotiert,
+zweitens wird die Große der Bilder zwischen 0 und 30\% geändert, drittens werden die Bilder Horizontal gespiegelt und letztens werden die 
+Bilder Vertikal gespiegelt. Nach der Image Augmentation besteht der Trainings Datensatz aus 50600 Bilder.
+Für die Evaluation werden die Test Bilder nur auf $ 128 \times 128 $ angepasst.
 
 \section{Tools}
 Um die Methode zu realisieren werden einige Tools angewendet. Für die Implementierung wird das Framework 
-PyTorch\footnote{https://pytorch.org/} angewendet. PyTorch ist ein Open-Source Framework basierend auf Python für Machine Learning und 
+PyTorch\footnote{https://pytorch.org/}\label{tool:pytorch} angewendet. PyTorch ist ein Open-Source Framework basierend auf Python für Machine Learning und 
 Deep Learning. Es wurde von das Facebook AI Research Team entwickelt und erschien im Jahr 2016. Zum Zeitpunkt der Verfassung dieser Arbeit ist 
-die Version 1.6.0 die aktuellste. Für die Farbraum Konvertierung wird das ``scikit-image'' Bibliothek eingesetzt.
+die Version 1.6.0 die aktuellste. Für die Farbraum Konvertierung wird das ``scikit-image'' Bibliothek eingesetzt. Für die Image Augmentation 
+wird die Bibliothek ``imgaug'' angewendet. Des weiteren werden Hilfsbibliotheken wie ``numpy'' und ``matplotlib'' angewendet.
+\\
 \\
 Das Trainieren von den Modellen wird, wegen den hohen Rechenaufwands, auf zwei verschiedene Plattformen durchgeführt. Die Modelle mit den
 $32 \times 32$ Bilder werden auf Google Colab\footnote{https://colab.research.google.com/} trainiert. Google Colab ist eine Plattform von 

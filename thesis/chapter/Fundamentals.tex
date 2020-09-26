@@ -165,40 +165,40 @@ Im zweiten Schritt wird den Output von der vorherige Multiplikation mal die Gewi
 Eine Aktivierungsfunktion definiert die Aktivierungsrate von einem Neuron. Es gibt verschiedene Aktivierungsfunktionen:
 
 % TODO: Formeln mit nummerierung
-% \subsubsection{Sigmoid}
-% Sigmoid ist eine nicht lineare Funktion welche die Werte in einem Wertebereich von $ [0, 1] $ bringt.
-% Große negative Werte werden annähernd 0 und große positive Werte werden annähernd 1. Sigmoid hat verschiedene Nachteile, es neigt dazu den Gradienten zu verschwinden
-% und die Outputs sind nicht Null zentriert. Sigmoid ist definiert als:
+\subsubsection{Sigmoid}
+Sigmoid ist eine nicht lineare Funktion welche die Werte in einem Wertebereich von $ [0, 1] $ bringt.
+Große negative Werte werden annähernd 0 und große positive Werte werden annähernd 1. Sigmoid hat verschiedene Nachteile, es neigt dazu den Gradienten zu verschwinden
+und die Outputs sind nicht Null zentriert. Sigmoid ist definiert als:
 
-% \begin{equation}
-%   \sigma(x) = \frac{1}{1 + e^{-x}}
-% \end{equation}
+\begin{equation}
+  \sigma(x) = \frac{1}{1 + e^{-x}}
+\end{equation}
 
-% wobei $x$ einem Input ist.
+wobei $x$ einem Input ist.
 
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.65\textwidth]{resources/nn/sigmoid.png}
-%   \caption{
-%     Sigmoid Aktivierungsfunktion 
-%     \cite{neuron-model}
-%   }
-%   \label{image:sigmoid}
-% \end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{resources/nn/sigmoid.png}
+  \caption{
+    Sigmoid Aktivierungsfunktion 
+    \cite{neuron-model}
+  }
+  \label{image:sigmoid}
+\end{figure}
 
-% \subsubsection{Tanh}
-% Die Tanh Aktivierungsfunktion bringt Werte in einem Wertebereich von $ [-1, 1] $. Es ist eine skalierte Sigmoid ($ \sigma $) Funktion,
-% $ tanh(x) = 2\sigma(2x) - 1 $. Die Nachteile von Tanh sind ähnlich zu Sigmoid aber der Output ist Null zentriert.
+\subsubsection{Tanh}
+Die Tanh Aktivierungsfunktion bringt Werte in einem Wertebereich von $ [-1, 1] $. Es ist eine skalierte Sigmoid ($ \sigma $) Funktion,
+$ tanh(x) = 2\sigma(2x) - 1 $. Die Nachteile von Tanh sind ähnlich zu Sigmoid aber der Output ist Null zentriert.
 
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.65\textwidth]{resources/nn/tanh.png}
-%   \caption{
-%     Tanh Aktivierungsfunktion 
-%     \cite{neuron-model}
-%   }
-%   \label{image:tanh}
-% \end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{resources/nn/tanh.png}
+  \caption{
+    Tanh Aktivierungsfunktion 
+    \cite{neuron-model}
+  }
+  \label{image:tanh}
+\end{figure}
 
 \subsubsection{ReLU}
 Die Rectified Linear Unit konvertiert alle negative Werte in 0 und alle positive Werte behalten deren Identität. Diese Aktivierungsfunktion
@@ -218,7 +218,7 @@ Lernrate kann das vermieden werden. \cite{cs231-neural-networks}
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.65\textwidth]{resources/nn/relu.jpeg}
+  \includegraphics[width=0.5\textwidth]{resources/nn/relu.jpeg}
   \caption{
     Rectified Linear Unit (ReLU) 
     \cite{neuron-model}
@@ -227,20 +227,20 @@ Lernrate kann das vermieden werden. \cite{cs231-neural-networks}
 \end{figure}
 
 % TODO: alpha durch was anderes ersetzen
-% \subsubsection{Leaky ReLU}
-% Leaky ReLU ist einer Variante von ReLU, die versucht, das Problem mit den ``sterbenden'' Neuronen zu minimieren. Anstatt alle negative Werte
-% in Null zu konvertieren, werden die Werte mal einer Konstante multipliziert. Die Funktion wird zu $ f(x) = 1(x < 0)(\alpha x) + 1(x >= 0)(x)$,
-% wobei $ \alpha $ eine Konstante mit geringeren Wert ist, zum Beispiel $ 0.001 $.
+\subsubsection{Leaky ReLU}
+Leaky ReLU ist einer Variante von ReLU, die versucht, das Problem mit den ``sterbenden'' Neuronen zu minimieren. Anstatt alle negative Werte
+in Null zu konvertieren, werden die Werte mal einer Konstante multipliziert. Die Funktion wird zu $ f(x) = 1(x < 0)(\alpha x) + 1(x >= 0)(x)$,
+wobei $ \alpha $ eine Konstante mit geringeren Wert ist, zum Beispiel $ 0.001 $.
 
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.65\textwidth]{resources/nn/leaky-relu.png}
-%   \caption{
-%     Leaky ReLU 
-%     \cite{leaky-relu}
-%   }
-%   \label{image:leaky-relu}
-% \end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{resources/nn/leaky-relu.png}
+  \caption{
+    Leaky ReLU 
+    \cite{leaky-relu}
+  }
+  \label{image:leaky-relu}
+\end{figure}
 
 \section{Convolutional Neural Networks}
 Convolutional Neural Networks (\gls{CNN}) sind eine besondere Form von künstliche neuronale Netzwerke, das speziell für 
@@ -484,20 +484,21 @@ gebunden. Der Methode von Levin et al. verwendet Farbstiche auf dem Graustufenbi
 Bild propagiert werden \cite{10.1145/1015706.1015780}.
 \\
 \\
-Der Fokus dieser Arbeit ist auf volle automatische Image Colorization Methoden gesetzt. Konservative Methoden die Convolutional Neural Networks verwenden,
-versuchen die Farben von dem Originalen Bild wiederherzustellen in dem die \gls{loss function} die Distanz der vorhergesagte Farbe und die 
-Reale Farbe berechnet. Diese Methoden liefern in der Regel entsättigte und blasse Bilder wie bei \cite{zbulak2019image}. Einer der Gründe 
-für diese Ergebnissen ist dass die Modelle nicht richtig lernen. Zum Beispiel, Äpfel können verschiedene Farben einnehmen, wie Rot oder Grün. Wenn das 
-Netzwerk mit einem MSE Loss trainiert wird, wird der Output bei einem Apfel eine Farbe zwischen Rot und Grün sein, was ein entsättigtes Bild erzeugen wird.
+Der Fokus dieser Arbeit ist auf voll automatische Image Colorization Methoden gesetzt. Konservative Methoden die Convolutional Neural Networks 
+verwenden, versuchen die Farben von dem Originalen Bild wiederherzustellen in dem die \gls{loss function} die Distanz der vorhergesagte 
+Farbe und die Reale Farbe berechnet. Diese Methoden liefern in der Regel entsättigte und blasse Bilder wie bei \cite{zbulak2019image}. 
+Einer der Gründe für diese Ergebnissen ist dass die Modelle nicht richtig lernen. Zum Beispiel, können Äpfel verschiedene Farben einnehmen, 
+wie Rot oder Grün. Wenn das Netzwerk mit einem MSE Loss trainiert wird und das Datensatz die gleiche oder annähernd gleiche Anzahl an
+grüne und rote Äpfel hat, wird der Output bei einem Apfel eine Farbe zwischen Rot und Grün sein, was ein entsättigtes Bild erzeugen wird.
 \\
 \\
-Aus diesem Grund betrachtet die vorliegende Arbeit das Problem von Image Colorization als ein Multimodales Problem, da gleiche Objekte verschiedene Farbe 
-einnehmen können.
+Aus diesem Grund betrachtet die vorliegende Arbeit das Problem von Image Colorization als ein Multimodales Problem, 
+da gleiche Objekte verschiedene Farbe einnehmen können.
 Die vorliegende Arbeit orientiert sich auf die Methoden von Zhang et al. und Billaut et al., die ähnliche Ansätze für Image Colorization vorschlagen.
-Sie betrachten das Problem als ein Klassifizierungsproblem und trainieren eine CNN mit der Weighted Cross Entropy Loss. Der Output von dem Netzwerk ist 
-eine Wahrscheinlichkeitsverteilung über die mögliche Bins, die im Kapitel \ref{section:binning} erläutert werden, für jeden Pixel. Außerdem wird der Loss während des Trainings gewichtet um seltene 
-Farben zu bevorzugen.
+Sie betrachten das Problem als ein Klassifizierungsproblem und trainieren eine CNN mit der Cross Entropy und Weighted Cross Entropy Loss. 
+Der Output des Netzwerks ist eine Wahrscheinlichkeitsverteilung über die mögliche Bins, die im Kapitel \ref{section:binning} erläutert werden, 
+für jeden Pixel.
 \\
 \\
-Beide Ansätze verwenden ``Color \gls{bin}s'' die es unkompliziert ermöglichen das CNN mit der Weighted Cross Entropy Loss zu Trainieren. 
+Beide Ansätze verwenden ``Color \gls{bin}s'' die es unkompliziert ermöglichen die Farben von jedem Pixel zu klassifizieren. 
 Es wird im nächsten Kapitel weiter auf diese Methode eingegangen.
