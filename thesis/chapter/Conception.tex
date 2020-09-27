@@ -103,21 +103,20 @@ Endgültige Farbe für den Farbkanal $K$ ist.
 
 \section{Netzwerkarchitektur}
 Die Netzwerkarchitektur ist ein wichtiger Faktor dass u.a. die Ergebnisse beeinträchtigt. Wichtig um die Methoden zu vergleichen ist ein
-leichtes Netzwerk der wenige Parameter besitzt, schnell zu trainieren ist und gute Ergebnisse liefert. Da mit Bildern gearbeitet wird, eignen sich
-Convolutional Neural Networks besonders gut.
+leichtes Convolutional Neural Network die wenige Parameter besitzt, schnell zu trainieren ist und gute Ergebnisse liefert. 
 \\
 \\
 Das Ziel von dem Netzwerk ist es, ein Graustufenbild als Input zu bekommen und eine Wahrscheinlichkeitsverteilung über alle Bins per Pixel vorherzusagen.
 Das Output Volumen hat die Dimensionen $ W_{Input} \times H_{Input} \times n\_bins $, wobei $W$ und $H$ die Breite und Höhe des Bildes sind und
-$n\_bins$ einer Wahrscheinlichkeitsverteilung über alle Bins pro Pixel. Dieser Ansatz ist auch bei Image Segmentation Probleme genutzt, wo ein Bild
-in das Netzwerk einspeist wird und als Output, wird ein Segmentation map, mit eine Klasse per Pixel, erzeugt. In der Regel hat jeder Klasse eine
-bestimmte Farbe und dadurch werden Objekte klassifiziert und getrennt. In dem Fall von Image Colorization bekommt jeder Pixel in dem Output Volumen
+$n\_bins$ einer Wahrscheinlichkeitsverteilung über alle Bins pro Pixel ist. Dieser Ansatz ist auch bei Image Segmentation Probleme genutzt, wo ein Bild
+in das Netzwerk einspeist wird und als Output, wird ein Segmentation map, mit eine Klasse per Pixel, erzeugt. In der Regel wird zu jeder Klasse eine
+bestimmte Farbe zugeordnet was die Objekte klassifiziert und trennt. In dem Fall von Image Colorization bekommt jeder Pixel in dem Output Volumen
 eine Wahrscheinlichkeitsverteilung über alle Bins die in einer Farbe umgewandelt wird.
 \\
 \\
-Die Methoden von Zhang et al. \cite{zhang2016colorful} verwenden einen \gls{CNN} das einen Graustufenbild als Input entgegen nimmt und ein Volumen mit
+Die Methoden von Zhang et al. \cite{zhang2016colorful} verwenden einen \gls{CNN} die einen Graustufenbild als Input entgegennimmt und ein Volumen mit
 eine Wahrscheinlichkeitsverteilung über alle Bins per Pixel generiert. Diese Netzwerkarchitektur besteht aus Blöcke mit jeweils 2 oder 3 Convolutional
-und ReLU Layers, gefolgt von einem Batch Normalisation Layer. Batch Normalisation ist eine Regularisierungstechnik die die Werte in einem Hidden Layer
+und ReLU Layers, gefolgt von einem Batch Normalization Layer. Batch Normalisation ist eine Regularisierungstechnik die die Werte in einem Hidden Layer
 normalisiert, bevor sie in den nächsten Layer weitergereicht werden. Das Netzwerk hat keine Pooling Layers, alle Änderungen in der Auflösung werden durch
 Downsampling oder Upsampling zwischen Blöcke erreicht.
 \\
@@ -128,7 +127,7 @@ Aus diesem Grund richtet sich die Netzwerkarchitektur dieser Arbeit nach der Net
 Sie verwenden eine angepasste Version von einem U-net Convolutional Neural Network \cite{ronneberger2015unet}. 
 
 \subsection{U-net}\label{section:u-net}
-Das U-net ist ein Autoencoder mit Skip Connections und Transposed Convolutions als Upsampling Methode der bei Image Segmentation angewendet wird.
+Ein U-net ist ein Autoencoder mit Skip Connections und Transposed Convolutions als Upsampling Methode der bei Image Segmentation angewendet wird.
 Im vergleich zu konventionelle Autoencoder, können der Encoder und Decoder nicht getrennt voneinander verwendet werden. Die Skip Connections
 ermöglichen fein-granuläre Details in dem Output Volumen zu wiederherstellen und helfen mit dem Vanishing Gradient Problem in Backpropagation. 
 Skip Connections konkatenieren bestimmte Layers von dem Encoder mit Layers von dem Decoder, mit der gleichen Dimensionen.
