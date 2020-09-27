@@ -106,18 +106,23 @@ Eine Erhöhung an Trainingszeit zwischen 36 und 324 Bins war nicht zu erkennen.
   \vspace{1cm}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.24\textwidth]{resources/experiments/cifar/12_original.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/cifar/702_grayscale.png}
   \end{subfigure}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.24\textwidth]{resources/experiments/cifar/12_t1.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/cifar/702_original.png}
   \end{subfigure}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.24\textwidth]{resources/experiments/cifar/12_t1_36.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/cifar/702_36_t1.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.235\textwidth]{resources/experiments/cifar/702_t1.png}
   \end{subfigure}
 
-  \caption{Einfluss von Anzahl der Bins auf die Ergebnisse. Das zweite Bild wurde mit 324 Bins generiert, das dritte nur mit 36.}
+  \caption{Einfluss von Anzahl der Bins auf die Ergebnisse. Das zweite Bild ist das originale, das dritte Bild wurde mit 36 Bins und ein
+  Temperaturwert von 1 generiert und das vierte nur mit 324 Bins und ebenfalls mit ein Temperaturwert von 1.}
   \label{image:gute-ergebnisse-cifar}
 \end{figure}
 
@@ -136,20 +141,24 @@ zeigten Blasse stellen im Vergleich zu das Klassifikationsmodell, der leuchtende
   \vspace{1cm}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.28\textwidth]{resources/experiments/cifar/311_original.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/cifar/311_grayscale.png}
   \end{subfigure}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.28\textwidth]{resources/experiments/cifar/311_t1.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/cifar/311_original.png}
   \end{subfigure}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.28\textwidth]{resources/experiments/cifar/311_regression.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/cifar/311_t1.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.235\textwidth]{resources/experiments/cifar/311_regression.png}
   \end{subfigure}
 
   \caption{Vergleich von Klassifikation mit Binning gegenüber Regression. Das zweite Bild wurde mit 324 Bins und der Cross Entropy Loss generiert.
   Das dritte Bild wurde ohne Binning und mit einem MSE Loss generiert.}
-  \label{image:gute-ergebnisse-cifar}
+  \label{image:mse-ergebnisse-cifar}
 \end{figure}
 
 \section{Landscape Datensatz Experimente}
@@ -157,52 +166,80 @@ Dieser Datensatz wurde anhand der Hyperparameter Optimierung von den CIFAR-100 S
 Input Bilder angewendet. Das Model wurde ebenfalls für 36 und 324 Bins, mit dem Adam Optimizer, eine Lernrate von 0.001 und die Cross Entropy 
 Loss Function für 60 Epochen trainiert. Das Model mit den besten Validation Loss wurde gespeichert um die Ergebnisse zu evaluieren. Außerdem
 wurden den Einfluss der Temperaturwert und der Anzahl der Bins auf die Ergebnisse gemessen.
+\\
+\\
+Das Model tendierte ebenfalls bei diesem Datensatz zum Overfitting. Um das zu verhindern wurden die gleiche Techniken wie bei CIFAR-100
+angewendet, was keine bessere Ergebnisse geliefert hat. Eine Halbierung der Anzahl der Filter bei den Convolutional Layers erwiesen eine Verschlechterung
+des Validation Loss und half nicht bei Overfitting. Eine Änderung der Optimierer zu RMSprop und die Ersetzung von ReLU für Tanh zeigten
+einen stabileren Training aber keine Verbesserung der Validation Loss. Das Endgültige Model wurde trainiert bis der Validation Loss wieder stieg.
 
 \begin{figure}[H]
   \centering
   \vspace{1cm}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/043/043_original.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/324_bins/028/028_original.png}
   \end{subfigure}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/043/043_t0.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/324_bins/028/028_t0.png}
   \end{subfigure}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/043/043_t08.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/324_bins/028/028_t08.png}
   \end{subfigure}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/043/043_t1.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/324_bins/028/028_t1.png}
   \end{subfigure}
 
   \begin{subfigure}
     \centering
-    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/253/253_original.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/324_bins/736/736_original.png}
   \end{subfigure}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/253/253_t0.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/324_bins/736/736_t0.png}
   \end{subfigure}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/253/253_t08.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/324_bins/736/736_t08.png}
   \end{subfigure}
   \begin{subfigure}
     \centering
-    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/253/253_t1.png}
+    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/324_bins/736/736_t1.png}
   \end{subfigure}
 
-  \caption{Ergebnisse mit 324 Bins. Die erste Spalte zeigt das Originale Bild, die zweite zeigt das generierte Bild mit einer Temperatur von 0 
-  (Modus der jeweiligen Bin), die dritte Spalte zeigt das generierte Bild mit einer Temperatur von 0.8 (Modus der jeweiligen Bin minus 
-  80\% der Distanz zwischen Modus und Durchschnitt) und die vierte Spalte zeigt das generierte Bild mit einer Temperatur von 1 
-  (Durchschnitt der jeweiligen Bin)}
-  \label{image:gute-ergebnisse-cifar}
+  \caption{Ergebnisse mit 324 Bins. Die erste Spalte zeigt das Originale Bild, die zweite zeigt das generierte Bild mit einer Temperatur von 0,
+  die dritte Spalte zeigt das generierte Bild mit einer Temperatur von 0.8 und die vierte Spalte zeigt das generierte Bild mit einer Temperatur 
+  von 1}
+  \label{image:gute-ergebnisse-own}
 \end{figure}
 
-Das Model tendierte ebenfalls bei diesem Datensatz zum Overfitting. Um das zu verhindern wurden die gleiche Techniken wie bei CIFAR-100
-angewendet, was keine bessere Ergebnisse geliefert hat. Eine Halbierung der Anzahl der Filter bei den Convolutional Layers erwiesen eine Verschlechterung
-des Validation Loss und half nicht bei Overfitting. Eine Änderung der Optimierer zu RMSprop und die Ersetzung von ReLU für Tanh zeigten
-einen stabileren Training aber keine Verbesserung der Validation Loss. Das Endgültige Model wurde trainiert bis der Validation Loss wieder stieg.
+Nach der Auswertung der Experimente würden 324 Bins und ein Temperaturwert von 0.8 bis 1 bevorzugt um die bestmöglichen Ergebnissen zu bekommen.
+
+\begin{figure}[H]
+  \centering
+  \vspace{1cm}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/324_bins/342/342_grayscale.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/324_bins/342/342_original.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/36_bins/342/342_t1.png}
+  \end{subfigure}
+  \begin{subfigure}
+    \centering
+    \includegraphics[width=.235\textwidth]{resources/experiments/landscape/324_bins/342/342_t1.png}
+  \end{subfigure}
+
+  \caption{Ergebnisse mit 36 und 324 Bins. Die erste Spalte zeigt das Graustufenbild, die zweite zeigt das originale Bild,
+  die dritte Spalte zeigt das mit 36 Bins generierte Bild mit einer Temperatur von 1 und die vierte Spalte zeigt das mit 324 Bins generierte 
+  Bild mit einer Temperatur von 1}
+  \label{image:bins-ergebnisse-own}
+\end{figure}

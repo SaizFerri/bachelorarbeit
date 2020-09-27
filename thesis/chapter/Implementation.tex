@@ -21,10 +21,11 @@ Kapitel Konzeption angewendet.
 % \end{lstlisting}
 
 \section{Binning}
-Das Binning ist eine wichtige Komponente der Methode, dass mit Hilfe der ``numpy'' Bibliothek implementiert wurde. Als erstes wird 
-anhand der Anzahl von Bins ($n\_bins$) die Breite ($B$) und Höhe ($H$) des \gls{grid}s, das auf der Abbildung \ref{image:bins} zu sehen ist,
-mit Hilfe der Wurzel berechnet. Es wird angenommen dass $B = H$.
-Nachdem die Breite des \gls{grid}s berechnet wurde, wird der Intervall von $[0, 1]$ in $B$ gleich große Intervalle aufgeteilt. Als nächstes
+Das Binning ist eine wichtige Komponente der Methode, die auf normalisierte Lab-Bilder mit Hilfe der ``numpy'' Bibliothek implementiert wurde. 
+Als erstes wird 
+anhand der Anzahl von Bins ($n\_bins$) die Breite ($W$) und Höhe ($H$) des \gls{grid}s, das auf der Abbildung \ref{image:bins} zu sehen ist,
+mit Hilfe der Wurzel berechnet. Es wird angenommen dass $W = H$.
+Nachdem die Breite des \gls{grid}s berechnet wurde, wird der Intervall von $[0, 1]$ in $W$ gleich große Intervalle aufgeteilt. Als nächstes
 wird mit Hilfe der \textit{digitize} Funktion, der Intervall Index der jeweiligen $a, b$ Farbkanal Wert von jedem Pixel kalkuliert. 
 Abschließend werden beide Indices zu einem Bin Index auf dem \gls{grid} umgewandelt. Der Output ist ein kodiertes Bild mit einem Bin Index per Pixel.
 \\
@@ -36,16 +37,16 @@ Abschließend werden beide Indices zu einem Bin Index auf dem \gls{grid} umgewan
       return (width * b) + a
   
     def encode_bins(ab_image, n_bins):
-      B = np.sqrt(n_bins).astype(int)
+      W = np.sqrt(n_bins).astype(int)
   
       # Intervall in gleich große Intervalle aufteilen
-      interval = np.linspace(0, 1, B+1)
+      interval = np.linspace(0, 1, W+1)
   
       # Indices für jeweils a, b Kanäle berechnen
       indices = np.digitize(ab_image, interval) - 1
   
       # Bin Index berechnen
-      bins = np.vectorize(calculate_bin)(indices[:,:,0], indices[:,:,1], B)
+      bins = np.vectorize(calculate_bin)(indices[:,:,0], indices[:,:,1], W)
   
       return bins
   \end{minted}
@@ -75,8 +76,8 @@ Somit kann unkompliziert ein Bin in eine Farbe umgewandelt werden.
   \captionof{lstlisting}{Bin zu Farbe Umwandlung}
 \end{listing}
 
-Der gleiche Vorgang wird für den Modus angewendet. Um verschiedene Farben erzeugen zu können werden den Durchschnitt und der Modus mit einem
-Temperatur Wert interpoliert.
+Der gleiche Vorgang wird für den Modus angewendet. Um einen Kompromiss zwischen Durchschnitt und Modus zu finden, werden den Durchschnitt 
+und der Modus mit einem Temperatur Wert interpoliert.
 
 \begin{listing}[H]
   \begin{minted}{python}
@@ -89,22 +90,23 @@ Temperatur Wert interpoliert.
   \captionof{lstlisting}{Bin zu Farbe Berechnung mit einem Temperaturwert}
 \end{listing}
 
+% TODO: write something for each dataset + image augmentation
 \section{Datensätze}
 Die Datensätze werden mit Hilfe der ``torchvision'' Bibliothek von PyTorch importiert und transformiert. Für das Importieren wurde eine
-``ImageFolder'' implementiert, der die Bilder importiert, transformiert, normalisiert und in Bins kodiert. Der Output von den ``ImageFolder''
-sind das Graustufenbild, das Bild mit den ``ab'' Farbkanäle und das in Bins kodierte Bild.
+``ImageFolder'' implementiert, der die Bilder importiert, transformiert, normalisiert und die einzelene Pixeln in Bins klassifiziert. 
+Der Output von den ``ImageFolder'' sind das Graustufenbild, das Bild mit den ``ab'' Farbkanäle und das in Bins kodierte Bild.
 
 Mit Hilfe eines ``DataLoaders'' werden die Datensätze in Batches aufgeteilt und gemischt.
 
 \section{Netzwerkarchitektur}
-Für dieser Arbeit wurden 2 U-Nets mit verschiedene Größen verwendet. Ein U-Net für $ 32 \times 32 $ Bilder und ein U-Net für $ 128 \times 128 $ 
-Bilder. Außerdem wurde das U-Net für $ 32 \times 32 $ Bilder angepasst damit es mit ein MSE Loss verwendet werden kann. Bei der Anpassung wurde
+Für dieser Arbeit wurden 2 U-Nets mit verschiedene Größen verwendet. Ein U-Net für $ 32 \times 32 $ Input Bilder und ein U-Net für $ 128 \times 128 $ 
+Input Bilder. Außerdem wurde das U-Net für $ 32 \times 32 $ Bilder angepasst damit es mit ein MSE Loss verwendet werden kann. Bei der Anpassung wurde
 der Output Volumen zu $ W_{Input} \times H_{Input} \times 2 $ geändert, wobei das Netzwerk direkt die Werte für die ``ab'' Farbkanäle vorhersagt.
 Bei der Verwendung von einem MSE Loss wird Binning nicht verwendet.
  
 \subsection{ConvBlock}
 Das Kernstück eines U-Nets ist der sogenannte ConvBlock. Ein ConvBlock beinhaltet zwei hintereinander geschaltete Blöcke, die wiederrum
-aus einer Convolutional Layer mit $3 \times 3$ Filtern und Stride 1, gefolgt von ReLU und Batch Normalisation bestehen. 
+aus einer Convolutional Layer mit $3 \times 3$ Filtern und Stride 1, gefolgt von ReLU und Batch Normalization bestehen. 
 Die Convolutional Layers verwenden Padding um die Dimensionen von dem Input nicht zu verändern. Die Layers wurden mit den PyTorch 
 Klassen \textit{Conv2d}, \textit{BatchNorm2d} und die Funktion \textit{relu} implementiert. Das ConvBlock wird mit einer Klasse implementiert
 die wiederrum von der Oberklasse \textit{torch.nn.Module} erbt.
