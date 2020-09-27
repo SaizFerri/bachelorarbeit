@@ -135,7 +135,7 @@ Skip Connections konkatenieren bestimmte Layers von dem Encoder mit Layers von d
 \\
 \\
 Ein U-net besteht, wie einem Autoencoder, aus einem Encoder und Decoder Teil. Der Encoder besteht aus sogenannten ``ConvBlocks''. ConvBlocks
-bestehen aus 2 Convolutional Layers gefolgt von ReLU und Batch Normalization. Die ConvBlocks werden gefolgt
+bestehen aus 2 Convolutional Layers gefolgt von Batch Normalization und ReLU. Die ConvBlocks werden gefolgt
 von einem Pooling Layer die die Dimensionen von dem Volumen verringern. Der Decoder besteht aus ConvBlocks gefolgt von Transposed Convolutions
 die die Dimensionen von dem Volumen wieder vergrößern. Das letzte Layer ist eine $1 \times 1$ Convolutional Layer die das Output Volumen generiert.
 Skip Connections konkatenieren ConvBlocks aus dem Encoder mit Transposed Convolutions aus dem Decoder mit der gleichen Dimensionen.

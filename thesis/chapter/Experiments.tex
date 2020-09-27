@@ -2,6 +2,7 @@
 In diesem Kapitel werden Experimente mit den drei Datensätze durchgeführt. Ebenfalls werden verschiedene Hyperparameter getestet.
 
 \section{Spiel-Datensatz Experimente}
+\label{experimente:spiel}
 Als erstes wird die Methode auf dem Spiel-Datensatz angewendet. Hiermit soll geprüft werden ob die Methode die erwartete
 Ergebnisse liefert. Das U-Net wird für 100 Epochen mit Adam, eine Lernrate von 0.001 und die Cross Entropy Loss Function trainiert. Dieser
 Einstellung erwies die besten Ergebnisse. Außerdem wurde ein Experiment mit 36 und ein mit 324 Bins durchgeführt, was kein Einfluss auf die 
@@ -55,7 +56,7 @@ Durchschnitt könnte nicht erkannt werden, da beide Werte gleich waren.
 Die Ergebnisse bestätigen dass das Binning und die Methode funktionieren. Anschließend wurden Experimente auf komplexere Bilder
 von dem Subset von CIFAR-100 durchgeführt.
 
-\section{CIFAR-100 Subset Experimente}
+\section{CIFAR-100 Subset Experimente}\label{section:cifar-experimente}
 Das Model wurde auf 12 Klassen von CIFAR-100 über 100 Epochen mit Adam, eine Lernrate von 0.001 und die Cross Entropy Loss Function
 trainiert. Diese Einstellungen ergab sich als die beste Kombination von Hyperparameter, jedoch wurde das Training bei unter 50 Epochen unterbrochen
 um overfitting zu verhindern.
