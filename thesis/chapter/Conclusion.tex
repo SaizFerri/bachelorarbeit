@@ -1,11 +1,35 @@
-\chapter{Fazit}
-TODO
+\chapter{Fazit} 
 
 \section{Zusammenfassung}
-TODO
+Das Ziel dieser Bachelorarbeit war es, die Methoden von Image Colorization anhand Convolutional Neural Networks zu untersuchen, insbesondere
+Klassifikationsmethoden. Durch die ausführliche Auseinandersetzung mit Klassifikationsmethoden und die Implementierung der gebrauchten Techniken
+wie Binning, konnte eine Methode basierend auf den letzten Stand der Technik implementiert werden. Dieser Methode wurde angewandt und mit verschiedene
+Datensätze getestet um die Ergebnisse zu untersuchen.
+\\
+Die Ergebnissen dieser Arbeit haben gezeigt dass die Methoden funktionieren und sogar mit wenigen Bildern und Epochen gute Ergebnissen produzieren.
+Zahlreiche Experimente bestätigten dass Klassifikationsmethoden bessere Ergebnisse als Regressionsmethoden liefern. Diese Differenz ist deutlicher
+bei Methoden die Optimierungstechniken, wie Class Rebalancing, anwenden.
+
 
 \section{Kritischer Rückblick}
-TODO (Reflexion und Bewertung der Zielsetzung gegenüber erreichtem Ergebnis)
+% TODO (Reflexion und Bewertung der Zielsetzung gegenüber erreichtem Ergebnis)
+Der Fokus dieser Arbeit ist auf der Untersuchung der Methoden gelegt. Bei der Erstellung, Implementierung und Durchführung der Methode wurde
+festgestellt dass das Problem von Image Colorization sehr komplex ist. Obwohl die erreichten Ergebnissen ausreichend für den Vergleich mit 
+andere Methoden sind, wurde festgestellt dass ohne Optimierungstechniken eine Verbesserung der Qualität der Bilder sehr schwer ist.
+\\
+\\
+Die Auswahl eines balancierten Datensatzes ist ein wichtiger Faktor für die Qualität der Ergebnissen und kann Overfitting verhindern. Die Große 
+des Datensatzes ist auch entscheidend bei dem Training eines nicht vor-trainiertes Model.
+\\
+\\
+Die Zielsetzung wurde erreicht in dem die Klassifikationsmethode bestätigt wurde, obwohl die Qualität der Ergebnissen durch weiteres Training
+und Optimierung verbessert werden kann.
 
 \section{Ausblick}
-TODO
+Die implementierte Methode dieser Arbeit hat viel Potential und kann durch Anpassung der Techniken und Anwendung von Optimierungstechniken
+verbessert werden. Eine Anwendung auf andere und größere Datensätze wird mit Sicherheit bessere Ergebnissen produzieren. Es wäre auch interessant, 
+die Methode auf Videos anzuwenden. 
+\\
+\\
+Methoden von dem Bereich unüberwachtes Lernen werden heutzutage angewendet um das Image Colorization Problem zu lösen. Generative adversarial
+Networks (GANs) werden in der Praxis öfters angewendet als normale \gls{CNN}s da dieser viel bessere Ergebnissen erzeugen.

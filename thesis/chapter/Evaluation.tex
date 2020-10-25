@@ -107,21 +107,25 @@ Validation Loss verwendet.
 Bei der Evaluation der Ergebnissen ist zu erkennen dass nach den wenigen Epochen das Model die wichtigsten Entitäten wie der Himmel, Wolken, Wasser,
 Grass und Erde richtig Einfärben kann. Es fällt auf dass bei einigen Bildern, die Vorhersage des Models realer aussieht als das Originale Bild
 wie das zweite Beispiel von \ref{image:gute-ergebnisse-own}. Im Vergleich zu das Model von \cite{billaut2018colorunet} sehen die vorhergesagten 
-Farben von dieses Model sehr ähnlich. Das zeigt die Performance der Methode ohne die Optimierungstechniken die bei \cite{billaut2018colorunet}
-angewendet wurden. Die Auswirkung der Temperaturwert ist auf beiden Modellen ähnlich, den Modus der Verteilung zeigt einen rötlichen Ton bei den
+Farben von dieses Model sehr ähnlich. Das zeigt dass die Performance der Methode ohne die Optimierungstechniken die bei \cite{billaut2018colorunet}
+angewendet wurden vergleichbar ist. Die Auswirkung der Temperaturwert ist auf beiden Modelen ähnlich, den Modus der Verteilung zeigt einen rötlichen Ton bei den
 Ergebnissen und den Durchschnitt zeigt bei einigen Fällen gesättigte Bilder.
 \\
-Da die Datensatz Große von \cite{billaut2018colorunet} fast identisch ist zu der Datensatz Große dieser Arbeit, konnte das Problem mit dem Overfitting
-auf die Qualität des Datensatzes zurückzuführen sein. Deren Loss Verlauf zeigt kein Overfitting und das verwendete U-Net ist sehr ähnlich wie das
+Da das Datensatz Große von \cite{billaut2018colorunet} fast identisch zu der Datensatz Große dieser Arbeit ist, konnte das Problem mit dem Overfitting
+auf die Qualität des Datensatzes zurückzuführen sein. Deren Loss Verlauf zeigt kein Overfitting und das verwendete U-Net ist ähnlich wie das
 U-Net der vorliegende Arbeit, was ein Overfitting wegen der angewendete Netzwerkarchitektur ausschließt.
 \\
 \\
-Ein Vergleich mit den Ergebnissen von \cite{zhang2016colorful} wär nur fair mit den Ergebnissen aus deren Klassifikationsmodell ohne rebalancing.
-In diesem Fall sind die Ergebnissen dieses Modells nicht weit entfernt von deren Ergebnissen. Es ist zu erkennen dass deren Modell die gleiche 
-Probleme zeigt wie das Model dieser Arbeit. 
-% Die Ergebnissen von \cite{zhang2016colorful} zeigen bei den meisten Bildern eine bessere Farbe Vorhersage im Vergleich zu die Vorhersagen dieses
-% Models.
-
+Ein Vergleich mit den Ergebnissen von \cite{zhang2016colorful} wäre nur fair mit den Ergebnissen aus deren Klassifikationsmodel ohne Rebalancing.
+In diesem Fall sind die Ergebnissen dieses Models nicht weit entfernt von deren Ergebnissen. Es ist zu erkennen dass deren Ergebnissen ähnliche
+Merkmale mit den Ergebnissen dieser Arbeit teilen, wie z.B. die Ähnlichkeit der Vorhersagen zwischen Klassifikationsmethode und Regressionsmethode.
+Die Ergebnissen mit Class Rebalancing unterscheiden sich deutlicher von der Ergebnissen der Regressionsmethode. 
+Da deren Datensatz über 1.5 Millionen Bilder beinhaltet, kann das Model mehr Objekte auf den
+Bildern einfärben was sich bei einigen Bilder z.B. mit Menschen bemerkbar macht. 
+\\
+\\
+Im allgemeinen sind die Ergebnissen dieses Model mit anderen Ergebnissen von Klassifikationsmethoden ohne Optimierungstechniken wie Class Rebalancing
+vergleichbar.
 
 
 % Beispiel einer Tabelle:
