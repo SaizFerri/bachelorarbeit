@@ -171,7 +171,7 @@ wurden den Einfluss der Temperaturwert und der Anzahl der Bins auf die Ergebniss
 \\
 Das Model tendierte ebenfalls bei diesem Datensatz zum Overfitting. Um das zu verhindern wurden die gleiche Techniken wie bei CIFAR-100
 angewendet, was keine bessere Ergebnisse geliefert hat. Eine Halbierung der Anzahl der Filter bei den Convolutional Layers erwiesen eine Verschlechterung
-des Validation Loss und half nicht bei Overfitting. Eine Änderung der Optimierer zu RMSprop und die Ersetzung von ReLU für Tanh zeigten
+des Validation Loss und half nicht bei Overfitting. Eine Änderung der Optimierer zu RMSprop und die Ersetzung von ReLU durch Tanh zeigten
 einen stabileren Training aber keine Verbesserung der Validation Loss. Das Endgültige Model wurde trainiert bis der Validation Loss wieder stieg.
 
 \begin{figure}[H]

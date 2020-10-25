@@ -2,7 +2,7 @@
 \label{sec:evaluation}
 % TODO: Segmentation als Metrik
 Im Kapitel Evaluation werden die im Kapitel 5 vorgestellten Experimenten evaluiert. Außerdem wird die gewählte Methode ausgewertet und
-mit andere Ergebnisse verglichen.
+mit andere Methoden verglichen.
 
 \section{Evaluationsmetrik}
 Für das Problem von Image colorization existiert keine relevante Evaluationsmetrik die die Farben von dem Objekten auf einem Bild auswerten kann.
@@ -37,17 +37,20 @@ Auf diesem Datensatz wurde die Auswirkung der Bin Anzahl gemessen. Die Auswahl v
 Verschlechterung der Farben in der Vorhersage. Dies ist darauf zurückzuführen dass das Model nur 36 mögliche Farben zu Verfügung hat.
 Eine Erhöhung der Bins auf 324, ermöglichte das Model eine Auswahl an mehr Farben zu treffen. 
 Den Ansatz von \cite{billaut2018colorunet} verwendet nur 32 Bins und erzielt ähnliche Ergebnisse wie die Methode dieser Arbeit mit 324 Bins.
-Dies wurde erreicht in dem die Pixeln von jedem Trainingsbild vor dem Training in Bins klassifiziert wurde und daraus nur die am meisten
-Vorkommende 32 Bins ausgewählt wurden. Pixeln die nicht in den gewählten 32 Bins klassifiziert werden konnten, wurden in das nächstliegende Bin
+Dies wurde erreicht in dem die Pixeln von jedem Trainingsbild vor dem Training in Bins klassifiziert wurden und daraus nur die am meisten
+vorkommenden 32 Bins ausgewählt wurden. Pixeln die nicht in den gewählten 32 Bins klassifiziert werden konnten, wurden in das nächstliegende Bin
 zugeordnet.
 \\
+\\
 Der Methode mit einem MSE Loss ermöglicht eine um ein vielfaches größere Auswahl an Farben für die Vorhersage. Bei dieser Methode tretten 
-die im Kapitel \ref{subsection:verwandte-arbeiten} erwähnten Schwierigkeiten, wobei in dem Fall von diesem Datensatz die kaum zu erkennen waren.
-Da die Klassifikationsmethode bessere Ergebnissen geliefert hat, wurden alle Experimenten des Landscape Datensatzes mit dieser Methode durchgeführt.
+die im Kapitel \ref{subsection:verwandte-arbeiten} erwähnten Schwierigkeiten, wobei in dem Fall von diesem Datensatz, diese Schwierigkeiten
+kaum zu erkennen waren.
+Da die Klassifikationsmethode leicht bessere Ergebnissen geliefert hat und der Fokus der Arbeit auf Klassifikationsmethoden gesetzt war,
+wurden alle Experimenten des Landscape Datensatzes mit der Klassifikationsmethode durchgeführt.
 \\
 \\
-Der Verlauf von dem Training und Validation Loss deutete bei diesem Datensatz zu overfitting, was bei der Große des Datensatzes vorkommen kann.
-Wie bei \ref{section:cifar-experimente} beschrieben würde das U-net und die Hyperparameter angepasst um dieses zu verhindern.
+Der Verlauf von dem Training und Validation Loss deutete bei diesem Datensatz zu overfitting, was bei der Große des Datensatzes nicht auszuschließen war.
+Wie bei \ref{section:cifar-experimente} beschrieben wurden das U-net und die Hyperparameter angepasst um dieses zu verhindern.
 
 \begin{figure}[H]
   \centering
@@ -91,6 +94,36 @@ Datensatz für 150 Epochen trainiert, was einen guten Loss Verlauf zeigte. Auf d
 konnte kein Bild richtig einfärben, was bei der Anzahl der Klassen und die Anzahl der Epochen normal ist.
 
 \section{Evaluation des Landscape Datensatzes}
+Die Ergebnisse dieses Model zeigen dass die ausgewählte Methode, mit wenige Bildexemplare und Epochen, sehr gute Ergebnisse erreichen kann.
+Die Anzahl der Bins für diesen Datensatz wurde durch die vorgeführten Experimenten auf 324 gesetzt, da dieser Anzahl die beste Kombination
+aus Trainingszeit und Performance erwiesen hat.
+\\
+\\
+Der Loss Verlauf der Experimenten deutete ebenfalls bei diesem Datensatz nach wenige Epochen auf Overfitting. Nach Zahlreichen Experimenten
+konnte das Overfitting durch Anpassung der Hyperparameter nur minimiert werden. Für die Auswertung der Ergebnissen wurde das Model mit den besten
+Validation Loss verwendet.
+\\
+\\
+Bei der Evaluation der Ergebnissen ist zu erkennen dass nach den wenigen Epochen das Model die wichtigsten Entitäten wie der Himmel, Wolken, Wasser,
+Grass und Erde richtig Einfärben kann. Es fällt auf dass bei einigen Bildern, die Vorhersage des Models realer aussieht als das Originale Bild
+wie das zweite Beispiel von \ref{image:gute-ergebnisse-own}. Im Vergleich zu das Model von \cite{billaut2018colorunet} sehen die vorhergesagten 
+Farben von dieses Model sehr ähnlich. Das zeigt die Performance der Methode ohne die Optimierungstechniken die bei \cite{billaut2018colorunet}
+angewendet wurden. Die Auswirkung der Temperaturwert ist auf beiden Modellen ähnlich, den Modus der Verteilung zeigt einen rötlichen Ton bei den
+Ergebnissen und den Durchschnitt zeigt bei einigen Fällen gesättigte Bilder.
+\\
+Da die Datensatz Große von \cite{billaut2018colorunet} fast identisch ist zu der Datensatz Große dieser Arbeit, konnte das Problem mit dem Overfitting
+auf die Qualität des Datensatzes zurückzuführen sein. Deren Loss Verlauf zeigt kein Overfitting und das verwendete U-Net ist sehr ähnlich wie das
+U-Net der vorliegende Arbeit, was ein Overfitting wegen der angewendete Netzwerkarchitektur ausschließt.
+\\
+\\
+Ein Vergleich mit den Ergebnissen von \cite{zhang2016colorful} wär nur fair mit den Ergebnissen aus deren Klassifikationsmodell ohne rebalancing.
+In diesem Fall sind die Ergebnissen dieses Modells nicht weit entfernt von deren Ergebnissen. Es ist zu erkennen dass deren Modell die gleiche 
+Probleme zeigt wie das Model dieser Arbeit. 
+% Die Ergebnissen von \cite{zhang2016colorful} zeigen bei den meisten Bildern eine bessere Farbe Vorhersage im Vergleich zu die Vorhersagen dieses
+% Models.
+
+
+
 % Beispiel einer Tabelle:
 % \begin{longtable}{|c|c|c|c|}
 % 	\hline
