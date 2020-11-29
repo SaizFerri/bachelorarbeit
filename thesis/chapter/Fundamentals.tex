@@ -1,53 +1,53 @@
 \chapter{Grundlagen}
 Dieses Kapitel verschafft einen Überblick über die benötigten theoretische Grundlagen, um die Methoden dieser Arbeit zu verstehen. 
-Als erstes wird eine Einführung in Neuronale Netzwerke gegeben, anschließend werden
+Zunächst wird eine Einführung in Neuronale Netzwerke gegeben, anschließend werden
 einzelne Bestandsteile und Varianten von Neuronalen Netzwerken erklärt. 
-Als nächstes wird der ``Lab-Farbraum'' kurz erklärt. Abschließend wird einen Überblick über verwandte Arbeiten gegeben.
+Als nächstes wird der ``Lab-Farbraum'' kurz erläutert. Abschließend wird ein Überblick über verwandte Arbeiten gegeben.
 
 \section{Neuronale Netze}
-Künstliche Neuronale Netze sind inspiriert durch das Menschliche Gehirn und werden für Künstliche Intelligenz und Maschinelles Lernen
-angewendet. Sie werden für überwachtes und unüberwachtes lernen verwendet. In der vorliegende Arbeit werden nur Methoden des überwachtes 
-lernen angewendet. Bei überwachtes lernen sind die Datensätze gelabelt sodass den Output von dem Neuronales Netz mit den richtigen Ergebnissen
+Künstliche Neuronale Netze sind vom menschlichen Gehirn inspiriert und werden für Künstliche Intelligenz und Maschinelles Lernen
+angewendet. Genutzt werden sie für überwachtes und unüberwachtes lernen. In der vorliegenden Arbeit werden nur Methoden des überwachten
+lernens angewendet. Beim überwachten lernen sind die Datensätze gelabelt, sodass der Output des Neuronalen Netzes mit den richtigen Ergebnissen
 verglichen werden kann.
 \\
 \\
-Neuronale Netze bestehen aus Neuronen oder auch ``Units'' genannt, die Schichtenweise in ``Layers'' (Schichten) angeordnet sind.
+Neuronale Netze bestehen aus Neuronen, auch ``Units'' genannt, die schichtenweise in ``Layers'' (Schichten) angeordnet sind.
 Beginnend mit der Eingabeschicht (Input \gls{Layer}) fließen Informationen über eine oder mehrere Zwischenschichten (Hidden \gls{Layer}) bis hin zur 
 Ausgabeschicht (Output \gls{Layer}). Dabei ist der Output des einen Neurons der Input des nächsten. \cite{neuronale-netze-aufbau}
 
 \subsection{Feedforward Neural Network}
-Das Ziel von einem Feedforward Neural Network ist die Annäherung an irgendeine Funktion $ f^* $. Ein Feedforward Neural Network definiert 
-eine Abbildung $ y = f(x;W) $ wobei $ x $ den Input ist und $ W $ die lernbare Parameter sind (auch Gewichte genannt).
+Das Ziel von einem Feedforward Neural Network ist die Annäherung an eine Funktion $ f^* $. Ein Feedforward Neural Network definiert 
+eine Abbildung $ y = f(x;W) $ wobei $ x $ der Input ist und $ W $ die lernbaren Parameter sind (auch Gewichte genannt).
 \cite[164-223]{Goodfellow-et-al-2016}
 \\
 \\
-Diese Netzwerkarchitektur heißt ``feedforward'' weil der Informationsfluss von der Input \gls{Layer} über die Hidden Layers bis zur Output \gls{Layer} 
-in einer Richtung weitergereicht wird.
+Diese Netzwerkarchitektur trägt den Namen ``feedforward'' weil der Informationsfluss von der Input \gls{Layer},
+über die Hidden Layers bis zur Output \gls{Layer} in eine Richtung weitergereicht wird.
 
-Feedforward Neural Networks werden als eine Kette von Funktionen repräsentiert. Als Beispiel,
-kann man die Funktionen $ f^{(1)}, f^{(2)}, f^{(3)} $ in Form einer Kette verbinden um $ f(\textbf{x}) = f^{(3)}(f^{(2)}(f^{(1)}(\textbf{x}))) $
-zu bekommen. Diese Kettenstrukturen sind die am häufigsten genutzte Struktur bei Neuronale Netzwerke. In diesem Fall, $ f^{(1)} $ ist das 
-erste Layer, $ f^{(2)} $ das zweite und $ f^{(3)} $ der Output Layer von diesem Netzwerk. Die Länge dieser Kette definiert die Tiefe von
-einem Netzwerk. Je tiefer
-ein Netzwerk ist desto mehr lernbare Parameter hat es und somit eine erhöhte Rechenleistung braucht um trainiert zu werden.
-In der Praxis werden die Netzwerke sehr tief, daher der Begriff Deep Learning.
+Feedforward Neural Networks werden als eine Kette von Funktionen dargestellt. So,
+kann man die Funktionen $ f^{(1)}, f^{(2)}, f^{(3)} $ in Form einer Kette verbinden, um $ f(\textbf{x}) = f^{(3)}(f^{(2)}(f^{(1)}(\textbf{x}))) $
+zu bekommen. Diese Kettenstrukturen sind die am häufigsten genutzte Struktur bei Neuronalen Netzwerken. Im genannten Beispiel ist $ f^{(1)} $ der
+erste Layer, $ f^{(2)} $ der zweite und $ f^{(3)} $ der Output Layer von diesem Netzwerk. Die Länge dieser Kette definiert die Tiefe des Netzwerks.
+Je tiefer ein Netzwerk ist, desto mehr erlernbare Parameter besitzt es und braucht somit eine erhöhte Rechenleistung, um trainiert zu werden.
+In der Praxis sind die Netzwerke sehr tief, daher der Begriff Deep Learning.
 \\
 \\
 Während dem Training werden die Gewichte von $ f(x) $ verstellt, um $ f^*(x) $ zu erhalten. Jedes Trainingsbeispiel $ x $ ist mit einem Label
-$ y = f^*(x)$ versehen. Die Trainingsbeispiele legen genau fest, was der Output Layer generieren soll. Der Output Layer soll Werte generieren,
-die nah an $ y $ liegen. Das Verhalten von den Hidden Layers wird nicht durch die Trainingsbeispiele festgelegt, sondern der Lernalgorithmus
-soll definieren, wie diese Layers verwendet werden, um die beste Annäherung von $ f^*(x) $ zu generieren.
+$ y = f^*(x)$ versehen. Die Trainingsbeispiele geben genau vor, was der Output Layer generieren soll. Der Output Layer soll Werte generieren,
+die nah an $ y $ liegen. Das Verhalten der Hidden Layers wird nicht durch die Trainingsbeispiele festgelegt, sondern der Lernalgorithmus
+soll selbst definieren, wie diese Layers verwendet werden, um die beste Annäherung von $ f^*(x) $ zu erzielen.
 
 \subsection{Fully-connected Neural Network}
-Fully-connected Neural Networks sind die am häufigsten vorkommende Art von Neuronale Netze. In dieser Netzwerkarchitektur sind alle Neuronen
-von einem Layer mit alle Neuronen von der vorherige und nächsten Layer verbunden. Neuronen in dem gleichen Layer sind aber nicht miteinander verbunden.
+Fully-connected Neural Networks sind die am häufigsten vorkommende Art von Neuronalen Netzen. In dieser Netzwerkarchitektur sind alle Neuronen
+eines Layers mit allen Neuronen des vorherigen und des nächsten Layers verbunden. Neuronen die sich im selben Layer befinden, 
+sind jedoch nicht miteinander verbunden.
 \cite{cs231-neural-networks}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.65\textwidth]{resources/nn/neural_net.jpeg}
   \caption{
-    Fully-connected Neural Network mit 2 Layers (ein Hidden Layer mit 4 Neuronen) und ein Output Layer mit 2 Neuronen 
+    Fully-connected Neural Network mit 2 Layers (ein Hidden Layer mit 4 Neuronen und ein Output Layer mit 2 Neuronen)
     \cite{fully-connected-neural-network}
   }
   \label{image:neuronal-network}
@@ -55,24 +55,24 @@ von einem Layer mit alle Neuronen von der vorherige und nächsten Layer verbunde
 
 % TODO: Formel erklären, Formel und Elemente der Formel erklären
 
-Eine der wichtigsten Gründe für die Anordnung von Neuronale Netze in Layers ist dass so eine Struktur anhand von Matrix Multiplikationen
-berechnet werden kann. Das obere Bild \ref{image:neuronal-network} stellt ein Netzwerk mit 3 Inputs $ x $, eine Hidden Layer mit 4 Neuronen
-und eine Output Layer mit 2
-Neuronen dar. Die Kreisen repräsentieren die Neuronen und einem Bias Wert $ b $, die Pfeilen stellen die Gewichte $ w $ dar.
+Einer der wichtigsten Gründe für die Anordnung von Neuronalen Netzen in Layers ist, dass so eine Struktur anhand von Matrix Multiplikationen
+berechnet werden kann. Die Abbildung \ref{image:neuronal-network} stellt ein Netzwerk mit 3 Inputs $ x $, eine Hidden Layer mit 4 Neuronen
+und eine Output Layer mit 2 Neuronen dar. Die Kreise repräsentieren die Neuronen und einen Bias Wert $ b $,
+die Pfeile stellen die Gewichte $ w $ dar.
 
 \begin{align}
   f(x) = w*x + b
 \end{align}
 
-Nach jeden Hidden Layer läuft den Output durch eine Aktivierungsfunktion $ \sigma $ die in \ref{subsection:aktivierungsfunktionen} erklärt wird.
-Daraus wird die vorherige Formel um $ \sigma $ erweitert:
+Nach jeden Hidden Layer läuft der Output durch eine Aktivierungsfunktion $ \sigma $ die unter Kapitel \ref{subsection:aktivierungsfunktionen} erklärt wird.
+Dadurch wird die vorherige Formel um $ \sigma $ erweitert:
 
 \begin{align}
   f(x) = \sigma( w*x + b)
 \end{align}
 
 \subsubsection{Forward Pass}
-Den Forward Pass von einem Neuronalem Netz wird anhand von Matrizen Multiplikationen berechnet. Um das zu veranschaulichen wird
+Der Forward Pass von einem Neuronalen Netz wird anhand von Matrizen Multiplikationen berechnet. Um dies zu veranschaulichen wird
 es anhand eines Beispiels erklärt.
 
 Ausgehend von einem Netzwerk mit 3 Inputs, eine Hidden Layer mit 2 Neuronen und einem Output Neuron, ergeben sich folgende Beispielwerte:
@@ -98,9 +98,9 @@ Ausgehend von einem Netzwerk mit 3 Inputs, eine Hidden Layer mit 2 Neuronen und 
   \end{pmatrix}
 \end{equation}
 
-$ X $ sind die Inputs, $ W $ die Gewichte von dem Hidden Layer und $ W_{out} $ die Gewichte von dem Output Layer.
-Die erste Spalte in dem Input $ X $ und die erste Zeile in beide Gewichtsmatrizen $ W $ und $ W_{out} $ sind die Werte für den Bias.
-Diese Anordnung von den Bias Werte ermöglicht die Berechnung durch eine einzigen Matrix Multiplikation. Als Aktivierungsfunktion wird ReLU 
+$ X $ sind die Inputs, $ W $ die Gewichte des Hidden Layers und $ W_{out} $ die Gewichte des Output Layers.
+Die erste Spalte aus dem Input $ X $ und die ersten Zeilen aus beide Gewichtsmatrizen $ W $ und $ W_{out} $ sind die Werte für den Bias.
+Diese Anordnung des Bias Wertes ermöglicht die Berechnung durch eine einzige Matrix Multiplikation. Als Aktivierungsfunktion wird ReLU 
 \cite{10.5555/3104322.3104425} verwendet:
 
 \begin{equation}
@@ -112,7 +112,7 @@ Diese Anordnung von den Bias Werte ermöglicht die Berechnung durch eine einzige
   \end{cases}
 \end{equation}
 
-Im ersten Schritt durchläuft den Input durch das Hidden Layer $ f(X \times W) $:
+Im ersten Schritt durchläuft der Input durch das Hidden Layer $ f(X \times W) $:
 \begin{equation}
   \vspace{5pt}
   f \left(
@@ -137,7 +137,7 @@ Im ersten Schritt durchläuft den Input durch das Hidden Layer $ f(X \times W) $
   \end{pmatrix}
 \end{equation}
 
-Im zweiten Schritt wird den Output von der vorherige Multiplikation mal die Gewichte von dem Output Layer multipliziert:
+Im zweiten Schritt wird der Output von der vorherigen Multiplikation mit den Gewichten des Output Layers multipliziert:
 \begin{equation}
   \vspace{5pt}
   f \left(
@@ -167,14 +167,14 @@ Eine Aktivierungsfunktion definiert die Aktivierungsrate von einem Neuron. Es gi
 % TODO: Formeln mit nummerierung
 \subsubsection{Sigmoid}
 Sigmoid ist eine nicht lineare Funktion welche die Werte in einem Wertebereich von $ [0, 1] $ bringt.
-Große negative Werte werden annähernd 0 und große positive Werte werden annähernd 1. Sigmoid hat verschiedene Nachteile, es neigt dazu den Gradienten zu verschwinden
-und die Outputs sind nicht Null zentriert. Sigmoid ist definiert als:
+Große negative Werte werden annähernd 0 und große positive Werte werden annähernd 1. Sigmoid hat einige Nachteile, so neigt es dazu den Gradienten
+verschwinden zu lassen und die Outputs sind nicht Null zentriert. Sigmoid wird definiert als:
 
 \begin{equation}
   \sigma(x) = \frac{1}{1 + e^{-x}}
 \end{equation}
 
-wobei $x$ einem Input ist.
+wobei $x$ ein Input ist.
 
 \begin{figure}[H]
   \centering
@@ -187,8 +187,8 @@ wobei $x$ einem Input ist.
 \end{figure}
 
 \subsubsection{Tanh}
-Die Tanh Aktivierungsfunktion bringt Werte in einem Wertebereich von $ [-1, 1] $. Es ist eine skalierte Sigmoid ($ \sigma $) Funktion,
-$ tanh(x) = 2\sigma(2x) - 1 $. Die Nachteile von Tanh sind ähnlich zu Sigmoid aber der Output ist Null zentriert.
+Die Tanh Aktivierungsfunktion bringt Werte in einen Wertebereich von $ [-1, 1] $. Es ist eine skalierte Sigmoid ($ \sigma $) Funktion,
+$ tanh(x) = 2\sigma(2x) - 1 $. Die Nachteile von Tanh ähneln den von Sigmoid, wobei jedoch der Output Null zentriert ist.
 
 \begin{figure}[H]
   \centering
@@ -201,19 +201,19 @@ $ tanh(x) = 2\sigma(2x) - 1 $. Die Nachteile von Tanh sind ähnlich zu Sigmoid a
 \end{figure}
 
 \subsubsection{ReLU}
-Die Rectified Linear Unit konvertiert alle negative Werte in 0 und alle positive Werte behalten deren Identität. Diese Aktivierungsfunktion
-wurde für die Netzwerke in dieser Arbeit benutzt da es Vorteile gegenüber Sigmoid zeigt. Einer der Vorteile ist dass die Mathematische
-Auswertung der Funktion unkompliziert ist. Außerdem beschleunigt es die Konvergenz von Stochastisches Gradientenabstiegsverfahren im Vergleich zu Sigmoid.
+Die Rectified Linear Unit konvertiert alle negativen Werte zu 0 und alle positiven Werte behalten ihre Identität. Diese Aktivierungsfunktion
+wurde für die Netzwerke in dieser Arbeit verwendet da, sie Vorteile gegenüber Sigmoid zeigt. Einer der Vorteile ist, dass die mathematische
+Auswertung der Funktion unkompliziert ist. Außerdem beschleunigt sie die Konvergenz des Stochastischen Gradientenabstiegsverfahrens im Vergleich zu Sigmoid.
 ReLU ist definiert als:
 
 \begin{equation}
   f(x) = max(0, x)
 \end{equation}
 
-wobei $x$ einem Input ist.
+wobei $x$ ein Input ist.
 \\
-Neuronen die ReLU als Aktivierungsfunktion verwenden, können während des Trainings ``sterben''. Zum Beispiel, wenn der Gradient in einem Neuron
-zu groß ist, kann dieser zu einem update der Gewichte führen, wo das Neuron nie wieder aktiviert werden kann. Mit einer korrekter Einstellung der
+Neuronen die ReLU als Aktivierungsfunktion verwenden können während des Trainings ``sterben''. Zum Beispiel, wenn der Gradient in einem Neuron
+zu groß ist, kann dieser zu einem update der Gewichte führen, wodurch das Neuron nie wieder aktiviert werden kann. Mit einer korrekten Einstellung der
 Lernrate kann das vermieden werden. \cite{cs231-neural-networks}
 
 \begin{figure}[H]
@@ -228,9 +228,9 @@ Lernrate kann das vermieden werden. \cite{cs231-neural-networks}
 
 % TODO: alpha durch was anderes ersetzen
 \subsubsection{Leaky ReLU}
-Leaky ReLU ist einer Variante von ReLU, die versucht, das Problem mit den ``sterbenden'' Neuronen zu minimieren. Anstatt alle negative Werte
-in Null zu konvertieren, werden die Werte mal einer Konstante multipliziert. Die Funktion wird zu $ f(x) = 1(x < 0)(\alpha x) + 1(x >= 0)(x)$,
-wobei $ \alpha $ eine Konstante mit geringeren Wert ist, zum Beispiel $ 0.001 $.
+Leaky ReLU ist einer Variante der ReLU Aktivierungsfunktion, die versucht das Problem der ``sterbenden'' Neuronen zu minimieren. Anstatt alle negativen Werte
+zu Null zu konvertieren, werden die Werte mit einer Konstanten multipliziert. Die Funktion wird zu $ f(x) = 1(x < 0)(\alpha x) + 1(x >= 0)(x)$,
+wobei $ \alpha $ eine Konstante mit geringerem Wert ist, zum Beispiel $ 0.001 $.
 
 \begin{figure}[H]
   \centering
@@ -243,11 +243,11 @@ wobei $ \alpha $ eine Konstante mit geringeren Wert ist, zum Beispiel $ 0.001 $.
 \end{figure}
 
 \section{Convolutional Neural Networks}
-Convolutional Neural Networks (\gls{CNN}) sind eine besondere Form von künstliche neuronale Netzwerke, das speziell für 
-die Verarbeitung von Bilddaten, unter anderen, vorgesehen ist \cite{convnet-erklaerung}.
+Convolutional Neural Networks (\gls{CNN}) sind eine besondere Form von künstlichen neuronalen Netzwerken, die unter anderen speziell für 
+die Verarbeitung von Bilddaten, vorgesehen sind \cite{convnet-erklaerung}.
 \\
-Im gegensatz zu traditionelle neuronale Netzwerke, die ein Vektor als Input nehmen, nehmen Convolutional Neural Networks ein 3D Volumen als Input
-($ W \times H \times C $, wobei $W$ die Breite, $H$ die Höhe und $C$ die Farbkanäle sind).
+Im Gegensatz zu traditionellen neuronalen Netzwerken, die einen Vektor als Input nehmen, nehmen Convolutional Neural Networks ein 3D Volumen als Input
+($ W \times H \times C $, hierbei ist $W$ die Breite, $H$ die Höhe und $C$ sind die Farbkanäle).
 
 \begin{figure}[H]
   \centering
@@ -263,11 +263,11 @@ Im gegensatz zu traditionelle neuronale Netzwerke, die ein Vektor als Input nehm
 \gls{CNN}s bestehen in der Regel aus 2 Formen von \gls{Layer}s, die Convolutional \gls{Layer} und die Pooling Layer. 
 \\
 \\
-Die Convolutional \gls{Layer} besteht aus mehrere hintereinander geschaltete 3 Dimensionale
-Filter, auch Kernel genannt ($ W \times H \times D$, wobei $D$ die Tiefe der Feature maps darstellt), die während den Forward pass, über dem Bild 
-mit einer festgelegten Schrittweite (\gls{stride}), geschoben werden. Mit den sogenannten Padding wird der Verhalten an den Rändern festgelegt.
-An jeder stelle wird eine Matrix Multiplikation zwischen den Filter und die aktuelle Position auf dem Bild durchgeführt. 
-Als Output wird eine 2 Dimensionalen Feature maps generiert. Die Größe dieser Feature map ist abhängig 
+Die Convolutional \gls{Layer} besteht aus mehreren hintereinander geschalteten 3 dimensionalen
+Filtern, auch Kernel genannt ($ W \times H \times D$, wobei $D$ die Tiefe der Feature maps darstellt), die während dem Forward pass mit 
+einer festgelegten Schrittweite (\gls{stride}), über das Bild geschoben werden. Mit dem sogenannten Padding wird das Verhalten an den Rändern festgelegt.
+An jeder Stelle wird eine Matrix Multiplikation zwischen den Filter und die aktuelle Position auf dem Bild durchgeführt. 
+Als Output wird eine 2 dimensionalen Feature map generiert. Die Größe dieser Feature map ist abhängig 
 von der Größe des Filters, dem Padding und vor allem dem \gls{stride}. Ein \gls{stride} von 2 bei einer Filter Größe von $ 2\times2 $ führt beispielsweise 
 pro Filter zu einer Halbierung der Größe der Feature map im Vergleich zum Input Volumen \cite{aufbau-funktion-convnet}.
 Ein \gls{stride} von 1 bei einem $ 3\times3 $ Filter mit Padding 1 führt zu einer Feature map mit der gleiche Größe wie der Input Volumen.
