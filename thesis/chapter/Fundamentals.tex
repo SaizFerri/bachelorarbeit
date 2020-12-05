@@ -260,40 +260,40 @@ Im Gegensatz zu traditionellen neuronalen Netzwerken, die einen Vektor als Input
 \end{figure}
 
 
-\gls{CNN}s bestehen in der Regel aus 2 Formen von \gls{Layer}s, die Convolutional \gls{Layer} und die Pooling Layer. 
+\gls{CNN}s bestehen in der Regel aus 2 Formen von \gls{Layer}s, der Convolutional \gls{Layer} und der Pooling Layer. 
 \\
 \\
-Die Convolutional \gls{Layer} besteht aus mehreren hintereinander geschalteten 3 dimensionalen
+Der Convolutional \gls{Layer} besteht aus mehreren hintereinander geschalteten 3 dimensionalen
 Filtern, auch Kernel genannt ($ W \times H \times D$, wobei $D$ die Tiefe der Feature maps darstellt), die während dem Forward pass mit 
 einer festgelegten Schrittweite (\gls{stride}), über das Bild geschoben werden. Mit dem sogenannten Padding wird das Verhalten an den Rändern festgelegt.
 An jeder Stelle wird eine Matrix Multiplikation zwischen den Filter und die aktuelle Position auf dem Bild durchgeführt. 
 Als Output wird eine 2 dimensionalen Feature map generiert. Die Größe dieser Feature map ist abhängig 
 von der Größe des Filters, dem Padding und vor allem dem \gls{stride}. Ein \gls{stride} von 2 bei einer Filter Größe von $ 2\times2 $ führt beispielsweise 
 pro Filter zu einer Halbierung der Größe der Feature map im Vergleich zum Input Volumen \cite{aufbau-funktion-convnet}.
-Ein \gls{stride} von 1 bei einem $ 3\times3 $ Filter mit Padding 1 führt zu einer Feature map mit der gleiche Größe wie der Input Volumen.
+Ein \gls{stride} von 1 bei einem $ 3\times3 $ Filter mit Padding 1 führt zu einer Feature map mit der gleiche Größe wie dem Input Volumen.
 \\
 \\
-Die Filter erkennen in den ersten Ebenen einfache Strukturen wie Linien, Farben oder Kanten. In den nächsten Ebenen lernt das CNN Kombinationen aus 
+Die Filter erkennen in den ersten Ebenen einfache Strukturen wie Linien, Farben oder Kanten. In den daran folgenden Ebenen lernt das CNN Kombinationen aus 
 diesen Strukturen wie Formen oder Kurven. In den tieferen \gls{Layer}s werden komplexere Strukturen und Objekte identifiziert. 
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.75\textwidth]{resources/cnn/funktion-cnn.png}
   \caption{
-    Beispiel Forward pass von einem Convolutional \gls{Layer} mit einem $ 7\times7\times3 $ Input Volumen, zwei $3\times3\times3$ Filter, 
+    Beispiel eines Forward pass von einem Convolutional \gls{Layer} mit einem $ 7\times7\times3 $ Input Volumen, zwei $3\times3\times3$ Filtern, 
     Padding 1 und \gls{stride} 2.
     \cite{convnet-demo}
   }
   \label{image:convnet-demo}
 \end{figure}
 
-Die Pooling Layer dient zur Reduktion der Dimensionen von einem Input Volumen und somit die Parameter von dem Netzwerk. Es gibt 
+Die Pooling Layer dient zur Reduktion der Dimensionen von einem Input Volumen und somit den Parametern vom Netzwerk. Es gibt 
 verschiedene Pooling Operationen die angewendet werden können, wie zum Beispiel Maximum Pooling, Minimum Pooling, oder Average Pooling. Im Rahmen 
-dieser Arbeit wird Maximum Pooling (oder Max Pooling) verwendet.
+dieser Arbeit wird Maximum Pooling (auch Max Pooling genannt) verwendet.
 \\
 \\
-Ein Max Pooling \gls{Layer} aggregiert die Aktivierungsmatrizen von Convolutional Layers, in dem nur die höchste Zahl von einem Filter weitergegeben 
-wird. Zum Beispiel, bei einem $ 2 \times 2 $ Filter wird aus 4 Zahlen nur 1 Zahl weitergegeben. Damit wird einer Reduktion der Dimensionen erreicht.
+Ein Max Pooling \gls{Layer} aggregiert die Aktivierungsmatrizen von Convolutional Layers in dem nur die höchste Zahl eines Filters weitergegeben 
+wird. So wird bei einem $ 2 \times 2 $ Filter von 4 Zahlen nur eine Zahl weitergegeben. Damit wird einer Reduktion der Dimensionen erreicht.
 
 \begin{figure}[H]
   \centering
@@ -307,52 +307,52 @@ wird. Zum Beispiel, bei einem $ 2 \times 2 $ Filter wird aus 4 Zahlen nur 1 Zahl
 
 \subsection{Loss Functions}
 % Erklärung
-Die \gls{loss function} (Kostenfunktion) dient zur Feststellung der Fehler (Loss) zwischen dem Output von einem Model und die Zielwerte. 
+Die \gls{loss function} (Kostenfunktion) dient zur Feststellung der Fehler (Loss) zwischen dem Output von einem Model und dem vorgesehenen Zielwerten. 
 Das Ziel von Neuronalen Netzen ist es den Loss zu minimieren. Wenn der Loss gleich Null ist, heißt dass $ y = \hat{y} $. Es gibt verschiedene Arten 
 von \gls{loss function}s. Im Rahmen dieser Arbeit werden \gls{loss function}s bezogen auf Regressions– und Klassifizierungsprobleme behandelt.
 
 \subsubsection{Mean Square Error Loss}
-Mean Square Error (MSE) Loss misst der mittlere quadratische Fehler und ist definiert als:
+Mean Square Error (MSE) Loss misst den mittleren quadratischen Fehler und ist definiert als:
 
 \begin{equation}
   J = \frac{1}{N} \sum (y - \hat{y})^2
 \end{equation}
 
-wobei, $J$ der Loss ist, $N$ die Anzahl der Klassen, $y$ die Korrekte Klasse (Ground Truth) und $ \hat{y}$ die vorhergesagte Klasse ist.
+wobei, $J$ der Loss ist, $N$ die Anzahl der Klassen, $y$ die korrekte Klasse (Ground Truth) und $ \hat{y}$ die vorhergesagte Klasse ist.
 
 \subsubsection{Cross Entropy Loss}
-Der Cross Entropy Loss wird bei Klassifizierungsprobleme verwendet. Es gibt 2 Arten, Binär und Multiclass Cross Entropy Loss. 
-Bei der Multiclass Cross Entropy Loss wird ein Vektor mit einer Wahrscheinlichkeitsverteilung $ x \in [0, 1] $ 
-ausgewertet, wenn die Korrekte Klasse eine 1 hat ist der Loss 0. Je weniger Wahrscheinlichkeit die Korrekte Klasse besitzt desto höher der Loss 
-sein wird. Der Multiclass Cross Entropy Loss ist definiert als: 
+Der Cross Entropy Loss wird bei Klassifizierungsproblemen verwendet. Es wird unterschieden zwischen, Binär und Multiclass Cross Entropy Loss. 
+Bei dem Multiclass Cross Entropy Loss wird ein Vektor mit einer Wahrscheinlichkeitsverteilung $ x \in [0, 1] $ 
+ausgewertet, wenn die korrekte Klasse eine 1 besitzt ist der Loss 0. Dabei gilt: je weniger Wahrscheinlichkeit die korrekte Klasse besitzt, 
+desto höher wird der Loss sein. Der Multiclass Cross Entropy Loss ist definiert als: 
 
 \begin{equation}
   J = -\frac{1}{N} \Big(\sum_{i=0}^N y_{i} * \log(\hat{y_{i}})\Big)
 \end{equation}
 
-wobei, $J$ der Loss ist, $N$ die Anzahl der Klassen, $y$ die Korrekte Klasse (Ground Truth) und $ \hat{y}$ die vorhergesagte Klasse ist.
+wobei, $J$ der Loss ist, $N$ die Anzahl der Klassen, $y$ die Korrekte Klasse (Ground Truth) und $ \hat{y}$ die vorhergesagte Klasse.
 
 \subsubsection{Weighted Cross Entropy Loss}
-Bei der Weighted Cross Entropy Loss werden die Klassen gewichtet bevor der Loss berechnet wird. Das ist zum Beispiel nützlich um Klassen  
-mit einer niedrige Wahrscheinlichkeit zu bevorzugen.
+Bei dem Weighted Cross Entropy Loss werden die Klassen gewichtet bevor der Loss berechnet wird. Das ist zum Beispiel nützlich, um Klassen  
+mit einer niedrigen Wahrscheinlichkeit zu bevorzugen.
 
 \subsection{Optimierungsalgorithmen}
-Das Ziel von Optimierungsalgorithmen ist eine Kombination von Gewichte $ W $ zu finden, dass die \gls{loss function} minimiert.
-Es gibt verschiedene relevante Optimierungsalgorithmen. In der vorliegende Arbeit werden Gradient Descent und Adam verwendet.
+Das Ziel von Optimierungsalgorithmen ist eine Kombination von Gewichten $ W $ zu finden, die die \gls{loss function} minimieren.
+Es gibt diverse relevante Optimierungsalgorithmen. In der vorliegenden Arbeit werden Gradient Descent und Adam verwendet.
 
 % TODO: Erklärung für update rules anpassen
 \subsubsection{Gradient Descent}
 Gradient Descent (Gradientenabstiegsverfahren) ist ein iteratives Verfahren, um bei einer Funktion das Minimum (oder das Maximum) zu finden. 
-Mit Hilfe von partielle Ableitungen kann der Gradient von einer Funktion berechnet werden. Ein Gradient ist, in dem Fall von Neuronale 
-Netze, ein Vektor der zum höchsten Punkt der \gls{loss function} zeigt. Wird der negative Gradient genommen, zeigt dieser zum tiefsten Punkt.
-Bei jeder Kombination von Gewichte wird der Gradient berechnet und mal eine bestimmte Lernrate $ \alpha $ multipliziert, anschließend werden 
+Mit Hilfe von partiellen Ableitungen kann der Gradient von einer Funktion berechnet werden. Ein Gradient ist, im Fall von Neuronalen
+Netzen, ein Vektor, der zum höchsten Punkt der \gls{loss function} zeigt. Wird der negative Gradient genommen, zeigt dieser zum tiefsten Punkt.
+Bei jeder Kombination von Gewichten wird der Gradient berechnet und mit einer bestimmten Lernrate $ \alpha $ multipliziert, anschließend werden 
 alle Gewichte aktualisiert. Die Lernrate definiert die Größe der Schritte in Richtung Minimum. Die Update Regel für die Gewichte ist definiert als:
 
 \begin{equation}
   w_{x+1} = w_x - \alpha * \nabla J(w_x)
 \end{equation}
 
-wobei, $w_{x+1}$ die aktualisierte Gewichte sind, $w_x$ die vorherige Gewichte, $ \alpha $ die Lernrate und $\nabla J(w_x)$ der Gradient ist. 
+wobei, $w_{x+1}$ die aktualisierten Gewichte sind, $w_x$ die vorherigen Gewichte, $ \alpha $ die Lernrate und $\nabla J(w_x)$ der Gradient. 
 Die Update Regel für den Bias sieht identisch aus.
 
 \begin{figure}[H]
@@ -365,14 +365,15 @@ Die Update Regel für den Bias sieht identisch aus.
   \label{image:gradient-descent}
 \end{figure}
 
-Es gibt verschiedene Arten von Gradient Descent, Mini-Batch Gradient Descent und Stochastisches Gradient Descent. Bei den normalen Gradient Descent
-werden die Gradienten im Bezug zu den gesamten Datensatz berechnet und damit das Update durchgeführt. Mini-Batch Gradient Descent berechnet 
-die Gradienten im Bezug zu einen kleinen Teil von dem Datensatz und führt einen Update für alle Parameter durch. Letztendlich, Stochastisches Gradient Descent 
-berechnet den Gradient bezogen auf einem einzigen Element von dem Datensatz und führt einen Update für alle Parameter durch.
+Es gibt verschiedene Arten von Gradient Descent: Gradient Descent, Mini-Batch Gradient Descent und Stochastic Gradient Descent. 
+Beim normalen Gradient Descent
+werden die Gradienten im Bezug zu dem gesamten Datensatz berechnet und damit das Update durchgeführt. Der Mini-Batch Gradient Descent berechnet 
+die Gradienten im Bezug zu einem kleinen Teil des Datensatzes und führt ein Update für alle Parameter durch. Der Stochastic Gradient Descent 
+berechnet den Gradient bezogen auf ein einziges Element des Datensatzes und führt einen Update für alle Parameter durch.
 \\
-Um die Konvergenz Richtung Minimum zu beschleunigen, wurde das Gradient Descent mit Momentum entwickelt. Bei diesem Ansatz wird einen 
-Geschwindigkeitsparameter zu der Update Regel hinzugefügt die alle vorherige Updates akkumuliert. Das ermöglicht die schnellere Konvergenz mit jedem Schritt.
-Die neue Update regel ist definiert als:
+Um die Konvergenz Richtung Minimum zu beschleunigen wurde der Gradient Descent mit Momentum entwickelt. Bei diesem Ansatz wird ein
+Geschwindigkeitsparameter zu der Update Regel hinzugefügt, der alle vorherigen Updates akkumuliert. 
+Das ermöglicht die schnellere Konvergenz mit jedem Schritt. Die neue Update Regel ist definiert als:
 
 \begin{equation}
   \begin{gathered}
@@ -382,26 +383,26 @@ Die neue Update regel ist definiert als:
 \end{equation}
 
 wobei $v_{t+1}$ der nächste Geschwindigkeitsparameter ist, $v_t$ der aktuelle Geschwindigkeitsparameter und $\rho$ ein Reibungsparameter 
-(typisch 0.9) zu Regulierung ist.
+(typisch 0.9) zur Regulierung.
 
 % TODO: finish Adam
 \subsubsection{Adam}
-Adam steht für ``Adaptive Moment Estimation Algorithm'' und ist ein Optimierungsalgorithmus der eine angepasste Lernrate für die verschiedene 
+Adam steht für ``Adaptive Moment Estimation Algorithm'' und ist ein Optimierungsalgorithmus, der eine angepasste Lernrate für die verschiedenen
 Parameter berechnet \cite{kingma2014adam}. Adam ist der bevorzugte Optimierungsalgorithmus für die vorliegende Arbeit. 
 Adam kombiniert die Ansätze von AdaGrad \cite{duchi2011adaptive} und RMSProp. AdaGrad ist eine 
-verbesserte Version von Gradient Descent dass eine angepasste Lernrate für die verschiedene Parameter einführt. 
+verbesserte Version von Gradient Descent, der eine angepasste Lernrate für die verschiedenen Parameter einführt. 
 
 
 
 \subsection{Backpropagation}\label{subsection:backpropagation}
-Neuronale Netze lernen in dem das Loss minimiert wird. Wie in der vorherigen Sektionen erläutert, bestimmt die \gls{loss function}, 
-die Fehlerrate von einem Neuronales Netz. Dieses Loss kann mit Hilfe von einem Optimierungsalgorithmus reduziert werden. 
-Backpropagation ermöglicht es, einer effizienten Berechnung der Gradienten in einem neuronalen Netzwerk \cite{was-ist-backpropagation}. 
-Mit Hilfe der Kettenregel kann eine Komplexe \gls{loss function} in kleinere Unterfunktionen zerlegt werden um Lokal die Ableitung zu berechnen.
+Neuronale Netze lernen indem der Loss minimiert wird. Wie in der vorherigen Sektionen erläutert, bestimmt die \gls{loss function}
+die Fehlerrate von einem Neuronalen Netz. Dieser Loss kann mit Hilfe von einem Optimierungsalgorithmus reduziert werden. 
+Backpropagation ermöglicht eine effiziente Berechnung der Gradienten in einem neuronalen Netzwerk \cite{was-ist-backpropagation}. 
+Mit Hilfe der Kettenregel kann eine komplexe \gls{loss function} in kleinere Unterfunktionen zerlegt werden, um Lokal die Ableitung zu berechnen.
 Das ermöglicht eine unkomplizierte Berechnung des Gradienten.
 \\
 \\
-Als Beispiel kann die folgende Sigmoid Funktion in Unterfunktionen zerlegt werden:
+Als Beispiel wird die folgende Sigmoid Funktion in Unterfunktionen zerlegt:
 
 \begin{equation}
   f(w,x) = \frac{1}{1+e^{-(w_0 x_0 + w_1 x_1 + w_2)}}
@@ -417,34 +418,35 @@ Als Beispiel kann die folgende Sigmoid Funktion in Unterfunktionen zerlegt werde
   \label{image:backpropagation}
 \end{figure}
 
-Bei dem oberen Bild sind $ [w_0, w_1, w_2] $ die Gewichte und $ [x_0, x_1] $ die Inputs des Neurons. Um es unkompliziert zu halten, kann die 
-obere Funktion als irgendeine Funktion, die Inputs ($w, x$) entgegennimmt und eine einzelne Zahl als Output hat, visualisiert werden. 
-Die Grüne Zahlen repräsentieren die Ergebnissen aus dem Forward Pass und die Rote Zahlen der zurück propagierte Loss. Jeder Knoten ist fähig 
+Auf der Abbildung \ref{image:backpropagation} stellen $ [w_0, w_1, w_2] $ die Gewichte und $ [x_0, x_1] $ die Inputs des Neurons dar. 
+Um es unkompliziert zu halten wird die 
+obere Funktion als eine beliebige Funktion, die Inputs ($w, x$) entgegennimmt und eine einzelne Zahl als Output hat, visualisiert werden. 
+Die grünen Zahlen repräsentieren die Ergebnissen aus dem Forward Pass und die roten Zahlen den zurück propagierten Loss. Jeder Knoten ist fähig 
 ein Output und der lokale Gradient von dem Output im Bezug auf den Input zu berechnen, ohne die komplette Funktion kennen zu müssen \cite{cs231-backpropagation}.
 
 \subsection{Transposed Convolution}
-Im gegensatz zu einem Pooling Layer, ermöglicht einer Transposed Convolutional Layer die Dimensionen von einem Volumen zu vergrößern. 
+Im Gegensatz zu einem Pooling Layer ermöglicht ein Transposed Convolutional Layer, die Dimensionen von einem Volumen zu vergrößern. 
 Die funktionsweise einer Transposed Convolution wird anhand von einem Beispiel erklärt. 
 \\
-Ausgehend von einer $ 2 \times 2 $ Input Matrix die auf $ 3 \times 3 $ vergrößert werden soll, ein $ 2 \times 2 $ Filter, 
-Null Padding und Stride 1, ergibt sich den Folgenden Output. 
+Ausgehend von einer $ 2 \times 2 $ Input Matrix, die auf $ 3 \times 3 $ vergrößert werden soll, ein $ 2 \times 2 $ Filter, 
+Null Padding und Stride 1, ergibt sich der folgenden Output. 
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{resources/cnn/transposed-conv.png}
   \caption{
-    Die Komplette Transposed Convolution Operation
+    Die komplette Transposed Convolution Operation
     \cite{zhang2020dive}
   }
   \label{image:transposed-conv}
 \end{figure}
 
-Jeder Zahl in der Input Matrix wird mit jeder Zahl in den Filter multipliziert. Daraus ergibt sich an jeder Position in der Input Matrix einer 
-$ 2 \times 2 $ Matrix. Die überlappende Zahlen auf der Output Matrix werden addiert. Daraus ergibt sich einer $ 3 \times 3 $ Output Matrix.
+Jede Zahl in der Input Matrix wird mit jeder Zahl in den Filtern multipliziert. Daraus ergibt sich an jeder Position in der Input Matrix einer 
+$ 2 \times 2 $ Matrix. Die sich überlappenden Zahlen auf der Output Matrix werden addiert. Daraus ergibt sich eine $ 3 \times 3 $ Output Matrix.
 
 \subsection{Autoencoder}
 Ein Autoencoder ist ein neuronales Netz, welches versucht die Eingangsinformationen zu komprimieren und mit den reduzierten Informationen 
-im Ausgang wieder korrekt nachzubilden \cite{was-ist-autoencoder}. Die Komprimierung und Rekonstruktion der Input läuft in zwei Schritten ab, 
+im Ausgang wieder korrekt nachzubilden \cite{was-ist-autoencoder}. Die Komprimierung und Rekonstruktion des Inputs läuft in zwei Schritten ab, 
 weshalb das Netz in zwei Teile betrachtet werden kann.
 \\
 \subsubsection{Encoder}
@@ -455,7 +457,7 @@ In einem neuronalen Netz wird diese Komprimierung durch die Hidden Layers erreic
   h = f(x)
 \end{equation}
 
-wobei $x$ einem Input ist, $f$ der Encoder und $h$ die Kodierte Features von $x$.
+wobei $x$ ein Input ist, $f$ der Encoder und $h$ die Kodierten Features von $x$.
 
 \subsubsection{Decoder}
 Der Decoder ist zuständig für die Rekonstruktion von $x$ anhand $h$ und ist definiert als:
@@ -464,40 +466,39 @@ Der Decoder ist zuständig für die Rekonstruktion von $x$ anhand $h$ und ist de
   \hat{x} = g(h)
 \end{equation}
 
-wobei, $\hat{x}$ der rekonstruierte Input ist, $g$ der Decoder und $h$ die Kodierten Features sind.
+wobei, $\hat{x}$ der rekonstruierte Input ist, $g$ der Decoder und $h$ die Kodierten Features.
 
-In der vorliegende Arbeit wird einer Variante von Autoencoders, basierend auf Convolutional Neural Networks, eingesetzt.
+In der vorliegenden Arbeit wird eine Variante von Autoencoder, basierend auf Convolutional Neural Networks, eingesetzt.
 
 \section{\textit{Lab}-Farbraum} 
-Der \textit{Lab}-Farbraum (auch CIELAB-Farbraum genannt) ist ein Farbraum definiert bei der Internationale
-Beleuchtungskommission (\gls{cie}) in 1976. Farben werden mit drei Werte beschrieben. ``\textit{L}'' (Lightness) definiert die Helligkeit.
-Die Werte liegen zwischen 0 und 100. ``\textit{a}'' gibt die Farbart und Farbintensität zwischen Grün und Rot und ``\textit{b}'' gibt die
-Farbart und Farbintensität zwischen Blau und Gelb. Die Werte für ``\textit{a}'' und ``\textit{b}'' liegen zwischen -128 und 127.
+Der \textit{Lab}-Farbraum (auch CIELAB-Farbraum genannt) ist ein Farbraum definiert bei der internationalen
+Beleuchtungskommission (\gls{cie}) in 1976. Farben werden mit drei Werten beschrieben. ``\textit{L}'' (Lightness) definiert die Helligkeit.
+Die Werte liegen zwischen 0 und 100. ``\textit{a}'' gibt die Farbart und Farbintensität zwischen Grün und Rot an und ``\textit{b}'' gibt die
+Farbart und Farbintensität zwischen Blau und Gelb wieder. Die Werte für ``\textit{a}'' und ``\textit{b}'' liegen zwischen -128 und 127.
 \\
-In der vorliegende Arbeit wird den \textit{Lab}-Farbraum verwendet, da es unkompliziert ist, den ``\textit{L}'' Kanal von beide Farbkanäle 
-``\textit{a}'' und ``\textit{b}'' zu trennen. Außerdem bildet den \textit{Lab}-Farbraum das Menschliche Sehvermögen besser als den 
-RGB-Farbraum\footnote{RGB steht für Red, Green und Blue, die 3 Farbkanäle des Farbraums} ab.
+In der vorliegenden Arbeit wird der \textit{Lab}-Farbraum verwendet, da es unkompliziert ist, den ``\textit{L}'' Kanal von beiden Farbkanälen
+``\textit{a}'' und ``\textit{b}'' zu trennen. Außerdem bildet der \textit{Lab}-Farbraum das menschliche Sehvermögen besser ab, als der 
+RGB-Farbraum\footnote{RGB steht für Red, Green und Blue, die 3 Farbkanäle des Farbraums}.
 
 \section{Verwandte Arbeiten}\label{subsection:verwandte-arbeiten}
-Vor der Erstellung dieser Arbeit wurden Methoden von Image Colorization bereits untersucht. Frühere Methoden waren stark an Menschliches Input
-gebunden. Der Methode von Levin et al. verwendet Farbstiche auf dem Graustufenbild die Automatisch von einem Algorithmus über das gesamte 
+Vor der Erstellung dieser Arbeit wurden zahlreiche Methoden von Image Colorization bereits untersucht. Frühere Methoden waren stark an menschliches Input
+gebunden. Die Methode von Levin et al. verwendet Farbstiche auf dem Graustufenbild, die automatisch von einem Algorithmus über das gesamte 
 Bild propagiert werden \cite{10.1145/1015706.1015780}.
 \\
 \\
-Der Fokus dieser Arbeit ist auf voll automatische Image Colorization Methoden gesetzt. Konservative Methoden die Convolutional Neural Networks 
-verwenden, versuchen die Farben von dem Originalen Bild wiederherzustellen in dem die \gls{loss function} die Distanz der vorhergesagte 
-Farbe und die Reale Farbe berechnet. Diese Methoden liefern in der Regel entsättigte und blasse Bilder wie bei \cite{zbulak2019image}. 
-Einer der Gründe für diese Ergebnissen ist dass die Modele nicht richtig lernen. Zum Beispiel, können Äpfel verschiedene Farben einnehmen, 
-wie Rot oder Grün. Wenn das Netzwerk mit einem MSE Loss trainiert wird und das Datensatz die gleiche oder annähernd gleiche Anzahl an
-grüne und rote Äpfel hat, wird der Output bei einem Apfel eine Farbe zwischen Rot und Grün sein, was ein entsättigtes Bild erzeugen wird.
+Der Fokus dieser Arbeit ist auf voll automatische Image Colorization Methoden gesetzt. Konservative Methoden, die Convolutional Neural Networks 
+verwenden, versuchen die Farben von dem originalen Bild wiederherzustellen, indem die \gls{loss function} die Distanz der vorhergesagten
+Farben zu den realen Farben berechnet. Diese Methoden liefern in der Regel entsättigte und blasse Bilder wie bei \cite{zbulak2019image}. 
+Einer der Gründe für diese Ergebnisse ist, dass die Modelle nicht richtig lernen. So können beispielsweise Äpfel verschiedene Farben 
+wie Rot oder Grün haben. Wenn das Netzwerk mit einem MSE Loss trainiert wird und der Datensatz die gleiche oder annähernd gleiche Anzahl an
+grünen und roten Äpfeln hat, wird der Output bei einem Apfel eine Farbe zwischen Rot und Grün sein, was ein entsättigtes Bild erzeugen wird.
 \\
 \\
 Aus diesem Grund betrachtet die vorliegende Arbeit das Problem von Image Colorization als ein Multimodales Problem, 
-da gleiche Objekte verschiedene Farbe einnehmen können.
-Die vorliegende Arbeit orientiert sich auf die Methoden von Zhang et al. und Billaut et al., die ähnliche Ansätze für Image Colorization vorschlagen.
+da gleiche Objekte verschiedene Farben einnehmen können.
+Die vorliegende Arbeit orientiert sich an die Methoden von Zhang et al. und Billaut et al., die ähnliche Ansätze für Image Colorization vorschlagen.
 Sie betrachten das Problem als ein Klassifizierungsproblem und trainieren eine CNN mit der Cross Entropy und Weighted Cross Entropy Loss. 
-Der Output des Netzwerks ist eine Wahrscheinlichkeitsverteilung über die mögliche Bins, die im Kapitel \ref{section:binning} erläutert werden, 
-für jeden Pixel.
+Der Output des Netzwerks ist eine Wahrscheinlichkeitsverteilung über die möglichen Bins für jeden Pixel, die im Kapitel \ref{section:binning} erläutert werden.
 \\
 \\
 Beide Ansätze verwenden ``Color \gls{bin}s'' die es unkompliziert ermöglichen die Farben von jedem Pixel zu klassifizieren. 
