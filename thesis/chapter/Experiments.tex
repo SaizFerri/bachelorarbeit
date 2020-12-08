@@ -163,16 +163,16 @@ zeigten blasse stellen im Vergleich zu dem Klassifikationsmodell, der leuchtende
 \end{figure}
 
 \section{Landscape Datensatz Experimente}
-Dieser Datensatz wurde anhand der Hyperparameter Optimierung von den CIFAR-100 Subset trainiert. Es wurde das größere Model für $128 \times 128$
-Input Bilder angewendet. Das Model wurde ebenfalls für 36 und 324 Bins, mit dem Adam Optimizer, eine Lernrate von 0.001 und die Cross Entropy 
-Loss Function für 60 Epochen trainiert. Das Model mit den besten Validation Loss wurde gespeichert um die Ergebnisse zu evaluieren. Außerdem
-wurden den Einfluss der Temperaturwert und der Anzahl der Bins auf die Ergebnisse gemessen.
+Dieser Datensatz wurde anhand der Hyperparameter Optimierung des CIFAR-100 Subsets trainiert. Es wurde das größere Model für $128 \times 128$
+Input Bildern angewendet. Das Modell wurde ebenfalls für 36 und 324 Bins, mit dem Adam Optimizer, eine Lernrate von 0.001 und der Cross Entropy 
+Loss Function für 60 Epochen trainiert. Das Modell mit dem besten Validation Loss wurde gespeichert, um die Ergebnisse zu evaluieren. Außerdem
+wurde der Einfluss der Temperaturwerte und die Anzahl der Bins auf die Ergebnisse gemessen.
 \\
 \\
-Das Model tendierte ebenfalls bei diesem Datensatz zum Overfitting. Um das zu verhindern wurden die gleiche Techniken wie bei CIFAR-100
-angewendet, was keine bessere Ergebnisse geliefert hat. Eine Halbierung der Anzahl der Filter bei den Convolutional Layers erwiesen eine Verschlechterung
-des Validation Loss und half nicht bei Overfitting. Eine Änderung der Optimierer zu RMSprop und die Ersetzung von ReLU durch Tanh zeigten
-einen stabileren Training aber keine Verbesserung der Validation Loss. Das Endgültige Model wurde trainiert bis der Validation Loss wieder stieg.
+Das Modell tendierte bei diesem Datensatz ebenfalls zum Overfitting. Um das zu verhindern wurden die gleichen Techniken wie bei CIFAR-100
+angewendet, was keine besseren Ergebnisse geliefert hat. Eine Halbierung der Anzahl der Filter bei den Convolutional Layers führte zu einer Verschlechterung
+des Validation Loss und half nicht bei Overfitting. Eine Änderung des Optimierers zu RMSprop und der Ersatz von ReLU durch Tanh zeigten
+ein stabileres Training, aber keine Verbesserung des Validation Loss. Das endgültige Modell wurde trainiert, bis der Validation Loss wieder stieg.
 
 \begin{figure}[H]
   \centering
@@ -217,7 +217,7 @@ einen stabileren Training aber keine Verbesserung der Validation Loss. Das Endg�
   \label{image:gute-ergebnisse-own}
 \end{figure}
 
-Nach der Auswertung der Experimente würden 324 Bins und ein Temperaturwert von 0.8 bis 1 bevorzugt um die bestmöglichen Ergebnissen zu bekommen.
+Nach der Auswertung der Experimente wurden 324 Bins und ein Temperaturwert von 0.8 bis 1 bevorzugt, um die bestmöglichen Ergebnisse zu bekommen.
 
 \begin{figure}[H]
   \centering
