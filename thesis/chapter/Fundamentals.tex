@@ -53,8 +53,6 @@ sind jedoch nicht miteinander verbunden.
   \label{image:neuronal-network}
 \end{figure}
 
-% TODO: Formel erklären, Formel und Elemente der Formel erklären
-
 Einer der wichtigsten Gründe für die Anordnung von Neuronalen Netzen in Layers ist, dass so eine Struktur anhand von Matrix Multiplikationen
 berechnet werden kann. Die Abbildung \ref{image:neuronal-network} stellt ein Netzwerk mit 3 Inputs $ x $, eine Hidden Layer mit 4 Neuronen
 und eine Output Layer mit 2 Neuronen dar. Die Kreise repräsentieren die Neuronen und einen Bias Wert $ b $,
@@ -161,10 +159,10 @@ Im zweiten Schritt wird der Output von der vorherigen Multiplikation mit den Gew
   \end{pmatrix}
 \end{equation}
 
+\newpage
 \subsection{Aktivierungsfunktionen}\label{subsection:aktivierungsfunktionen}
 Eine Aktivierungsfunktion definiert die Aktivierungsrate von einem Neuron. Es gibt verschiedene Aktivierungsfunktionen:
 
-% TODO: Formeln mit nummerierung
 \subsubsection{Sigmoid}
 Sigmoid ist eine nicht lineare Funktion welche die Werte in einem Wertebereich von $ [0, 1] $ bringt.
 Große negative Werte werden annähernd 0 und große positive Werte werden annähernd 1. Sigmoid hat einige Nachteile, so neigt es dazu den Gradienten
@@ -226,7 +224,6 @@ Lernrate kann das vermieden werden. \cite{cs231-neural-networks}
   \label{image:relu}
 \end{figure}
 
-% TODO: alpha durch was anderes ersetzen
 \subsubsection{Leaky ReLU}
 Leaky ReLU ist einer Variante der ReLU Aktivierungsfunktion, die versucht das Problem der ``sterbenden'' Neuronen zu minimieren. Anstatt alle negativen Werte
 zu Null zu konvertieren, werden die Werte mit einer Konstanten multipliziert. Die Funktion wird zu $ f(x) = 1(x < 0)(\alpha x) + 1(x >= 0)(x)$,
@@ -242,72 +239,10 @@ wobei $ \alpha $ eine Konstante mit geringerem Wert ist, zum Beispiel $ 0.001 $.
   \label{image:leaky-relu}
 \end{figure}
 
-\section{Convolutional Neural Networks}
-Convolutional Neural Networks (\gls{CNN}) sind eine besondere Form von künstlichen neuronalen Netzwerken, die unter anderen speziell für 
-die Verarbeitung von Bilddaten, vorgesehen sind \cite{convnet-erklaerung}.
-\\
-Im Gegensatz zu traditionellen neuronalen Netzwerken, die einen Vektor als Input nehmen, nehmen Convolutional Neural Networks ein 3D Volumen als Input
-($ W \times H \times C $, hierbei ist $W$ die Breite, $H$ die Höhe und $C$ sind die Farbkanäle).
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=1\textwidth]{resources/cnn/typical_cnn.png}
-  \caption{
-    Typische Struktur von einem Convolutional Neural Network
-    \cite{typical_cnn_img}
-  }
-  \label{image:typical_cnn_img}
-\end{figure}
-
-
-\gls{CNN}s bestehen in der Regel aus 2 Formen von \gls{Layer}s, der Convolutional \gls{Layer} und der Pooling Layer. 
-\\
-\\
-Der Convolutional \gls{Layer} besteht aus mehreren hintereinander geschalteten 3 dimensionalen
-Filtern, auch Kernel genannt ($ W \times H \times D$, wobei $D$ die Tiefe der Feature maps darstellt), die während dem Forward pass mit 
-einer festgelegten Schrittweite (\gls{stride}), über das Bild geschoben werden. Mit dem sogenannten Padding wird das Verhalten an den Rändern festgelegt.
-An jeder Stelle wird eine Matrix Multiplikation zwischen den Filter und die aktuelle Position auf dem Bild durchgeführt. 
-Als Output wird eine 2 dimensionalen Feature map generiert. Die Größe dieser Feature map ist abhängig 
-von der Größe des Filters, dem Padding und vor allem dem \gls{stride}. Ein \gls{stride} von 2 bei einer Filter Größe von $ 2\times2 $ führt beispielsweise 
-pro Filter zu einer Halbierung der Größe der Feature map im Vergleich zum Input Volumen \cite{aufbau-funktion-convnet}.
-Ein \gls{stride} von 1 bei einem $ 3\times3 $ Filter mit Padding 1 führt zu einer Feature map mit der gleiche Größe wie dem Input Volumen.
-\\
-\\
-Die Filter erkennen in den ersten Ebenen einfache Strukturen wie Linien, Farben oder Kanten. In den daran folgenden Ebenen lernt das CNN Kombinationen aus 
-diesen Strukturen wie Formen oder Kurven. In den tieferen \gls{Layer}s werden komplexere Strukturen und Objekte identifiziert. 
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth]{resources/cnn/funktion-cnn.png}
-  \caption{
-    Beispiel eines Forward pass von einem Convolutional \gls{Layer} mit einem $ 7\times7\times3 $ Input Volumen, zwei $3\times3\times3$ Filtern, 
-    Padding 1 und \gls{stride} 2.
-    \cite{convnet-demo}
-  }
-  \label{image:convnet-demo}
-\end{figure}
-
-Die Pooling Layer dient zur Reduktion der Dimensionen von einem Input Volumen und somit den Parametern vom Netzwerk. Es gibt 
-verschiedene Pooling Operationen die angewendet werden können, wie zum Beispiel Maximum Pooling, Minimum Pooling, oder Average Pooling. Im Rahmen 
-dieser Arbeit wird Maximum Pooling (auch Max Pooling genannt) verwendet.
-\\
-\\
-Ein Max Pooling \gls{Layer} aggregiert die Aktivierungsmatrizen von Convolutional Layers in dem nur die höchste Zahl eines Filters weitergegeben 
-wird. So wird bei einem $ 2 \times 2 $ Filter von 4 Zahlen nur eine Zahl weitergegeben. Damit wird einer Reduktion der Dimensionen erreicht.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.75\textwidth]{resources/cnn/pooling.png}
-  \caption{
-    Max pooling Operation mit $ 2 \times 2 $ Filtern und \gls{stride} 2
-    \cite{convnet-demo}
-  }
-  \label{image:pooling}
-\end{figure}
-
+\newpage
 \subsection{Loss Functions}
 % Erklärung
-Die \gls{loss function} (Kostenfunktion) dient zur Feststellung der Fehler (Loss) zwischen dem Output von einem Model und dem vorgesehenen Zielwerten. 
+Die \gls{loss function} (Kostenfunktion) dient zur Feststellung der Fehler (Loss) zwischen dem Output von einem Modell und dem vorgesehenen Zielwerten. 
 Das Ziel von Neuronalen Netzen ist es den Loss zu minimieren. Wenn der Loss gleich Null ist, heißt dass $ y = \hat{y} $. Es gibt verschiedene Arten 
 von \gls{loss function}s. Im Rahmen dieser Arbeit werden \gls{loss function}s bezogen auf Regressions– und Klassifizierungsprobleme behandelt.
 
@@ -392,8 +327,6 @@ Parameter berechnet \cite{kingma2014adam}. Adam ist der bevorzugte Optimierungsa
 Adam kombiniert die Ansätze von AdaGrad \cite{duchi2011adaptive} und RMSProp. AdaGrad ist eine 
 verbesserte Version von Gradient Descent, der eine angepasste Lernrate für die verschiedenen Parameter einführt. 
 
-
-
 \subsection{Backpropagation}\label{subsection:backpropagation}
 Neuronale Netze lernen indem der Loss minimiert wird. Wie in der vorherigen Sektionen erläutert, bestimmt die \gls{loss function}
 die Fehlerrate von einem Neuronalen Netz. Dieser Loss kann mit Hilfe von einem Optimierungsalgorithmus reduziert werden. 
@@ -423,6 +356,69 @@ Um es unkompliziert zu halten wird die
 obere Funktion als eine beliebige Funktion, die Inputs ($w, x$) entgegennimmt und eine einzelne Zahl als Output hat, visualisiert werden. 
 Die grünen Zahlen repräsentieren die Ergebnissen aus dem Forward Pass und die roten Zahlen den zurück propagierten Loss. Jeder Knoten ist fähig 
 ein Output und der lokale Gradient von dem Output im Bezug auf den Input zu berechnen, ohne die komplette Funktion kennen zu müssen \cite{cs231-backpropagation}.
+
+\section{Convolutional Neural Networks}
+Convolutional Neural Networks (\gls{CNN}) sind eine besondere Form von künstlichen neuronalen Netzwerken, die unter anderen speziell für 
+die Verarbeitung von Bilddaten, vorgesehen sind \cite{convnet-erklaerung}.
+\\
+Im Gegensatz zu traditionellen neuronalen Netzwerken, die einen Vektor als Input nehmen, nehmen Convolutional Neural Networks ein 3D Volumen als Input
+($ W \times H \times C $, hierbei ist $W$ die Breite, $H$ die Höhe und $C$ sind die Farbkanäle).
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{resources/cnn/typical_cnn.png}
+  \caption{
+    Typische Struktur von einem Convolutional Neural Network
+    \cite{typical_cnn_img}
+  }
+  \label{image:typical_cnn_img}
+\end{figure}
+
+
+\gls{CNN}s bestehen in der Regel aus 2 Formen von \gls{Layer}s, der Convolutional \gls{Layer} und der Pooling Layer. 
+\\
+\\
+Der Convolutional \gls{Layer} besteht aus mehreren hintereinander geschalteten 3 dimensionalen
+Filtern, auch Kernel genannt ($ W \times H \times D$, wobei $D$ die Tiefe der Feature maps darstellt), die während dem Forward pass mit 
+einer festgelegten Schrittweite (\gls{stride}), über das Bild geschoben werden. Mit dem sogenannten Padding wird das Verhalten an den Rändern festgelegt.
+An jeder Stelle wird eine Matrix Multiplikation zwischen den Filter und die aktuelle Position auf dem Bild durchgeführt. 
+Als Output wird eine 2 dimensionalen Feature map generiert. Die Größe dieser Feature map ist abhängig 
+von der Größe des Filters, dem Padding und vor allem dem \gls{stride}. Ein \gls{stride} von 2 bei einer Filter Größe von $ 2\times2 $ führt beispielsweise 
+pro Filter zu einer Halbierung der Größe der Feature map im Vergleich zum Input Volumen \cite{aufbau-funktion-convnet}.
+Ein \gls{stride} von 1 bei einem $ 3\times3 $ Filter mit Padding 1 führt zu einer Feature map mit der gleiche Größe wie dem Input Volumen.
+\\
+\\
+Die Filter erkennen in den ersten Ebenen einfache Strukturen wie Linien, Farben oder Kanten. In den daran folgenden Ebenen lernt das CNN Kombinationen aus 
+diesen Strukturen wie Formen oder Kurven. In den tieferen \gls{Layer}s werden komplexere Strukturen und Objekte identifiziert. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{resources/cnn/funktion-cnn.png}
+  \caption{
+    Beispiel eines Forward pass von einem Convolutional \gls{Layer} mit einem $ 7\times7\times3 $ Input Volumen, zwei $3\times3\times3$ Filtern, 
+    Padding 1 und \gls{stride} 2.
+    \cite{convnet-demo}
+  }
+  \label{image:convnet-demo}
+\end{figure}
+
+Die Pooling Layer dient zur Reduktion der Dimensionen von einem Input Volumen und somit den Parametern vom Netzwerk. Es gibt 
+verschiedene Pooling Operationen die angewendet werden können, wie zum Beispiel Maximum Pooling, Minimum Pooling, oder Average Pooling. Im Rahmen 
+dieser Arbeit wird Maximum Pooling (auch Max Pooling genannt) verwendet.
+\\
+\\
+Ein Max Pooling \gls{Layer} aggregiert die Aktivierungsmatrizen von Convolutional Layers in dem nur die höchste Zahl eines Filters weitergegeben 
+wird. So wird bei einem $ 2 \times 2 $ Filter von 4 Zahlen nur eine Zahl weitergegeben. Damit wird einer Reduktion der Dimensionen erreicht.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{resources/cnn/pooling.png}
+  \caption{
+    Max pooling Operation mit $ 2 \times 2 $ Filtern und \gls{stride} 2
+    \cite{convnet-demo}
+  }
+  \label{image:pooling}
+\end{figure}
 
 \subsection{Transposed Convolution}
 Im Gegensatz zu einem Pooling Layer ermöglicht ein Transposed Convolutional Layer, die Dimensionen von einem Volumen zu vergrößern. 

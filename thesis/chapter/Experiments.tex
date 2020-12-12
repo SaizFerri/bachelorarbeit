@@ -48,7 +48,7 @@ Die folgenden Ergebnissen zeigen dass das Modell generalisiert und nicht overfit
   \label{image:nicht-gute-ergebnisse-toy-dataset}
 \end{figure}
 
-Das Model zeigte bei einigen Ergebnissen, Schwierigkeiten die Pixeln am Rand der geometrischen Formen richtig zu klassifizieren.
+Das Modell zeigte bei einigen Ergebnissen, Schwierigkeiten die Pixeln am Rand der geometrischen Formen richtig zu klassifizieren.
 Dies trifft besonders auf die Kreise und Dreiecke zu, wo die Ränder nicht aus glatten Linien bestehen. Des weiteren wurden die Farben mittels
 des Durchschnitts für jeden möglichen Bin, für alle Farben von jedem Trainingsbild rekonstruiert. Ein Unterschied zwischen dem Modus und dem 
 Durchschnitt konnte nicht erkannt werden, da beide Werte gleich waren.
@@ -133,7 +133,7 @@ ein ähnliches Verhalten wie ReLU, aber keine Verbesserung der Ergebnissen. Die 
 Abschließend wurde die Anzahl der Filter in den Convolutional Layers halbiert, was eine positive Wirkung auf das Training hatte.   
 
 \subsection{Experimente mit MSE Loss und ohne Binning}
-Um die Performance der Klassifikation gegenüber der Regression zu messen, wurde ein Modell mit der MSE Loss Function trainiert. Dieses Model
+Um die Performance der Klassifikation gegenüber der Regression zu messen, wurde ein Modell mit der MSE Loss Function trainiert. Dieses Modell
 wurde ebenfalls mit den gleichen Parametern wie das Klassifikationsmodell trainiert und hat vergleichbare Ergebnisse erreicht. Einige Ergebnisse
 zeigten blasse stellen im Vergleich zu dem Klassifikationsmodell, der leuchtende Farben an den gleichen Stellen gezeigt hat.
 
@@ -163,7 +163,7 @@ zeigten blasse stellen im Vergleich zu dem Klassifikationsmodell, der leuchtende
 \end{figure}
 
 \section{Landscape Datensatz Experimente}
-Dieser Datensatz wurde anhand der Hyperparameter Optimierung des CIFAR-100 Subsets trainiert. Es wurde das größere Model für $128 \times 128$
+Dieser Datensatz wurde anhand der Hyperparameter Optimierung des CIFAR-100 Subsets trainiert. Es wurde das größere Modell für $128 \times 128$
 Input Bildern angewendet. Das Modell wurde ebenfalls für 36 und 324 Bins, mit dem Adam Optimizer, eine Lernrate von 0.001 und der Cross Entropy 
 Loss Function für 60 Epochen trainiert. Das Modell mit dem besten Validation Loss wurde gespeichert, um die Ergebnisse zu evaluieren. Außerdem
 wurde der Einfluss der Temperaturwerte und die Anzahl der Bins auf die Ergebnisse gemessen.

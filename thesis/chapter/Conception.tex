@@ -85,7 +85,7 @@ Dateien erzeugt, eins für den Modus und eins für den Durchschnitt.
 \\
 \\
 Für die Umwandlung von Bin zu Farbe werden die jeweiligen Werte für jeden Farbkanal eines Bins von der jeweiligen Datei abgeguckt. Es kann zwischen
-dem Durchschnitt und dem Modus ausgewählt werden. Der Durchschnitt verhält sich ähnlich wie ein Model trainiert mit dem MSE Loss und der Modus
+dem Durchschnitt und dem Modus ausgewählt werden. Der Durchschnitt verhält sich ähnlich wie ein Modell trainiert mit dem MSE Loss und der Modus
 würde Ergebnisse mit einem rötlichen Farbton liefern. Als Lösung für dieses Problem schlägt Zhang et al. den ``annealed mean'' vor \cite{zhang2016colorful}.
 Der ``annealed mean'' versucht einen Kompromiss zwischen dem Durchschnitt und dem Modus zu finden. Dieser Kompromiss wird durch einen 
 Temperatur Parameter ($T$) reguliert. In der vorliegenden Arbeit wird eine von den ``annealed mean'' inspirierten Methoden implementiert. 
@@ -267,7 +267,7 @@ wurde die Bibliothek ``imgaug'' ausgewählt. Des weiteren werden Hilfsbibliothek
 \\
 Das Trainieren von den Modellen wird, aufgrund des hohen Rechenaufwands, auf zwei verschiedenen Plattformen durchgeführt. Die Modelle mit den
 $32 \times 32$ Bildern werden auf Google Colab\footnote{https://colab.research.google.com/} trainiert. Google Colab ist eine Plattform von 
-Google, die es ermöglicht Experimente im Browser mit einer Hochleistungsgrafikkarte (Nvidia Tesla P100) kostenlos umzusetzen. Für das Model mit den 
+Google, die es ermöglicht Experimente im Browser mit einer Hochleistungsgrafikkarte (Nvidia Tesla P100) kostenlos umzusetzen. Für das Modell mit den 
 $128 \times 128$ Bildern
 wird das Curious Containers (CC) Framework\footnote{https://www.curious-containers.cc/} benutzt. Curious Containers ermöglicht eine 
 gleichzeitige Durchführung von verschiedenen Experimenten in einem Cluster von Hochleistungsrechnern.
