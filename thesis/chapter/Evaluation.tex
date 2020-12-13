@@ -1,13 +1,13 @@
 \chapter{Evaluation}
 \label{sec:evaluation}
 % TODO: Segmentation als Metrik
-Im Kapitel Evaluation werden die im Kapitel 5 vorgestellten Experimente evaluiert. Außerdem wird die gewählte Methode ausgewertet und
+Im Kapitel Evaluation werden die im Kapitel 5 vorgestellten Tests evaluiert. Außerdem wird die gewählte Methode ausgewertet und
 mit andere Methoden verglichen.
 
 \section{Evaluationsmetrik}
 Für das Problem von Image Colorization existiert keine relevante Evaluationsmetrik, die die Farben von den Objekten auf einem Bild auswerten kann.
 Das während das Trainings angewendete Cross Entropy Loss ist nicht relevant für die Auswertung der Ergebnisse aus dem Test Datensatz. Aus diesem
-Grund wurde die Evaluation der Ergebnisse durch eine Menschliche Auswertung wie bei \cite{zhang2016colorful} und \cite{billaut2018colorunet}
+Grund wurde die Evaluation der Ergebnisse durch eine Menschliche Auswertung wie bei Zhang et al. und Billaut et al.
 durchgeführt.
 
 \section{Evaluation des Spiel-Datensatzes}
@@ -36,10 +36,10 @@ erwähnt werden muss, ist dass die Gewichte des Netzwerks zufällig initialisier
 In diesem Datensatz wurde die Auswirkung der Bin Anzahl gemessen. Die Nutzung von 36 Bins zeigte im Vergleich zu 324 eine 
 Verschlechterung der Farben in der Vorhersage. Dies ist darauf zurückzuführen dass das Modell nur 36 mögliche Farben zu Verfügung hat.
 Eine Erhöhung der Bins auf 324, ermöglichte es dem Modell eine Auswahl an mehreren Farben zu treffen. 
-Der Ansatz von \cite{billaut2018colorunet} verwendet nur 32 Bins und erzielt ähnliche Ergebnisse wie die Methode dieser Arbeit mit 324 Bins.
+Der Ansatz von Billaut et al. verwendet nur 32 Bins und erzielt ähnliche Ergebnisse wie die Methode dieser Arbeit mit 324 Bins.
 Dies wurde erreicht in dem die Pixel von jedem Trainingsbild vor dem Training in Bins klassifiziert wurden und daraus nur die am meisten
 vorkommenden 32 Bins ausgewählt wurden. Pixel die nicht in den gewählten 32 Bins klassifiziert werden konnten, wurden in das nächstliegende Bin
-zugeordnet.
+zugeordnet \cite{billaut2018colorunet}.
 \\
 \\
 Die Methode mit einem MSE Loss liefert eine um ein vielfaches größere Auswahl an Farben für die Vorhersage. Bei dieser Methode treten 
@@ -49,7 +49,7 @@ Da die Klassifikationsmethode bessere Ergebnissen geliefert hat und der Fokus de
 wurden alle Experimente des Landscape Datensatzes mit der Klassifikationsmethode durchgeführt.
 \\
 \\
-Der Verlauf von dem Training und Validation Loss deutete bei diesem Datensatz zu Overfitting, was bei der Große des Datensatzes nicht auszuschließen war.
+Der Verlauf von dem Training und Validation Loss deutete bei diesem Datensatz zu \gls{overfitting}, was bei der Große des Datensatzes nicht auszuschließen war.
 Wie bei \ref{section:cifar-experimente} beschrieben wurden das U-net und die Hyperparameter angepasst, um dieses zu verhindern.
 
 \begin{figure}[H]
@@ -64,13 +64,13 @@ Wie bei \ref{section:cifar-experimente} beschrieben wurden das U-net und die Hyp
     \includegraphics[width=.48\textwidth]{resources/experiments/cifar_100_324_00001.png}
   \end{subfigure}
 
-  \caption{Overfitting auf dem CIFAR-100 Subset. \textbf{Links}: 100 Epochen mit Adam, ReLU und einer Lernrate von 0.001. \textbf{Rechts}:
+  \caption{\gls{overfitting} auf dem CIFAR-100 Subset. \textbf{Links}: 100 Epochen mit Adam, ReLU und einer Lernrate von 0.001. \textbf{Rechts}:
   100 Epochen mit Adam, ReLU und einer Lernrate von 0.0001.}
   \label{image:gute-ergebnisse-cifar}
 \end{figure}
 
 Eine Anpassung der Lernrate führte nur zu einem langsameren Training. Eine Reduktion der lernbaren Parameter von 135684 auf 35748 zeigte 
-eine deutliche Verbesserung der Performance des Modells und reduzierte das Overfitting.
+eine deutliche Verbesserung der Performance des Modells und reduzierte das \gls{overfitting}.
 
 \begin{figure}[H]
   \centering
@@ -89,7 +89,7 @@ eine deutliche Verbesserung der Performance des Modells und reduzierte das Overf
   \label{image:gute-ergebnisse-cifar}
 \end{figure}
 
-Der Grund für das Overfitting ist in diesem Fall auf die Große des Subsets zurückzuführen. Um das zu prüfen wurde das Modell auf dem kompletten CIFAR-100
+Der Grund für das \gls{overfitting} ist in diesem Fall auf die Große des Subsets zurückzuführen. Um das zu prüfen wurde das Modell auf dem kompletten CIFAR-100
 Datensatz für 150 Epochen trainiert, was einen guten Loss Verlauf zeigte. Andererseits, hat das Modell nichts relevantes gelernt und 
 konnte kein Bild richtig einfärben, was bei der Anzahl der Klassen und der Anzahl der Epochen nichts ungewöhnliches ist.
 
@@ -99,8 +99,8 @@ Die Anzahl der Bins für diesen Datensatz wurde durch die Ergebnisse der vorgef�
 aus Trainingszeit und Performance gezeigt hat.
 \\
 \\
-Der Loss Verlauf der Experimente deutete bei diesem Datensatz ebenfalls nach wenige Epochen auf Overfitting hin. Nach Zahlreichen Experimenten
-konnte das Overfitting durch Anpassung der Hyperparameter nur minimiert werden. Für die Auswertung der Ergebnisse wurde das Modell mit dem besten
+Der Loss Verlauf der Experimente deutete bei diesem Datensatz ebenfalls nach wenige Epochen auf \gls{overfitting} hin. Nach Zahlreichen Experimenten
+konnte das \gls{overfitting} durch Anpassung der Hyperparameter nur minimiert werden. Für die Auswertung der Ergebnisse wurde das Modell mit dem besten
 Validation Loss verwendet.
 \\
 \\
@@ -111,9 +111,9 @@ Farben von diesem Modell sehr ähnlich aus. Das zeigt, dass die Performance der 
 Die Auswirkung des Temperaturwerts ist bei beiden Modellen ähnlich. Der Modus der Verteilung zeigt einen rötlichen Ton bei den
 Ergebnissen und der Durchschnitt zeigt bei einigen Fällen gesättigte Bilder.
 \\
-Da die Datensatz Größe von Billaut et al. fast identisch zu der Datensatz Größe dieser Arbeit ist, könnte das Problem mit dem Overfitting
-auf die Qualität des Datensatzes zurückzuführen sein. Der Loss Verlauf zeigt kein Overfitting und das verwendete U-Net ist ähnlich zum
-U-Net der vorliegenden Arbeit, was ein Overfitting wegen der angewendeten Netzwerkarchitektur ausschließt. 
+Da die Datensatz Größe von Billaut et al. fast identisch zu der Datensatz Größe dieser Arbeit ist, könnte das Problem mit dem \gls{overfitting}
+auf die Qualität des Datensatzes zurückzuführen sein. Der Loss Verlauf zeigt kein \gls{overfitting} und das verwendete U-Net ist ähnlich zum
+U-Net der vorliegenden Arbeit, was ein \gls{overfitting} wegen der angewendeten Netzwerkarchitektur ausschließt. 
 \\
 \\
 Ein Vergleich mit den Ergebnissen von Zhang et al. wäre nur angemessen mit den Ergebnissen aus deren Klassifikationsmodel ohne Rebalancing.

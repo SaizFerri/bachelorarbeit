@@ -117,8 +117,8 @@ eine Wahrscheinlichkeitsverteilung für alle Bins, die in eine Farbe umgewandelt
 \\
 Die Methode von Zhang et al. \cite{zhang2016colorful} verwenden ein \gls{CNN}, das ein Graustufenbild als Input entgegennimmt und ein Volumen mit
 einer Wahrscheinlichkeitsverteilung für alle Bins per Pixel generiert. Diese Netzwerkarchitektur besteht aus Blöcken mit jeweils 2 oder 3 Convolutional
-und ReLU Layern, gefolgt von einem Batch Normalization Layer. Batch Normalization ist eine Regularisierungstechnik, die die Werte in einem Hidden Layer
-normalisiert, bevor sie in den nächsten Layer weitergereicht werden. Das Netzwerk hat keine Pooling Layers, alle Änderungen in der Auflösung werden durch
+und ReLU Layers, gefolgt von einer Batch Normalization Layer. Batch Normalization ist eine Regularisierungstechnik, die die Werte in einer Hidden Layer
+normalisiert, bevor sie in die nächsten Layer weitergereicht werden. Das Netzwerk hat keine Pooling Layers, alle Änderungen in der Auflösung werden durch
 Downsampling oder Upsampling zwischen Blöcken erreicht.
 \\
 Diese Netzwerkarchitektur ist sehr herausfordernd für die GPU\footnote{Graphics Processing Unit}, was die Batch Größe und Trainingszeit stark beeinflusst.
@@ -131,13 +131,13 @@ Sie verwenden eine angepasste Version von einem U-net Convolutional Neural Netwo
 Ein U-net ist ein Autoencoder mit Skip Connections und Transposed Convolutions als Upsampling Methode das bei Image Segmentation angewendet wird.
 Im Vergleich zu konventionellen Autoencoder können der Encoder und Decoder nicht getrennt voneinander verwendet werden. Die Skip Connections
 ermöglichen fein-granuläre Details in dem Output Volumen wiederherzustellen und helfen mit dem Vanishing Gradient Problem während Backpropagation. 
-Skip Connections konkatenieren bestimmte Layer von dem Encoder mit Layer von dem Decoder, mit den gleichen Dimensionen.
+Skip Connections konkatenieren bestimmte Layers aus dem Encoder mit Layers aus dem Decoder, mit den gleichen Dimensionen.
 \\
 \\
 Ein U-net besteht, wie ein Autoencoder, aus einem Encoder und Decoder Teil. Der Encoder besteht aus sogenannten ``ConvBlocks''. ConvBlocks
-bestehen aus 2 Convolutional Layers gefolgt von Batch Normalization und ReLU. Den ConvBlocks gefolgt
-ein Pooling Layer, das die Dimensionen des Volumens verringert. Der Decoder besteht aus ConvBlocks gefolgt von Transposed Convolutions,
-die die Dimensionen von dem Volumen wieder vergrößern. Der letzte Layer ist ein $1 \times 1$ Convolutional Layer, der das Output Volumen generiert.
+bestehen aus 2 Convolutional Layers gefolgt von Batch Normalization und ReLU. Den ConvBlocks folgt
+eine Pooling Layer, die die Dimensionen des Volumens verringert. Der Decoder besteht aus ConvBlocks gefolgt von Transposed Convolutions,
+die die Dimensionen von dem Volumen wieder vergrößern. Die letzte Layer ist ein $1 \times 1$ Convolutional Layer, die das Output Volumen generiert.
 Skip Connections konkatenieren ConvBlocks aus dem Encoder mit Transposed Convolutions aus dem Decoder mit der gleichen Dimensionen.
 
 % TODO: maybe change image
@@ -252,10 +252,9 @@ Der Spiel–Datensatz und die 12 Klassen von CIFAR-100 werden für das Training 
 Da der Landscape Datensatz Bilder mit verschiedenen Auflösungen beinhaltet, werden alle Bilder auf $ 128 \times 128 $ angepasst. Das 
 reduziert die Trainingszeit und die Komplexität des Datensatzes. 
 Für das Training werden pro Bild 4 zusätzliche augmentierte Bilder generiert. Zunächst werden die Bilder zufälligerweise um $\pm 30$ Grad rotiert,
-anschließend wird die Größe der Bilder auf einem Wert zwischen 0 und 30\% geändert, % TODO: WTF steht in der korrektur % 
-drittens werden die Bilder horizontal gespiegelt und abschließend nochmal Vertikal gespiegelt. 
-Nach der Image Augmentation besteht der Trainings Datensatz aus 50600 Bilder.
-Für die Evaluation werden die Test Bilder nur auf $ 128 \times 128 $ angepasst.
+anschließend wird die Größe der Bilder auf einen Wert zwischen 0 und 30\% geändert.
+Nachdem dieser Schritt abgeschlossen ist, werden die Bilder horizontal gespiegelt und abschließend nochmal Vertikal gespiegelt. 
+Nach der Image Augmentation besteht der Trainings Datensatz aus 50600 Bildern.
 
 \section{Tools}
 Um die Methode zu realisieren werden einige Tools genutzt. Für die Implementierung wird das Framework 

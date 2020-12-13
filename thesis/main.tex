@@ -41,6 +41,7 @@
 
 % \pagenumbering{alph} % fix for same identifier warning, character is not show in title
 \maketitle
+\makenoidxglossaries
 
 \pagenumbering{roman}
 % \include{chapter/Prologue} \clearpage  % FOR BA/MA-THESIS, NOT REQUIRED FOR RESEARCHPROJECT
@@ -69,6 +70,7 @@
 \printindex \clearpage
 
 \printnoidxglossary[title=Glossar] \clearpage
+\printnoidxglossary[title=Abkürzungsverzeichnis, type=acronym]
 
 \defbibfilter{scientific}{
 	type=article or

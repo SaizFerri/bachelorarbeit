@@ -12,7 +12,7 @@ verglichen werden kann.
 \\
 \\
 Neuronale Netze bestehen aus Neuronen, auch ``Units'' genannt, die schichtenweise in ``Layers'' (Schichten) angeordnet sind.
-Beginnend mit der Eingabeschicht (Input \gls{Layer}) fließen Informationen über eine oder mehrere Zwischenschichten (Hidden \gls{Layer}) bis hin zur 
+Beginnend mit der Eingabeschicht (Input \gls{Layer}) fließen Informationen über eine oder mehrere Zwischenschichten (Hidden \gls{Layer}s) bis hin zur 
 Ausgabeschicht (Output \gls{Layer}). Dabei ist der Output des einen Neurons der Input des nächsten. \cite{neuronale-netze-aufbau}
 
 \subsection{Feedforward Neural Network}
@@ -21,20 +21,20 @@ eine Abbildung $ y = f(x;W) $ wobei $ x $ der Input ist und $ W $ die lernbaren 
 \cite[164-223]{Goodfellow-et-al-2016}
 \\
 \\
-Diese Netzwerkarchitektur trägt den Namen ``feedforward'' weil der Informationsfluss von der Input \gls{Layer},
-über die Hidden Layers bis zur Output \gls{Layer} in eine Richtung weitergereicht wird.
+Diese Netzwerkarchitektur trägt den Namen ``feedforward'' weil der Informationsfluss von dem Input \gls{Layer},
+über die Hidden Layers bis zum Output \gls{Layer} in eine Richtung weitergereicht wird.
 
 Feedforward Neural Networks werden als eine Kette von Funktionen dargestellt. So,
 kann man die Funktionen $ f^{(1)}, f^{(2)}, f^{(3)} $ in Form einer Kette verbinden, um $ f(\textbf{x}) = f^{(3)}(f^{(2)}(f^{(1)}(\textbf{x}))) $
-zu bekommen. Diese Kettenstrukturen sind die am häufigsten genutzte Struktur bei Neuronalen Netzwerken. Im genannten Beispiel ist $ f^{(1)} $ der
-erste Layer, $ f^{(2)} $ der zweite und $ f^{(3)} $ der Output Layer von diesem Netzwerk. Die Länge dieser Kette definiert die Tiefe des Netzwerks.
+zu bekommen. Diese Kettenstrukturen sind die am häufigsten genutzte Struktur bei Neuronalen Netzwerken. Im genannten Beispiel ist $ f^{(1)} $ die
+erste Layer, $ f^{(2)} $ die zweite und $ f^{(3)} $ die Output Layer von diesem Netzwerk. Die Länge dieser Kette definiert die Tiefe des Netzwerks.
 Je tiefer ein Netzwerk ist, desto mehr erlernbare Parameter besitzt es und braucht somit eine erhöhte Rechenleistung, um trainiert zu werden.
 In der Praxis sind die Netzwerke sehr tief, daher der Begriff Deep Learning.
 \\
 \\
 Während dem Training werden die Gewichte von $ f(x) $ verstellt, um $ f^*(x) $ zu erhalten. Jedes Trainingsbeispiel $ x $ ist mit einem Label
-$ y = f^*(x)$ versehen. Die Trainingsbeispiele geben genau vor, was der Output Layer generieren soll. Der Output Layer soll Werte generieren,
-die nah an $ y $ liegen. Das Verhalten der Hidden Layers wird nicht durch die Trainingsbeispiele festgelegt, sondern der Lernalgorithmus
+$ y = f^*(x)$ versehen. Die Trainingsbeispiele geben genau vor, was die Output Layer generieren soll. Die Output Layer soll Werte generieren,
+die nah an $ y $ liegen. Das Verhalten die Hidden Layers wird nicht durch die Trainingsbeispiele festgelegt, sondern der Lernalgorithmus
 soll selbst definieren, wie diese Layers verwendet werden, um die beste Annäherung von $ f^*(x) $ zu erzielen.
 
 \subsection{Fully-connected Neural Network}
@@ -47,22 +47,22 @@ sind jedoch nicht miteinander verbunden.
   \centering
   \includegraphics[width=0.65\textwidth]{resources/nn/neural_net.jpeg}
   \caption{
-    Fully-connected Neural Network mit 2 Layers (ein Hidden Layer mit 4 Neuronen und ein Output Layer mit 2 Neuronen)
+    Fully-connected Neural Network mit 2 Layers (eine Hidden Layer mit 4 Neuronen und eine Output Layer mit 2 Neuronen)
     \cite{fully-connected-neural-network}
   }
   \label{image:neuronal-network}
 \end{figure}
 
 Einer der wichtigsten Gründe für die Anordnung von Neuronalen Netzen in Layers ist, dass so eine Struktur anhand von Matrix Multiplikationen
-berechnet werden kann. Die Abbildung \ref{image:neuronal-network} stellt ein Netzwerk mit 3 Inputs $ x $, eine Hidden Layer mit 4 Neuronen
-und eine Output Layer mit 2 Neuronen dar. Die Kreise repräsentieren die Neuronen und einen Bias Wert $ b $,
+berechnet werden kann. Die Abbildung \ref{image:neuronal-network} stellt ein Netzwerk mit 3 Inputs $ x $, einer Hidden Layer mit 4 Neuronen
+und einer Output Layer mit 2 Neuronen dar. Die Kreise repräsentieren die Neuronen und einen Bias Wert $ b $,
 die Pfeile stellen die Gewichte $ w $ dar.
 
 \begin{align}
   f(x) = w*x + b
 \end{align}
 
-Nach jeden Hidden Layer läuft der Output durch eine Aktivierungsfunktion $ \sigma $ die unter Kapitel \ref{subsection:aktivierungsfunktionen} erklärt wird.
+Nach jedem Hidden Layer läuft der Output durch eine Aktivierungsfunktion $ \sigma $ die unter Kapitel \ref{subsection:aktivierungsfunktionen} erklärt wird.
 Dadurch wird die vorherige Formel um $ \sigma $ erweitert:
 
 \begin{align}
@@ -73,7 +73,7 @@ Dadurch wird die vorherige Formel um $ \sigma $ erweitert:
 Der Forward Pass von einem Neuronalen Netz wird anhand von Matrizen Multiplikationen berechnet. Um dies zu veranschaulichen wird
 es anhand eines Beispiels erklärt.
 
-Ausgehend von einem Netzwerk mit 3 Inputs, eine Hidden Layer mit 2 Neuronen und einem Output Neuron, ergeben sich folgende Beispielwerte:
+Ausgehend von einem Netzwerk mit 3 Inputs, einer Hidden Layer mit 2 Neuronen und einem Output Neuron, ergeben sich folgende Beispielwerte:
 \begin{equation} 
   \vspace{5pt}
   X = \begin{pmatrix}
@@ -110,7 +110,7 @@ Diese Anordnung des Bias Wertes ermöglicht die Berechnung durch eine einzige Ma
   \end{cases}
 \end{equation}
 
-Im ersten Schritt durchläuft der Input durch das Hidden Layer $ f(X \times W) $:
+Im ersten Schritt durchläuft der Input die Hidden Layer $ f(X \times W) $:
 \begin{equation}
   \vspace{5pt}
   f \left(
@@ -253,7 +253,7 @@ Mean Square Error (MSE) Loss misst den mittleren quadratischen Fehler und ist de
   J = \frac{1}{N} \sum (y - \hat{y})^2
 \end{equation}
 
-wobei, $J$ der Loss ist, $N$ die Anzahl der Klassen, $y$ die korrekte Klasse (Ground Truth) und $ \hat{y}$ die vorhergesagte Klasse ist.
+wobei, $J$ der Loss ist, $N$ die Anzahl der Klassen, $y$ die korrekte Klasse (\gls{ground truth}) und $ \hat{y}$ die vorhergesagte Klasse ist.
 
 \subsubsection{Cross Entropy Loss}
 Der Cross Entropy Loss wird bei Klassifizierungsproblemen verwendet. Es wird unterschieden zwischen, Binär und Multiclass Cross Entropy Loss. 
@@ -265,7 +265,7 @@ desto höher wird der Loss sein. Der Multiclass Cross Entropy Loss ist definiert
   J = -\frac{1}{N} \Big(\sum_{i=0}^N y_{i} * \log(\hat{y_{i}})\Big)
 \end{equation}
 
-wobei, $J$ der Loss ist, $N$ die Anzahl der Klassen, $y$ die Korrekte Klasse (Ground Truth) und $ \hat{y}$ die vorhergesagte Klasse.
+wobei, $J$ der Loss ist, $N$ die Anzahl der Klassen, $y$ die Korrekte Klasse (\gls{ground truth}) und $ \hat{y}$ die vorhergesagte Klasse.
 
 \subsubsection{Weighted Cross Entropy Loss}
 Bei dem Weighted Cross Entropy Loss werden die Klassen gewichtet bevor der Loss berechnet wird. Das ist zum Beispiel nützlich, um Klassen  
@@ -378,14 +378,14 @@ Im Gegensatz zu traditionellen neuronalen Netzwerken, die einen Vektor als Input
 \gls{CNN}s bestehen in der Regel aus 2 Formen von \gls{Layer}s, der Convolutional \gls{Layer} und der Pooling Layer. 
 \\
 \\
-Der Convolutional \gls{Layer} besteht aus mehreren hintereinander geschalteten 3 dimensionalen
-Filtern, auch Kernel genannt ($ W \times H \times D$, wobei $D$ die Tiefe der Feature maps darstellt), die während dem Forward pass mit 
+Die Convolutional \gls{Layer} besteht aus mehreren hintereinander geschalteten 3 dimensionalen
+Filtern, auch Kernel genannt ($ W \times H \times D$, wobei $D$ die Tiefe der Feature Maps darstellt), die während dem Forward pass mit 
 einer festgelegten Schrittweite (\gls{stride}), über das Bild geschoben werden. Mit dem sogenannten Padding wird das Verhalten an den Rändern festgelegt.
 An jeder Stelle wird eine Matrix Multiplikation zwischen den Filter und die aktuelle Position auf dem Bild durchgeführt. 
-Als Output wird eine 2 dimensionalen Feature map generiert. Die Größe dieser Feature map ist abhängig 
+Als Output wird eine 2 dimensionalen Feature Map generiert. Die Größe dieser Feature Map ist abhängig 
 von der Größe des Filters, dem Padding und vor allem dem \gls{stride}. Ein \gls{stride} von 2 bei einer Filter Größe von $ 2\times2 $ führt beispielsweise 
-pro Filter zu einer Halbierung der Größe der Feature map im Vergleich zum Input Volumen \cite{aufbau-funktion-convnet}.
-Ein \gls{stride} von 1 bei einem $ 3\times3 $ Filter mit Padding 1 führt zu einer Feature map mit der gleiche Größe wie dem Input Volumen.
+pro Filter zu einer Halbierung der Größe der Feature Map im Vergleich zum Input Volumen \cite{aufbau-funktion-convnet}.
+Ein \gls{stride} von 1 bei einem $ 3\times3 $ Filter mit Padding 1 führt zu einer Feature Map mit der gleiche Größe wie dem Input Volumen.
 \\
 \\
 Die Filter erkennen in den ersten Ebenen einfache Strukturen wie Linien, Farben oder Kanten. In den daran folgenden Ebenen lernt das CNN Kombinationen aus 
@@ -395,7 +395,7 @@ diesen Strukturen wie Formen oder Kurven. In den tieferen \gls{Layer}s werden ko
   \centering
   \includegraphics[width=0.75\textwidth]{resources/cnn/funktion-cnn.png}
   \caption{
-    Beispiel eines Forward pass von einem Convolutional \gls{Layer} mit einem $ 7\times7\times3 $ Input Volumen, zwei $3\times3\times3$ Filtern, 
+    Beispiel eines Forward pass von einer Convolutional \gls{Layer} mit einem $ 7\times7\times3 $ Input Volumen, zwei $3\times3\times3$ Filtern, 
     Padding 1 und \gls{stride} 2.
     \cite{convnet-demo}
   }
@@ -407,7 +407,7 @@ verschiedene Pooling Operationen die angewendet werden können, wie zum Beispiel
 dieser Arbeit wird Maximum Pooling (auch Max Pooling genannt) verwendet.
 \\
 \\
-Ein Max Pooling \gls{Layer} aggregiert die Aktivierungsmatrizen von Convolutional Layers in dem nur die höchste Zahl eines Filters weitergegeben 
+Eine Max Pooling \gls{Layer} aggregiert die Aktivierungsmatrizen von Convolutional Layers in dem nur die höchste Zahl eines Filters weitergegeben 
 wird. So wird bei einem $ 2 \times 2 $ Filter von 4 Zahlen nur eine Zahl weitergegeben. Damit wird einer Reduktion der Dimensionen erreicht.
 
 \begin{figure}[H]
@@ -421,7 +421,7 @@ wird. So wird bei einem $ 2 \times 2 $ Filter von 4 Zahlen nur eine Zahl weiterg
 \end{figure}
 
 \subsection{Transposed Convolution}
-Im Gegensatz zu einem Pooling Layer ermöglicht ein Transposed Convolutional Layer, die Dimensionen von einem Volumen zu vergrößern. 
+Im Gegensatz zu einer Pooling Layer ermöglicht eine Transposed Convolutional Layer, die Dimensionen von einem Volumen zu vergrößern. 
 Die funktionsweise einer Transposed Convolution wird anhand von einem Beispiel erklärt. 
 \\
 Ausgehend von einer $ 2 \times 2 $ Input Matrix, die auf $ 3 \times 3 $ vergrößert werden soll, ein $ 2 \times 2 $ Filter, 
@@ -440,7 +440,7 @@ Null Padding und Stride 1, ergibt sich der folgenden Output.
 Jede Zahl in der Input Matrix wird mit jeder Zahl in den Filtern multipliziert. Daraus ergibt sich an jeder Position in der Input Matrix einer 
 $ 2 \times 2 $ Matrix. Die sich überlappenden Zahlen auf der Output Matrix werden addiert. Daraus ergibt sich eine $ 3 \times 3 $ Output Matrix.
 
-\subsection{Autoencoder}
+\section{Autoencoder}
 Ein Autoencoder ist ein neuronales Netz, welches versucht die Eingangsinformationen zu komprimieren und mit den reduzierten Informationen 
 im Ausgang wieder korrekt nachzubilden \cite{was-ist-autoencoder}. Die Komprimierung und Rekonstruktion des Inputs läuft in zwei Schritten ab, 
 weshalb das Netz in zwei Teile betrachtet werden kann.
@@ -476,8 +476,21 @@ In der vorliegenden Arbeit wird der \textit{Lab}-Farbraum verwendet, da es unkom
 ``\textit{a}'' und ``\textit{b}'' zu trennen. Außerdem bildet der \textit{Lab}-Farbraum das menschliche Sehvermögen besser ab, als der 
 RGB-Farbraum\footnote{RGB steht für Red, Green und Blue, die 3 Farbkanäle des Farbraums}.
 
+\section{Image Colorization Methoden}
+Der Prozess von Image Colorization kann manuell oder automatisch erfolgen. Zu den manuellen Methoden zählen die analoge Einfärbung eines Bildes
+durch einen Menschen bis hin zur digitalen Bearbeitung mit einem dafür vorgesehenem Programm. Für die automatischen Methoden wird öfters menschlicher Input
+benötigt, um zum Beispiel Bereiche von einem Graustufenbild mit Farbstichen zu markieren, die dann automatisch von einem Algorithmus über das Bild
+propagiert werden. Aktuelle automatische Methoden nutzen die Vorteile von Convolutional Neural Networks, um diesen Prozess effizienter und performanter
+zu gestalten.
+
+Um ein CNN, der Bilder automatisch einfärbt, zu trainieren, werden das Original Bild und das Graustufenbild benötigt. Das Graustufenbild wird
+in den CNN eingespeist und dieser wird versuchen die Farbkanal Werte vorherzusagen. Anschließend werden die Werte von jedem Pixel mit jedem Pixel
+aus dem Original Bild verglichen. Dieser Prozess wird iterativ wiederholt, bis die erzeugten Werten einen niedrigen Loss Wert haben. In den
+nächsten Kapiteln wird dieser Vorgehensweise näher erläutert.
+
 \section{Verwandte Arbeiten}\label{subsection:verwandte-arbeiten}
-Vor der Erstellung dieser Arbeit wurden zahlreiche Methoden von Image Colorization bereits untersucht. Frühere Methoden waren stark an menschliches Input
+Vor der Erstellung dieser Arbeit wurden zahlreiche automatische Methoden von Image Colorization bereits untersucht. Frühere Methoden waren
+stark an menschliches Input
 gebunden. Die Methode von Levin et al. verwendet Farbstiche auf dem Graustufenbild, die automatisch von einem Algorithmus über das gesamte 
 Bild propagiert werden \cite{10.1145/1015706.1015780}.
 \\

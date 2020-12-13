@@ -22,6 +22,10 @@
     "**/*.ilg": true,
     "**/*.ind": true,
     "**/*.out": true,
+    "**/*.glo": true,
+    "**/*.acn": true,
+    "**/*.dvi": true,
+    "**/*.ist": true,
     "**/*.synctex.gz": true,
     "_minted-main": true
   },
