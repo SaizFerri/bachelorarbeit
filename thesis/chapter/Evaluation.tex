@@ -1,6 +1,5 @@
 \chapter{Evaluation}
 \label{sec:evaluation}
-% TODO: Segmentation als Metrik
 Im Kapitel Evaluation werden die im Kapitel 5 vorgestellten Tests evaluiert. Außerdem wird die gewählte Methode ausgewertet und
 mit andere Methoden verglichen.
 
@@ -9,6 +8,9 @@ Für das Problem von Image Colorization existiert keine relevante Evaluationsmet
 Das während das Trainings angewendete Cross Entropy Loss ist nicht relevant für die Auswertung der Ergebnisse aus dem Test Datensatz. Aus diesem
 Grund wurde die Evaluation der Ergebnisse durch eine Menschliche Auswertung wie bei Zhang et al. und Billaut et al.
 durchgeführt.
+
+Eine andere Evaluationsmetrik wäre ein vor-trainiertes Image Segmentation Modell. Wenn das Modell die Merkmale auf die generierten Bildern
+trotzdem richtig klassifiziert, wäre davon auszugehen dass die Bilder richtig eingefärbt sind. Dieser Methode wurde nicht angewendet.
 
 \section{Evaluation des Spiel-Datensatzes}
 Mit dem Spiel-Datensatz wurde die Funktionsweise der Methode bestätigt. Die von Billaut et al. vorgeschlagene Netzwerkarchitektur für Image
@@ -116,7 +118,7 @@ auf die Qualität des Datensatzes zurückzuführen sein. Der Loss Verlauf zeigt 
 U-Net der vorliegenden Arbeit, was ein \gls{overfitting} wegen der angewendeten Netzwerkarchitektur ausschließt. 
 \\
 \\
-Ein Vergleich mit den Ergebnissen von Zhang et al. wäre nur angemessen mit den Ergebnissen aus deren Klassifikationsmodel ohne Rebalancing.
+Ein Vergleich mit den Ergebnissen von Zhang et al. wäre nur angemessen mit den Ergebnissen aus deren Klassifikationsmodell ohne Rebalancing.
 In diesem Fall sind die Resultate dieses Models nicht weit entfernt von deren Ergebnissen. Es ist zu erkennen, dass deren Ergebnisse ähnliche
 Merkmale mit den Ergebnissen dieser Arbeit vorweisen, wie z.B. die Ähnlichkeit der Vorhersagen zwischen Klassifikationsmethode und Regressionsmethode.
 Die Ergebnissen mit Class Rebalancing unterscheiden sich deutlicher von den Ergebnissen der Regressionsmethode. 

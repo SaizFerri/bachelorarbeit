@@ -2,7 +2,7 @@
 Dieses Kapitel verschafft einen Überblick über die benötigten theoretische Grundlagen, um die Methoden dieser Arbeit zu verstehen. 
 Zunächst wird eine Einführung in Neuronale Netzwerke gegeben, anschließend werden
 einzelne Bestandsteile und Varianten von Neuronalen Netzwerken erklärt. 
-Als nächstes wird der ``Lab-Farbraum'' kurz erläutert. Abschließend wird ein Überblick über verwandte Arbeiten gegeben.
+Als nächstes werden der ``Lab-Farbraum'' und die Image Colorization Methoden kurz erläutert. Abschließend wird ein Überblick über verwandte Arbeiten gegeben.
 
 \section{Neuronale Netze}
 Künstliche Neuronale Netze sind vom menschlichen Gehirn inspiriert und werden für Künstliche Intelligenz und Maschinelles Lernen
@@ -200,7 +200,7 @@ $ tanh(x) = 2\sigma(2x) - 1 $. Die Nachteile von Tanh ähneln den von Sigmoid, w
 
 \subsubsection{ReLU}
 Die Rectified Linear Unit konvertiert alle negativen Werte zu 0 und alle positiven Werte behalten ihre Identität. Diese Aktivierungsfunktion
-wurde für die Netzwerke in dieser Arbeit verwendet da, sie Vorteile gegenüber Sigmoid zeigt. Einer der Vorteile ist, dass die mathematische
+wurde für die Netzwerke in dieser Arbeit verwendet da, sie Vorteile gegenüber Sigmoid und Tanh zeigt. Einer der Vorteile ist, dass die mathematische
 Auswertung der Funktion unkompliziert ist. Außerdem beschleunigt sie die Konvergenz des Stochastischen Gradientenabstiegsverfahrens im Vergleich zu Sigmoid.
 ReLU ist definiert als:
 
@@ -273,7 +273,7 @@ mit einer niedrigen Wahrscheinlichkeit zu bevorzugen.
 
 \subsection{Optimierungsalgorithmen}
 Das Ziel von Optimierungsalgorithmen ist eine Kombination von Gewichten $ W $ zu finden, die die \gls{loss function} minimieren.
-Es gibt diverse relevante Optimierungsalgorithmen. In der vorliegenden Arbeit werden Gradient Descent und Adam verwendet.
+Es gibt diverse relevante Optimierungsalgorithmen. In der vorliegenden Arbeit werden Gradient Descent, Adam und RMSProp verwendet.
 
 % TODO: Erklärung für update rules anpassen
 \subsubsection{Gradient Descent}
@@ -301,7 +301,7 @@ Die Update Regel für den Bias sieht identisch aus.
 \end{figure}
 
 Es gibt verschiedene Arten von Gradient Descent: Gradient Descent, Mini-Batch Gradient Descent und Stochastic Gradient Descent. 
-Beim normalen Gradient Descent
+Beim Gradient Descent
 werden die Gradienten im Bezug zu dem gesamten Datensatz berechnet und damit das Update durchgeführt. Der Mini-Batch Gradient Descent berechnet 
 die Gradienten im Bezug zu einem kleinen Teil des Datensatzes und führt ein Update für alle Parameter durch. Der Stochastic Gradient Descent 
 berechnet den Gradient bezogen auf ein einziges Element des Datensatzes und führt einen Update für alle Parameter durch.
@@ -323,7 +323,8 @@ wobei $v_{t+1}$ der nächste Geschwindigkeitsparameter ist, $v_t$ der aktuelle G
 % TODO: finish Adam
 \subsubsection{Adam}
 Adam steht für ``Adaptive Moment Estimation Algorithm'' und ist ein Optimierungsalgorithmus, der eine angepasste Lernrate für die verschiedenen
-Parameter berechnet \cite{kingma2014adam}. Adam ist der bevorzugte Optimierungsalgorithmus für die vorliegende Arbeit. 
+Parameter berechnet \cite{kingma2014adam} zusätzlich zu der Speicherung des exponentiell abnehmenden Mittelwerts vorangegangener Gradienten.
+Adam ist der bevorzugte Optimierungsalgorithmus für die vorliegende Arbeit. 
 Adam kombiniert die Ansätze von AdaGrad \cite{duchi2011adaptive} und RMSProp. AdaGrad ist eine 
 verbesserte Version von Gradient Descent, der eine angepasste Lernrate für die verschiedenen Parameter einführt. 
 
@@ -420,8 +421,8 @@ wird. So wird bei einem $ 2 \times 2 $ Filter von 4 Zahlen nur eine Zahl weiterg
   \label{image:pooling}
 \end{figure}
 
-\subsection{Transposed Convolution}
-Im Gegensatz zu einer Pooling Layer ermöglicht eine Transposed Convolutional Layer, die Dimensionen von einem Volumen zu vergrößern. 
+\section{Transposed Convolution}
+Im Gegensatz zu einer Pooling Layer ermöglicht eine Transposed Convolutional Layer, die Dimensionen von einem Volumen zu vergrößern.
 Die funktionsweise einer Transposed Convolution wird anhand von einem Beispiel erklärt. 
 \\
 Ausgehend von einer $ 2 \times 2 $ Input Matrix, die auf $ 3 \times 3 $ vergrößert werden soll, ein $ 2 \times 2 $ Filter, 

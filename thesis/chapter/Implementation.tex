@@ -2,26 +2,8 @@
 In diesem Kapitel wird die Implementierung der Methode näher erläutert. Bei der Implementierung werden alle Konzepte aus dem
 Kapitel Konzeption angewendet.
 
-% \section{Spiel-Datensatz}
-% Für die Erstellung des Spiel-Datensatzes würde die Bibliothek ``Matplotlib''\footnote{https://matplotlib.org/} verwendet.
-
-% \begin{lstlisting}[caption={Klasse Agent - Tensorflow Graph}, captionpos=b, label={lst:tf_graph_save}]
-%   COLORS = [(236, 245, 66), (141, 245, 66), (245, 69, 66)]
-
-%   for i in range(RANGE):
-%     image = Image.new('RGB', (32, 32), 'black')
-%     idx = np.random.randint(3)
-%     x1 = np.random.randint(32)
-%     y1 = np.random.randint(32)
-%     x2 = np.random.randint(32)
-%     y2 = np.random.randint(32)
-  
-%     draw = ImageDraw.Draw(image)
-%     draw.rectangle((x1, y1, x2, y2), fill=COLORS[idx])
-% \end{lstlisting}
-
 \section{Binning}
-Das Binning ist eine wichtige Komponente der Methode, die mit Hilfe der ``numpy'' Bibliothek für normalisierte Lab-Bilder implementiert wurde. 
+Das Binning wurde mit Hilfe der ``numpy'' Bibliothek für normalisierte Lab-Bilder implementiert. 
 Als erstes wird mit Hilfe der Wurzel
 anhand der Anzahl von Bins ($n\_bins$) die Breite ($W$) und Höhe ($H$) des \gls{grid}s, das auf der Abbildung \ref{image:bins} zu sehen ist,
 berechnet. Es wird angenommen dass $W = H$ ist.
@@ -89,13 +71,12 @@ und der Modus mit einem Temperatur Wert interpoliert.
   \captionof{lstlisting}{``Bin-zu-Farbe'' Berechnung mit einem Temperaturwert}
 \end{listing}
 
-% TODO: write something for each dataset + image augmentation
 \section{Datensätze}
 Die Datensätze werden mit Hilfe der ``torchvision'' Bibliothek von PyTorch importiert und transformiert. Für das Importieren wurde ein
 ``ImageFolder'' implementiert, der die Bilder importiert, transformiert, normalisiert und die einzelenen Pixel in Bins klassifiziert. 
 Der Output der ``ImageFolder'' sind das Graustufenbild, das Bild mit den ``ab'' Farbkanälen und das in Bins kodierte Bild.
 
-Mit Hilfe eines ``DataLoaders'' werden die Datensätze in Batches aufgeteilt und gemischt.
+Mit Hilfe eines ``DataLoaders'' werden die Datensätze in Batches aufgeteilt und zufällig gemischt.
 
 \section{Netzwerkarchitektur}
 Für diese Arbeit wurden 2 U-Nets mit verschiedenen Größen verwendet. Ein U-Net für $ 32 \times 32 $ Input Bilder und ein U-Net für $ 128 \times 128 $ 
@@ -113,7 +94,7 @@ die wiederrum von der Oberklasse \textit{torch.nn.Module} erbt.
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{resources/networks/convblock.png}
-  \caption{ConvBlock}
+  \caption{ConvBlock (Eigene Darstellung)}
   \label{image:convBlock}
 \end{figure}
 
@@ -134,6 +115,6 @@ Die Max Pooling Layers wurden mit der \textit{MaxPool2d} Klasse und die Transpos
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{resources/networks/128u-net.png}
-  \caption{U-Net Architektur für $128 \times 128$ Input Bilder}
+  \caption{U-Net Architektur für $128 \times 128$ Input Bilder (Eigene Darstellung)}
   \label{image:128u-net}
 \end{figure}

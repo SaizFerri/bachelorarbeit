@@ -8,12 +8,12 @@ Konventionelle automatische Methoden zielen darauf ab, die Farben für ein gener
 Diese Methoden verwenden ein MSE Loss, das Vorhersagen, die weit von den originalen Farbwerten entfernt liegen, stärker bestraft, als Farbwerte
 die dichter an den originalen Farbwerten liegen. Das führt, wie bei \ref{subsection:verwandte-arbeiten} beschrieben zu entsättigten Bildern.
 Die Gründe für diese Ergebnisse lassen sich dadurch erklären dass verschiedene Objekte verschiedene Farben besitzen können. 
-\\
-\\
-Die gewählte Methode dieser Arbeit berücksichtigt die multimodalität von Image Colorization und behandelt das Problem als Klassifikation.
-% TODO: continue...
 
-% TODO: finish this
+Wenn die multimodalität des Problems berücksichtigt wird, werden Ergebnisse die nicht dem Original entsprechen, ebenfalls als valide Bilder
+enkannt. Das wird erreicht indem jedes Pixel klassifiziert wird, anstatt die Distanz zwischen dem Original und dem vorhergesagten zu berechnen.
+
+Die gewählte Methode dieser Arbeit berücksichtigt die multimodalität von Image Colorization und behandelt das Problem als Klassifikation.
+
 \section{Farbraum}
 Der Standard Farbraum der Bilder für die Methode dieser Arbeit ist der RGB\footnote{Rot, Grün, Blau}-Farbraum. 
 Der RGB-Farbraum hat einige Nachteile, die es kompliziert
@@ -68,7 +68,7 @@ Die $xy$ Koordinaten sind Bedeutsam für die Berechnung der Bins.
   \centering
   \includegraphics[width=0.7\textwidth]{resources/bins/bins.jpg}
   \caption{
-  \gls{grid} mit 36 bins. Die x-Achse bildet die Werte des Farbkanals ``a'' und die y-Achse die Werte des Farbkanals ``b'' ab.
+  \gls{grid} mit 36 bins. Die x-Achse bildet die Werte des Farbkanals ``a'' und die y-Achse die Werte des Farbkanals ``b'' ab. (Eigene Darstellung)
   }
   \label{image:bins}
 \end{figure}
@@ -133,14 +133,13 @@ Im Vergleich zu konventionellen Autoencoder können der Encoder und Decoder nich
 ermöglichen fein-granuläre Details in dem Output Volumen wiederherzustellen und helfen mit dem Vanishing Gradient Problem während Backpropagation. 
 Skip Connections konkatenieren bestimmte Layers aus dem Encoder mit Layers aus dem Decoder, mit den gleichen Dimensionen.
 \\
-\\
+\subsection{Aufbau eines U-nets}\label{section:aufbau-u-net}
 Ein U-net besteht, wie ein Autoencoder, aus einem Encoder und Decoder Teil. Der Encoder besteht aus sogenannten ``ConvBlocks''. ConvBlocks
 bestehen aus 2 Convolutional Layers gefolgt von Batch Normalization und ReLU. Den ConvBlocks folgt
 eine Pooling Layer, die die Dimensionen des Volumens verringert. Der Decoder besteht aus ConvBlocks gefolgt von Transposed Convolutions,
 die die Dimensionen von dem Volumen wieder vergrößern. Die letzte Layer ist ein $1 \times 1$ Convolutional Layer, die das Output Volumen generiert.
 Skip Connections konkatenieren ConvBlocks aus dem Encoder mit Transposed Convolutions aus dem Decoder mit der gleichen Dimensionen.
 
-% TODO: maybe change image
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.85\textwidth]{resources/networks/unet.png}

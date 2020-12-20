@@ -168,7 +168,7 @@ Loss Function für 60 Epochen trainiert. Das Modell mit dem besten Validation Lo
 wurde der Einfluss der Temperaturwerte und die Anzahl der Bins auf die Ergebnisse gemessen.
 \\
 \\
-Das Modell tendierte bei diesem Datensatz ebenfalls zum \gls{overfitting}. Um das zu verhindern wurden die gleichen Techniken wie bei CIFAR-100
+Das Modell tendierte bei diesem Datensatz ebenfalls zum \gls{overfitting}. Um das zu verhindern wurden die gleichen Techniken wie bei dem Subset von CIFAR-100
 angewendet, was keine besseren Ergebnisse geliefert hat. Eine Halbierung der Anzahl der Filter bei den Convolutional Layers führte zu einer Verschlechterung
 des Validation Loss und half nicht bei \gls{overfitting}. Eine Änderung des Optimierers zu RMSprop und der Ersatz von ReLU durch Tanh zeigten
 ein stabileres Training, aber keine Verbesserung des Validation Loss. Das endgültige Modell wurde trainiert, bis der Validation Loss wieder stieg.
