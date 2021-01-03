@@ -5,8 +5,8 @@ In diesem Kapitel werden Tests mit den drei Datensätzen durchgeführt. Darüber
 \label{experimente:spiel}
 Als erstes wird die Methode auf dem Spiel-Datensatz angewendet. Hierbei soll geprüft werden, ob die Methode die erwarteten
 Ergebnisse liefert. Das U-Net wird für 100 Epochen mit Adam, einer Lernrate von 0.001 und der Cross Entropy Loss Function trainiert. Diese
-Einstellung zeigte die besten Ergebnisse. Zeitgleich wurden Tests mit 36 und mit 324 Bins durchgeführt, die jedoch keinen Unterschied bei den 
-Ergebnissen verwiesen. Es kann davon ausgegangen werden, dass bei der niedrigen Anzahl an möglichen Farben, ein Unterschied zwischen 36 und 324 Bins
+Einstellung zeigte die besten Ergebnisse. Zeitgleich wurden Tests mit 36 und mit 324 Bins durchgeführt, die jedoch keinen Unterschied bei den
+Ergebnissen vorwiesen. Es kann davon ausgegangen werden, dass bei der niedrigen Anzahl an möglichen Farben, ein Unterschied zwischen 36 und 324 Bins
 nicht zu erkennen ist. Die unteren Ergebnisse wurden mit 324 Bins erstellt.
 
 \begin{figure}[H]
@@ -27,7 +27,7 @@ nicht zu erkennen ist. Die unteren Ergebnisse wurden mit 324 Bins erstellt.
   \label{image:gute-ergebnisse-toy-dataset}
 \end{figure}
 
-Bei den oberen Ergebnissen wurden alle Pixel richtig klassifiziert, was bei der Größe des Datensatzes oft zu \gls{overfitting} deutet.
+Bei den oberen Ergebnissen wurden alle Pixel richtig klassifiziert, was bei der Größe des Datensatzes oft auf \gls{overfitting} hindeutet.
 Die folgenden Ergebnissen zeigen dass das Modell generalisiert und nicht overfitted hat.
 
 \begin{figure}[H]
@@ -49,17 +49,17 @@ Die folgenden Ergebnissen zeigen dass das Modell generalisiert und nicht overfit
 \end{figure}
 
 Das Modell zeigte bei einigen Ergebnissen, Schwierigkeiten die Pixeln am Rand der geometrischen Formen richtig zu klassifizieren.
-Dies trifft besonders auf die Kreise und Dreiecke zu, wo die Ränder nicht aus glatten Linien bestehen. Des weiteren wurden die Farben mittels
-des Durchschnitts für jeden möglichen Bin, für alle Farben von jedem Trainingsbild rekonstruiert. Ein Unterschied zwischen dem Modus und dem 
+Dies trifft besonders auf die Kreise und Dreiecke zu, wo die Ränder nicht aus glatten Linien bestehen. Des Weiteren wurden die Farben mittels
+des Durchschnitts für jeden möglichen Bin, für alle Farben von jedem Trainingsbild rekonstruiert. Ein Unterschied zwischen dem Modus und dem
 Durchschnitt konnte nicht erkannt werden, da beide Werte gleich waren.
 \\
-Die Ergebnisse bestätigen dass das Binning und die Methode funktionieren. Anschließend wurden Tests mit komplexeren Bildern
+Die Ergebnisse bestätigen, dass das Binning und die Methode funktionieren. Anschließend wurden Tests mit komplexeren Bildern
 des Subsets von CIFAR-100 durchgeführt.
 
 \section{CIFAR-100 Subset Training}\label{section:cifar-experimente}
 Das Modell wurde auf 12 Klassen von CIFAR-100 über 100 Epochen mit Adam, einer Lernrate von 0.001 und der Cross Entropy Loss Function
-trainiert. Diese Einstellungen stellten sich als die beste Kombination von Hyperparametern heraus, jedoch wurde das Training vor Vollendung 
-von 50 Epochen unterbrochen um \gls{overfitting} zu verhindern.
+trainiert. Diese Einstellungen stellten sich als die beste Kombination von Hyperparametern heraus, jedoch wurde das Training vor Vollendung
+von 50 Epochen unterbrochen, um \gls{overfitting} zu verhindern.
 % Um diesen Anstieg zu vermeiden, wurde ein Mechanismus eingeführt um die Lernrate bei einem bestimmten
 % Faktor zu reduzieren wenn der Validation Loss nicht mehr sinkt oder sogar steigt. Dieser Mechanismus bietet PyTorch und wurde mit der 
 % Klasse \textit{ReduceLROnPlateau} implementiert.
@@ -93,8 +93,8 @@ von 50 Epochen unterbrochen um \gls{overfitting} zu verhindern.
     \includegraphics[width=.24\textwidth]{resources/experiments/cifar/600_t1.png}
   \end{subfigure}
   \caption{Beispiele von guten Ergebnissen aus dem Subset von CIFAR-100 mit 324 Bins. Die erste Spalte beinhaltet das Graustufenbild, die zweite Spalte
-  beinhaltet das Original Bild und die letzte Spalte stellt das generierte Bild dar. Das generierte Bild wurde mit einer Temperatur von 1
-  erzeugt, was bedeutet, dass die rekonstruierten Farben den Durchschnitt aus jedem Bin repräsentieren.}
+    beinhaltet das Original Bild und die letzte Spalte stellt das generierte Bild dar. Das generierte Bild wurde mit einer Temperatur von 1
+    erzeugt, was bedeutet, dass die rekonstruierten Farben den Durchschnitt aus jedem Bin repräsentieren.}
   \label{image:gute-ergebnisse-cifar}
 \end{figure}
 
@@ -123,18 +123,18 @@ Eine Erhöhung der Trainingszeit zwischen 36 und 324 Bins war nicht zu erkennen.
   \end{subfigure}
 
   \caption{Einfluss der Anzahl der Bins auf die Ergebnisse. Das zweite Bild ist das original, das dritte Bild wurde mit 36 Bins und einem
-  Temperaturwert von 1 generiert und das vierte mit 324 Bins und ebenfalls mit einem Temperaturwert von 1.}
+    Temperaturwert von 1 generiert und das vierte mit 324 Bins und ebenfalls mit einem Temperaturwert von 1.}
   \label{image:gute-ergebnisse-cifar}
 \end{figure}
 
-Um das \gls{overfitting} zu verhindern wurden zahlreiche Experimente mit verschiedenen Optimierer, Aktivierungsfunktionen und Lernraten durchgeführt.
-Ein Austausch von ReLU durch Tanh zeigte ein stabileres Trainingsverhalten, aber eine Verschlechterung der Validation Loss. Leaky ReLU zeigte 
-ein ähnliches Verhalten wie ReLU, aber keine Verbesserung der Ergebnissen. Die Verwendung von RMSprop anstelle von Adam zeigte eine langsamere Konvergenz Richtung Minimum.
-Abschließend wurde die Anzahl der Filter in den Convolutional Layers halbiert, was eine positive Wirkung auf das Training hatte.   
+Um das \gls{overfitting} zu verhindern wurden zahlreiche Experimente mit verschiedenen Optimierern, Aktivierungsfunktionen und Lernraten durchgeführt.
+Ein Austausch von ReLU durch Tanh zeigte ein stabileres Trainingsverhalten, aber eine Verschlechterung der Validation Loss. Leaky ReLU zeigte
+ein ähnliches Verhalten wie ReLU, aber keine Verbesserung der Ergebnisse. Die Verwendung von RMSprop anstelle von Adam zeigte eine langsamere Konvergenz Richtung Minimum.
+Abschließend wurde die Anzahl der Filter in den Convolutional Layers halbiert, was eine positive Wirkung auf das Training hatte.
 
 Um die Performance der Klassifikation gegenüber der Regression zu messen, wurde ein Modell mit der MSE Loss Function trainiert. Dieses Modell
 wurde ebenfalls mit den gleichen Parametern wie das Klassifikationsmodell trainiert und hat vergleichbare Ergebnisse erreicht. Einige Ergebnisse
-zeigten blasse stellen im Vergleich zu dem Klassifikationsmodell, der leuchtende Farben an den gleichen Stellen gezeigt hat.
+zeigten blasse stellen im Vergleich zu dem Klassifikationsmodell, das leuchtende Farben an den gleichen Stellen gezeigt hat.
 
 \begin{figure}[H]
   \centering
@@ -157,13 +157,13 @@ zeigten blasse stellen im Vergleich zu dem Klassifikationsmodell, der leuchtende
   \end{subfigure}
 
   \caption{Vergleich von Klassifikation mit Binning gegenüber Regression. Das zweite Bild wurde mit 324 Bins und dem Cross Entropy Loss generiert.
-  Das dritte Bild wurde ohne Binning und mit einem MSE Loss generiert.}
+    Das dritte Bild wurde ohne Binning und mit einem MSE Loss generiert.}
   \label{image:mse-ergebnisse-cifar}
 \end{figure}
 
 \section{Landscape Datensatz Training}
 Dieser Datensatz wurde anhand der Hyperparameter Optimierung des CIFAR-100 Subsets trainiert. Es wurde das größere Modell für $128 \times 128$
-Input Bildern angewendet. Das Modell wurde ebenfalls für 36 und 324 Bins, mit dem Adam Optimizer, eine Lernrate von 0.001 und der Cross Entropy 
+Input Bildern angewendet. Das Modell wurde ebenfalls für 36 und 324 Bins, mit dem Adam Optimizer, eine Lernrate von 0.001 und der Cross Entropy
 Loss Function für 60 Epochen trainiert. Das Modell mit dem besten Validation Loss wurde gespeichert, um die Ergebnisse zu evaluieren. Außerdem
 wurde der Einfluss der Temperaturwerte und die Anzahl der Bins auf die Ergebnisse gemessen.
 \\
@@ -211,8 +211,8 @@ ein stabileres Training, aber keine Verbesserung des Validation Loss. Das endgü
   \end{subfigure}
 
   \caption{Ergebnisse mit 324 Bins. Die erste Spalte zeigt das Originale Bild, die zweite zeigt das generierte Bild mit einer Temperatur von 0,
-  die dritte Spalte zeigt das generierte Bild mit einer Temperatur von 0.8 und die vierte Spalte zeigt das generierte Bild mit einer Temperatur 
-  von 1}
+    die dritte Spalte zeigt das generierte Bild mit einer Temperatur von 0.8 und die vierte Spalte zeigt das generierte Bild mit einer Temperatur
+    von 1}
   \label{image:gute-ergebnisse-own}
 \end{figure}
 
@@ -238,8 +238,8 @@ Nach der Auswertung der Experimente wurden 324 Bins und ein Temperaturwert von 0
     \includegraphics[width=.235\textwidth]{resources/experiments/landscape/324_bins/342/342_t1.png}
   \end{subfigure}
 
-  \caption{Ergebnisse mit 36 und 324 Bins. Die erste Spalte zeigt das Graustufenbild, die zweite zeigt das originale Bild,
-  die dritte Spalte zeigt das mit 36 Bins generierte Bild mit einer Temperatur von 1 und die vierte Spalte zeigt das mit 324 Bins generierte 
-  Bild mit einer Temperatur von 1}
+  \caption{Ergebnisse mit 36 und 324 Bins. Die erste Spalte zeigt das Graustufenbild, die zweite zeigt das Originale Bild,
+    die dritte Spalte zeigt das mit 36 Bins generierte Bild mit einer Temperatur von 1 und die vierte Spalte zeigt das mit 324 Bins generierte
+    Bild mit einer Temperatur von 1}
   \label{image:bins-ergebnisse-own}
 \end{figure}
